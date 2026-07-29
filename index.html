@@ -658,16 +658,38 @@
                                     para avanzar con tu proyecto.
                                 </p>
 
-                                <a id="quote-whatsapp-btn"
-                                    href="https://wa.me/56949388286?text=Hola%20MuebleríaLG%20SPA,%20me%20interesa%20avanzar%20con%20mi%20proyecto%20muebles%20a%20medida."
-                                    target="_blank" class="btn btn-green-premium btn-full" style="margin-top: 12px;">
+                                <!-- BOTÓN MODIFICADO (SIN href NI target) -->
+                                <a id="quote-whatsapp-btn" class="btn btn-green-premium btn-full"
+                                    style="margin-top: 12px;">
                                     <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
                                 </a>
+
+                                <!-- SCRIPT QUE DISPARA EL EVENTO Y LUEGO ABRE WHATSAPP -->
+                                <script>
+                                    document.getElementById("quote-whatsapp-btn").addEventListener("click", function (e) {
+                                        e.preventDefault();
+
+                                        // Disparar evento Contactar
+                                        if (typeof fbq !== 'undefined') {
+                                            fbq('track', 'Contactar');
+                                        }
+
+                                        // Abrir WhatsApp después de 1 segundo
+                                        setTimeout(function () {
+                                            window.open(
+                                                "https://wa.me/56949388286?text=Hola%20Muebler%C3%ADaLG%20SPA,%20me%20interesa%20avanzar%20con%20mi%20proyecto%20de%20muebles%20a%20medida.",
+                                                "_blank"
+                                            );
+                                        }, 1000);
+                                    });
+                                </script>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
