@@ -17,7 +17,6 @@
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1701078527825603');
         fbq('track', 'PageView');
-        fbq('track', 'Lead');
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1701078527825603&ev=PageView&noscript=1" /></noscript>
@@ -670,17 +669,21 @@
                                     document.getElementById("quote-whatsapp-btn").addEventListener("click", function (e) {
                                         e.preventDefault();
 
-                                        // Disparar evento Contactar
+                                        const btn = e.currentTarget;
+                                        const destino = btn.href; // el mensaje real ya armado por el cotizador
+
+                                        // Evento estándar de conversión (Lead) con el valor cotizado
                                         if (typeof fbq !== 'undefined') {
-                                            fbq('track', 'Contactar');
+                                            fbq('track', 'Lead', {
+                                                content_name: btn.dataset.tipo || 'Proyecto a medida',
+                                                value: parseInt(btn.dataset.valor) || 0,
+                                                currency: 'CLP'
+                                            });
                                         }
 
-                                        // Abrir WhatsApp después de 1 segundo
+                                        // Abrir WhatsApp con el mensaje real de la cotización después de 1 segundo
                                         setTimeout(function () {
-                                            window.open(
-                                                "https://wa.me/56949388286?text=Hola%20Muebler%C3%ADaLG%20SPA,%20me%20interesa%20avanzar%20con%20mi%20proyecto%20de%20muebles%20a%20medida.",
-                                                "_blank"
-                                            );
+                                            window.open(destino, "_blank");
                                         }, 1000);
                                     });
                                 </script>
@@ -1181,6 +1184,22 @@
 
                 if (waBtn) {
                     waBtn.href = `https://wa.me/56949388286?text=${encodeURIComponent(waText)}`;
+
+                    // --- Evento Meta Pixel: cotización completada ---
+                    if (typeof fbq !== 'undefined') {
+                        const valorNumerico = parseInt((totalEl.textContent || "0").replace(/[^0-9]/g, "")) || 0;
+                        const nombreProyecto = activeProjectType === "cocina" ? "Cocina"
+                            : activeProjectType === "closet" ? "Closet" : "Walk-in Closet";
+
+                        fbq('track', 'ViewContent', {
+                            content_name: nombreProyecto,
+                            value: valorNumerico,
+                            currency: 'CLP'
+                        });
+
+                        waBtn.dataset.valor = valorNumerico;
+                        waBtn.dataset.tipo = nombreProyecto;
+                    }
                 }
             }
 
