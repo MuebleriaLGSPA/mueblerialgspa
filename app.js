@@ -1099,6 +1099,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileMenuToggle.addEventListener("click", () => {
             mobileMenuToggle.classList.toggle("active");
             navMenu.classList.toggle("active");
+            document.body.classList.toggle("menu-open");
         });
     }
 
@@ -1118,6 +1119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         link.addEventListener("click", () => {
             if (mobileMenuToggle) mobileMenuToggle.classList.remove("active");
             if (navMenu) navMenu.classList.remove("active");
+            document.body.classList.remove("menu-open");
         });
     });
 

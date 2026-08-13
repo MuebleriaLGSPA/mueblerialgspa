@@ -324,12 +324,14 @@ h6 {
     max-width: 1300px;
     margin: 0 auto;
     padding: 15px 30px;
+    gap: 12px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
 }
 
 .header-logo {
@@ -337,12 +339,43 @@ h6 {
     width: auto;
     object-fit: contain;
     transition: var(--transition-smooth);
+    flex-shrink: 0;
 }
 
 .brand-text {
     font-family: var(--font-primary);
     font-size: 16px;
     letter-spacing: 0.1em;
+    white-space: nowrap;
+}
+
+/* Header responsive: evita que el logo, el texto, el botón CTA y el
+   hamburguesa se amontonen o se corten en pantallas medianas/chicas */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 12px 20px;
+    }
+
+    .header-logo {
+        height: 32px;
+    }
+
+    .brand-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 420px) {
+    .header-container {
+        padding: 10px 16px;
+        gap: 8px;
+    }
+
+    /* En pantallas muy chicas dejamos solo el logo (sin texto) para dar
+       espacio al botón de cotizar y al hamburguesa */
+    .brand-text {
+        display: none;
+    }
 }
 
 .nav-menu ul {
@@ -399,11 +432,13 @@ h6 {
 /* 6. HERO SECTION */
 .hero-section {
     height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    padding: 100px 0 60px;
 }
 
 .hero-bg {
@@ -881,6 +916,18 @@ h6 {
     transform: translateY(0);
 }
 
+/* En pantallas táctiles no existe :hover, así que la info (título/desc)
+   de las tarjetas quedaba siempre invisible. La mostramos directamente. */
+@media (hover: none) {
+
+    .proyecto-card .project-info,
+    .project-card .project-info,
+    .render-info-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .proyecto-card h3,
 .proyecto-card h4,
 .proyecto-card .project-card-title,
@@ -1177,6 +1224,16 @@ h6 {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-text-gray);
+}
+
+/* Contenedor de botones tipo "toggle" (Tipo de proyecto, Melamina, Puertas).
+   No tenía NINGÚN estilo propio: los botones quedaban como bloques sueltos
+   sin orden ni espacio consistente, sobre todo en celular. */
+.btn-toggle-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
 }
 
 .form-group input[type="text"],
@@ -1948,6 +2005,12 @@ h6 {
 
     .nav-menu.active {
         right: 0;
+        /* Oscurece el resto de la pantalla mientras el menú está abierto */
+        box-shadow: -100vw 0 0 100vw rgba(0, 0, 0, 0.6);
+    }
+
+    body.menu-open {
+        overflow: hidden;
     }
 
     .nav-menu ul {
@@ -1981,6 +2044,38 @@ h6 {
         flex-direction: column;
         gap: 15px;
         padding: 0 40px;
+    }
+
+    .hero-subtitle-tag {
+        font-size: 1.1rem !important;
+        letter-spacing: 0.08em !important;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 26px;
+    }
+
+    .hero-subtitle-tag {
+        font-size: 0.95rem !important;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .section {
+        padding: 60px 0;
     }
 }
 
@@ -2391,7 +2486,14 @@ textarea:focus+label {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
+    .btn-nav-cta {
+        padding: 8px 14px !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+@media (max-width: 360px) {
     .btn-nav-cta {
         display: none !important;
     }

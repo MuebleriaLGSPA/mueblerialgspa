@@ -2,11 +2,48 @@
 <html lang="es-CL">
 
 <head>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1701078527825603');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1701078527825603&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUEBLERIALG SPA - Muebles a Medida de Alto Nivel</title>
     <meta name="description"
         content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
+
+    <!-- Open Graph / vista previa para Google, WhatsApp, Facebook, etc. -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mueblerialgspa.com/">
+    <meta property="og:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
+    <meta property="og:description"
+        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
+    <meta property="og:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="es_CL">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
+    <meta name="twitter:description"
+        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile.">
+    <meta name="twitter:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.jpg">
 
     <!-- Google Fonts: Outfit (Geometric Sans-serif) for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +57,12 @@
     <!-- Local Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 
-    <link rel="icon" href="assets/logo.png" type="image/png">
+    <!-- Favicon reforzado para máxima compatibilidad entre navegadores -->
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="assets/favicon.png" type="image/png">
+    <link rel="icon" sizes="192x192" href="assets/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -639,16 +681,42 @@
                                     para avanzar con tu proyecto.
                                 </p>
 
-                                <a id="quote-whatsapp-btn"
-                                    href="https://wa.me/56949388286?text=Hola%20MuebleríaLG%20SPA,%20me%20interesa%20avanzar%20con%20mi%20proyecto%20muebles%20a%20medida."
-                                    target="_blank" class="btn btn-green-premium btn-full" style="margin-top: 12px;">
+                                <!-- BOTÓN MODIFICADO (SIN href NI target) -->
+                                <a id="quote-whatsapp-btn" class="btn btn-green-premium btn-full"
+                                    style="margin-top: 12px;">
                                     <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
                                 </a>
+
+                                <!-- SCRIPT QUE DISPARA EL EVENTO Y LUEGO ABRE WHATSAPP -->
+                                <script>
+                                    document.getElementById("quote-whatsapp-btn").addEventListener("click", function (e) {
+                                        e.preventDefault();
+
+                                        const btn = e.currentTarget;
+                                        const destino = btn.href; // el mensaje real ya armado por el cotizador
+
+                                        // Evento estándar de conversión (Lead) con el valor cotizado
+                                        if (typeof fbq !== 'undefined') {
+                                            fbq('track', 'Lead', {
+                                                content_name: btn.dataset.tipo || 'Proyecto a medida',
+                                                value: parseInt(btn.dataset.valor) || 0,
+                                                currency: 'CLP'
+                                            });
+                                        }
+
+                                        // Abrir WhatsApp con el mensaje real de la cotización después de 1 segundo
+                                        setTimeout(function () {
+                                            window.open(destino, "_blank");
+                                        }, 1000);
+                                    });
+                                </script>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -1139,6 +1207,22 @@
 
                 if (waBtn) {
                     waBtn.href = `https://wa.me/56949388286?text=${encodeURIComponent(waText)}`;
+
+                    // --- Evento Meta Pixel: cotización completada ---
+                    if (typeof fbq !== 'undefined') {
+                        const valorNumerico = parseInt((totalEl.textContent || "0").replace(/[^0-9]/g, "")) || 0;
+                        const nombreProyecto = activeProjectType === "cocina" ? "Cocina"
+                            : activeProjectType === "closet" ? "Closet" : "Walk-in Closet";
+
+                        fbq('track', 'ViewContent', {
+                            content_name: nombreProyecto,
+                            value: valorNumerico,
+                            currency: 'CLP'
+                        });
+
+                        waBtn.dataset.valor = valorNumerico;
+                        waBtn.dataset.tipo = nombreProyecto;
+                    }
                 }
             }
 
@@ -1404,6 +1488,10 @@
                     style="font-size: 0.85rem; text-transform: uppercase; color: var(--color-text-gray); transition: color 0.3s;"
                     onmouseover="this.style.color='#d4af37'"
                     onmouseout="this.style.color='var(--color-text-gray)'">Contacto</a>
+                <a href="/politica-de-privacidad/"
+                    style="font-size: 0.85rem; text-transform: uppercase; color: var(--color-text-gray); transition: color 0.3s;"
+                    onmouseover="this.style.color='#d4af37'"
+                    onmouseout="this.style.color='var(--color-text-gray)'">Política de privacidad</a>
             </div>
 
             <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px;">
