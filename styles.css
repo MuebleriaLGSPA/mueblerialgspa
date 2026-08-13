@@ -1207,12 +1207,6 @@ h6 {
     gap: 15px;
 }
 
-.form-row-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
 /* Checkbox estilizado */
 .checkbox-group {
     flex-direction: row;
@@ -1262,86 +1256,6 @@ h6 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-/* Radio buttons estilizados */
-.radio-group {
-    display: flex;
-    gap: 25px;
-    margin-top: 5px;
-}
-
-.radio-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--color-text-gray);
-}
-
-.radio-label input[type="radio"] {
-    display: none;
-}
-
-.custom-radio {
-    width: 18px;
-    height: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    background-color: var(--color-black-deep);
-    display: inline-block;
-    position: relative;
-    transition: var(--transition-fast);
-}
-
-.radio-label input[type="radio"]:checked+.custom-radio {
-    border-color: var(--color-metallic-gold);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
-}
-
-.radio-label input[type="radio"]:checked+.custom-radio::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-metallic-gold);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Subir archivo estilizado */
-.file-upload-label {
-    border: 1px dashed rgba(212, 175, 55, 0.4);
-    background-color: rgba(212, 175, 55, 0.02);
-    padding: 15px;
-    text-align: center;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-fast);
-    font-size: 13px !important;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-}
-
-.file-upload-label:hover {
-    background-color: rgba(212, 175, 55, 0.06);
-    border-color: var(--color-metallic-gold);
-}
-
-.file-upload-label i {
-    font-size: 20px;
-    margin-bottom: 5px;
-    display: block;
-    color: var(--color-metallic-gold);
-}
-
-.file-name-text {
-    font-size: 12px;
-    color: var(--color-text-muted);
-    font-style: italic;
 }
 
 /* Panel de Resultados del Cotizador */
@@ -1421,30 +1335,6 @@ h6 {
     color: var(--color-text-muted);
 }
 
-.breakdown-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-.breakdown-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
-}
-
-.breakdown-item span {
-    color: var(--color-text-gray);
-}
-
-.breakdown-item strong {
-    color: var(--color-text-white);
-    font-weight: 500;
-}
-
 .next-steps h4 {
     font-family: var(--font-secondary);
     font-weight: 600;
@@ -1452,21 +1342,6 @@ h6 {
     text-transform: none;
     margin-bottom: 10px;
     color: var(--color-soft-gold);
-}
-
-.next-steps ul {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 30px;
-}
-
-.next-steps li {
-    font-size: 12px;
-    color: var(--color-text-gray);
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 /* 13. CONTACTO Y UBICACIÃ“N */
@@ -2130,10 +2005,6 @@ h6 {
     .form-row-3 {
         grid-template-columns: 1fr;
         gap: 15px;
-    }
-
-    .form-row-2 {
-        grid-template-columns: 1fr;
     }
 
     .quote-form-side {
