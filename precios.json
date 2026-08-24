@@ -1,0 +1,109 @@
+{
+  "_readme": "Precios base del Cotizador. Editable sin tocar código: basta con cambiar los valores numéricos aquí. Fuente: Plantilla_Presupuesto.xlsx (ver Cotizador_Especificacion_Unificada.md, sección 3). Los campos '_nota' documentan supuestos hechos por no existir un precio exacto en la plantilla original — ajústalos si tienes el valor real.",
+
+  "parametros": {
+    "ivaPct": 0.19,
+    "manoDeObraPct": 0.80,
+    "planchaAnchoCm": 250,
+    "planchaAltoCm": 180,
+    "_nota": "ivaPct se aplica SOLO al subtotal Melamina+Tapacanto (ver sección 4 de la especificación). manoDeObraPct se aplica sobre el Total Materiales, sin IVA, y no es visible al cliente."
+  },
+
+  "melamina": {
+    "melamina_blanca_18": { "nombre": "Melamina Blanca 18mm", "unidad": "plancha", "valor": 55000 },
+    "melamina_blanca_15": { "nombre": "Melamina Blanca 15mm", "unidad": "plancha", "valor": 45000 },
+    "melamina_color_15": { "nombre": "Melamina Color 15mm", "unidad": "plancha", "valor": 75000 },
+    "melamina_color_18": { "nombre": "Melamina Color 18mm", "unidad": "plancha", "valor": 85000 },
+    "tapacanto_2_0mm": { "nombre": "Tapacanto 2,0mm", "unidad": "metro", "valor": 2000 },
+    "tapacanto_0_4mm": { "nombre": "Tapacanto 0,4mm", "unidad": "metro", "valor": 1000 },
+    "tapacanto_40mm": { "nombre": "Tapacanto 40mm", "unidad": "metro", "valor": 700 },
+    "melamina_altobrillo": { "nombre": "Melamina AltoBrillo", "unidad": "plancha", "valor": 170000 },
+    "terciado_mueblista_18": { "nombre": "Terciado Mueblista 18mm", "unidad": "plancha", "valor": 65000 },
+    "terciado_mueblista_15": { "nombre": "Terciado Mueblista 15mm", "unidad": "plancha", "valor": 45000 },
+    "tapacanto_altobrillo": { "nombre": "Tapacanto AltoBrillo", "unidad": "metro", "valor": 1600 },
+    "melamina_ultramate": { "nombre": "Melamina Ultra Mate", "unidad": "plancha", "valor": 165000 },
+    "tapacanto_ultramate": { "nombre": "Tapacanto Ultra Mate", "unidad": "metro", "valor": 1600 },
+    "durolac": { "nombre": "Durolac", "unidad": "plancha", "valor": 15000 }
+  },
+
+  "cuarzoPostformado": {
+    "cubierta_cuarzo": { "nombre": "Cubierta Cuarzo", "unidad": "unidad", "valor": 165000 },
+    "trabajos_cubierta_cuarzo": { "nombre": "Trabajos de cubierta (cuarzo)", "unidad": "unidad", "valor": 55000 },
+    "regruese_45": { "nombre": "Regruese 45°", "unidad": "unidad", "valor": 20000 },
+    "viaje_cuarzo": { "nombre": "Viaje (cuarzo)", "unidad": "unidad", "valor": 40000 },
+    "perforaciones": { "nombre": "Perforaciones", "unidad": "unidad", "valor": 10000 },
+    "piedra_sintetizada_ps": { "nombre": "Piedra Sintetizada PS", "unidad": "unidad", "valor": 185000 },
+    "corte_recto_ps": { "nombre": "Corte Recto PS", "unidad": "unidad", "valor": 5000 },
+    "corte_45_ps": { "nombre": "Corte 45° PS", "unidad": "unidad", "valor": 10000 },
+    "cubierta_postformado": { "nombre": "Cubierta Postformado", "unidad": "unidad", "valor": 80000 },
+    "trabajos_cubierta_postformado": { "nombre": "Trabajos de cubierta (postformado)", "unidad": "unidad", "valor": 10000 },
+    "viaje_postformado": { "nombre": "Viaje (postformado)", "unidad": "unidad", "valor": 20000 }
+  },
+
+  "quincalleria": {
+    "riel_telescopico_cs_50": { "nombre": "Riel Telescópico Cierre Suave 50cm", "unidad": "par", "valor": 5000 },
+    "riel_telescopico_cs_45": { "nombre": "Riel Telescópico Cierre Suave 45cm", "unidad": "par", "valor": 6500 },
+    "riel_telescopico_cs_40": { "nombre": "Riel Telescópico Cierre Suave 40cm", "unidad": "par", "valor": 6000 },
+    "riel_telescopico_cs_35": { "nombre": "Riel Telescópico Cierre Suave 35cm", "unidad": "par", "valor": 5000 },
+    "riel_telescopico_cs_30": { "nombre": "Riel Telescópico Cierre Suave 30cm", "unidad": "par", "valor": 5000 },
+
+    "riel_telescopico_normal_50": { "nombre": "Riel Telescópico Normal 50cm", "unidad": "par", "valor": 4000 },
+    "riel_telescopico_normal_45": { "nombre": "Riel Telescópico Normal 45cm", "unidad": "par", "valor": 3500 },
+    "riel_telescopico_normal_40": { "nombre": "Riel Telescópico Normal 40cm", "unidad": "par", "valor": 3000 },
+    "riel_telescopico_normal_35": { "nombre": "Riel Telescópico Normal 35cm", "unidad": "par", "valor": 3000 },
+
+    "riel_oculto_cs_50": { "nombre": "Riel Oculto Cierre Suave 50cm", "unidad": "par", "valor": 8000 },
+    "riel_oculto_cs_45": { "nombre": "Riel Oculto Cierre Suave 45cm", "unidad": "par", "valor": 10500 },
+    "riel_oculto_cs_40": { "nombre": "Riel Oculto Cierre Suave 40cm", "unidad": "par", "valor": 10000 },
+    "riel_oculto_cs_35": { "nombre": "Riel Oculto Cierre Suave 35cm", "unidad": "par", "valor": 10000 },
+
+    "riel_galvanizado_150": { "nombre": "Riel Galvanizado 150cm", "unidad": "par", "valor": 4500 },
+    "riel_galvanizado_200": { "nombre": "Riel Galvanizado 200cm", "unidad": "par", "valor": 5000 },
+
+    "pata_soporte": { "nombre": "Pata Soporte", "unidad": "unidad", "valor": 25000 },
+
+    "bisagra_estandar": { "nombre": "Bisagras (estándar)", "unidad": "unidad", "valor": 1200 },
+    "bisagra_negra": { "nombre": "Bisagras Negras", "unidad": "unidad", "valor": 900 },
+    "bisagra_175": { "nombre": "Bisagras 175°", "unidad": "unidad", "valor": 3000 },
+    "bisagra_165": { "nombre": "Bisagras 165° (esquinero L)", "unidad": "unidad", "valor": 3000, "_nota": "La plantilla no trae un precio propio para 175°/165°; se usa el valor de 'Bisagras 175°' como el más cercano disponible. Ajusta si tienes el precio real de la bisagra 165°." },
+    "bisagra_90": { "nombre": "Bisagras 90° (esquinero panel ciego)", "unidad": "unidad", "valor": 1200, "_nota": "Sin precio propio en la plantilla; se usa el valor de 'Bisagras (estándar)' como aproximación. Ajusta si tienes el precio real." },
+
+    "zocalo_piso_pvc": { "nombre": "Zócalo piso PVC", "unidad": "metro", "valor": 10000 },
+    "ruedas_puerta_corredera_2u": { "nombre": "Ruedas Puertas corredera 2U", "unidad": "unidad", "valor": 3000 },
+    "manilla": { "nombre": "Manilla", "unidad": "unidad", "valor": 3000 },
+    "cable_paralelo": { "nombre": "Cable Paralelo", "unidad": "unidad", "valor": 500, "_nota": "No estaba en la tabla de la sección 3 del markdown, pero sí existe en Referencia/Plantilla Presupuesto.xlsx (fila 65, columna quincallería). Agregado tras comparar contra el Excel real." },
+    "instalacion_tirador": { "nombre": "Instalación de Tirador", "unidad": "unidad", "valor": 2000 },
+    "barra_closet_ovalada": { "nombre": "Barra Closet Ovalada", "unidad": "unidad", "valor": 45000 },
+    "barra_closet_ovalada_negra": { "nombre": "Barra Closet Ovalada Negra", "unidad": "unidad", "valor": 5000 },
+    "vidrio_vitrina_puerta": { "nombre": "Vidrios Vitrina Puerta (200x35)", "unidad": "unidad", "valor": 18000 },
+    "vidrio_vitrina_repisa": { "nombre": "Vidrios Vitrina repisas", "unidad": "unidad", "valor": 3500 },
+    "cerradura_boton": { "nombre": "Cerradura Botón", "unidad": "unidad", "valor": 2500 },
+    "piston_cierre_suave": { "nombre": "Pistón cierre suave", "unidad": "unidad", "valor": 2000 },
+    "piston_gas": { "nombre": "Pistón a gas", "unidad": "unidad", "valor": 2000, "_nota": "Sin precio propio en la plantilla; se usa el valor de 'Pistón cierre suave' como aproximación. Ajusta si tienes el precio real del pistón a gas." },
+    "soportes_barra": { "nombre": "Soportes Barra", "unidad": "unidad", "valor": 350 },
+    "soportes_barra_negra": { "nombre": "Soportes Barra Negra", "unidad": "unidad", "valor": 400 },
+    "gomitas": { "nombre": "Gomitas", "unidad": "unidad", "valor": 3000 },
+    "push_open": { "nombre": "Push Open", "unidad": "unidad", "valor": 1500 },
+    "escuadras": { "nombre": "Escuadras", "unidad": "unidad", "valor": 64 },
+    "tornillos": { "nombre": "Tornillos", "unidad": "unidad", "valor": 1500 },
+    "anclajes": { "nombre": "Anclaje", "unidad": "unidad", "valor": 500 },
+    "chicos": { "nombre": "Chicos", "unidad": "unidad", "valor": 1000 },
+    "adhesivo_montaje": { "nombre": "Adhesivo Montaje", "unidad": "unidad", "valor": 2000 },
+    "silicona": { "nombre": "Silicona", "unidad": "unidad", "valor": 2000 },
+    "boton_led": { "nombre": "Botón Led", "unidad": "unidad", "valor": 10000 },
+    "led_5mts": { "nombre": "Led 5mts", "unidad": "unidad", "valor": 15000 },
+    "fuente_poder_chica": { "nombre": "Fuente de poder Chica", "unidad": "unidad", "valor": 10000 },
+    "fuente_poder_grande": { "nombre": "Fuente de poder Grande", "unidad": "unidad", "valor": 15000 },
+    "perfil_luz_led": { "nombre": "Perfil Luz Led", "unidad": "unidad", "valor": 6500 },
+    "instalacion_accesorio": { "nombre": "Instalación accesorio / luz led / pata", "unidad": "unidad", "valor": 10000 }
+  },
+
+  "otros": {
+    "viaje_obra": { "nombre": "Viaje (obra)", "unidad": "unidad", "valor": 30000 },
+    "ayuda": { "nombre": "Ayuda", "unidad": "unidad", "valor": 90000 },
+    "comida": { "nombre": "Comida", "unidad": "unidad", "valor": 90000 },
+    "flete_buscar_melamina": { "nombre": "Flete buscar melamina", "unidad": "unidad", "valor": 40000 },
+    "flete_llevar_muebles": { "nombre": "Flete llevar muebles", "unidad": "unidad", "valor": 0, "_nota": "Valor variable en la plantilla original; no se incluye automáticamente en el cálculo del cliente. Ajustar caso a caso." },
+    "fabricacion_dia": { "nombre": "Fabricación (por día)", "unidad": "dia", "valor": 0, "_nota": "Valor variable en la plantilla original; no se incluye automáticamente en el cálculo del cliente." }
+  }
+}
