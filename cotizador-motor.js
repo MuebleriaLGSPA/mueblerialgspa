@@ -680,6 +680,69 @@
     };
   }
 
+  // ---------------------------------------------------------------------
+  // Modo rápido: estimación por metros lineales totales (cocina abajo /
+  // cocina arriba), calibrando la tasa $/metro en vivo contra el propio
+  // motor (no contra un número fijo copiado del Excel, que queda obsoleto
+  // apenas cambian los precios). Ver Cotizador_Especificacion_Unificada.md
+  // sección 2: "al calcular por metros lineales totales, siempre se debe
+  // agregar 1 módulo de cajones de 3 cajones".
+  // ---------------------------------------------------------------------
+
+  var TASA_LARGO_REFERENCIA_M = 12;
+  var TASA_ANCHO_MODULO_REFERENCIA_CM = 100;
+  var RANGO_INCERTIDUMBRE_PCT = 0.10;
+
+  function corridaRecta(tipo, metrosTotal, anchoModuloCm) {
+    var n = Math.round((metrosTotal * 100) / anchoModuloCm);
+    var lista = [];
+    for (var i = 0; i < n; i++) lista.push({ tipo: tipo, params: { ancho: anchoModuloCm } });
+    return lista;
+  }
+
+  function calcularTasasMetroLineal(precios, config) {
+    config = config || {};
+    var largoReferencia = config.largoReferenciaM || TASA_LARGO_REFERENCIA_M;
+    var anchoModulo = config.anchoModuloReferenciaCm || TASA_ANCHO_MODULO_REFERENCIA_CM;
+
+    // calcularProyecto siempre agrega 1 cajonera automática si la lista no trae ninguna;
+    // se resta ese costo para aislar el costo puro de la corrida recta de base/aéreo.
+    var costoCajoneraAuto = calcularProyecto(
+      [{ tipo: 'cajonera', params: { ancho: 60, cantidadCajones: 3 } }], precios, config
+    ).valorTotalCliente;
+
+    var rAbajo = calcularProyecto(corridaRecta('base', largoReferencia, anchoModulo), precios, config);
+    var tasaAbajo = (rAbajo.valorTotalCliente - costoCajoneraAuto) / largoReferencia;
+
+    var rArriba = calcularProyecto(corridaRecta('aereo', largoReferencia, anchoModulo), precios, config);
+    var tasaArriba = (rArriba.valorTotalCliente - costoCajoneraAuto) / largoReferencia;
+
+    return { tasaAbajo: tasaAbajo, tasaArriba: tasaArriba, costoCajoneraAuto: costoCajoneraAuto, largoReferenciaM: largoReferencia };
+  }
+
+  function estimarRapido(metrosAbajo, metrosArriba, precios, config) {
+    config = config || {};
+    metrosAbajo = metrosAbajo || 0;
+    metrosArriba = metrosArriba || 0;
+    var rangoPct = (config.rangoIncertidumbrePct != null) ? config.rangoIncertidumbrePct : RANGO_INCERTIDUMBRE_PCT;
+
+    var tasas = calcularTasasMetroLineal(precios, config);
+    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto;
+
+    return {
+      metrosAbajo: metrosAbajo,
+      metrosArriba: metrosArriba,
+      tasaAbajo: round0(tasas.tasaAbajo),
+      tasaArriba: round0(tasas.tasaArriba),
+      costoCajoneraAuto: round0(tasas.costoCajoneraAuto),
+      largoReferenciaM: tasas.largoReferenciaM,
+      estimacion: round0(estimacion),
+      rangoMin: round0(estimacion * (1 - rangoPct)),
+      rangoMax: round0(estimacion * (1 + rangoPct)),
+      rangoIncertidumbrePct: rangoPct
+    };
+  }
+
   function round2(n) { return Math.round(n * 100) / 100; }
   function round0(n) { return Math.round(n); }
 
@@ -688,6 +751,8 @@
     modulosDisponibles: modulosDisponibles,
     calcularModulo: calcularModulo,
     calcularProyecto: calcularProyecto,
+    calcularTasasMetroLineal: calcularTasasMetroLineal,
+    estimarRapido: estimarRapido,
     planchasNecesarias: planchasNecesarias,
     _internal: { GROSOR_18: GROSOR_18, RIEL_DEFAULT_KEY: RIEL_DEFAULT_KEY }
   };
