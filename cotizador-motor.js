@@ -437,6 +437,169 @@
   }
 
   // ---------------------------------------------------------------------
+  // CLOSET (ver Cotizador_Especificacion_Closet.md)
+  // ---------------------------------------------------------------------
+  // Reglas generales: melamina 18mm, color único elegido por el usuario para
+  // todo el closet (p.materialKey: 'melamina_blanca_18' | 'melamina_color_18'),
+  // aplicado tanto a la estructura como a las puertas — a diferencia de Cocina,
+  // donde el rol (estructura vs puerta) fija el color. El grosor de tapacanto
+  // sigue el mismo criterio que Cocina: 0.4mm en piezas estructurales, 2.0mm
+  // en puertas — independiente del color elegido.
+  // Estructura base: fondo 55cm, alto 240cm (más un zócalo/base de 10cm no
+  // modelado como pieza, igual que se documenta en la especificación).
+
+  var CLOSET_FONDO = 55;
+  var CLOSET_ALTO = 240;
+
+  function materialClosetDe(p) { return p.materialKey || 'melamina_blanca_18'; }
+
+  function agregarPuertasClosetSiCorresponde(acc, modulo, material, anchoDisponible, altoPuerta, conPuerta) {
+    var numPuertas = 0;
+    if (conPuerta) {
+      numPuertas = anchoDisponible < 55 ? 1 : 2;
+      var anchoPuerta = anchoDisponible / numPuertas;
+      for (var i = 0; i < numPuertas; i++) {
+        piezaPuerta(acc, modulo, material, anchoPuerta, altoPuerta, 'tapacanto_2_0mm');
+        agregarHerraje(acc, modulo, 'manilla', 1);
+        agregarHerraje(acc, modulo, 'bisagra_estandar', 2);
+      }
+    }
+    return numPuertas;
+  }
+
+  // Repisas cada 30cm desde yInicio hasta completar CLOSET_ALTO, fondo-1 (reducido)
+  function agregarRepisasCada30cm(acc, modulo, material, ancho, yInicio) {
+    var cantidad = 0;
+    var y = yInicio;
+    while (y + 30 <= CLOSET_ALTO) {
+      y += 30;
+      piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO - 1, 'tapacanto_0_4mm');
+      cantidad++;
+    }
+    return cantidad;
+  }
+
+  // Estructura de "mitad cajonera + repisas" reutilizable tanto por el módulo de
+  // 50cm como por la mitad correspondiente del módulo combinado.
+  function agregarInteriorCajoneraRepisas(acc, modulo, material, ancho) {
+    // Desde la melamina inferior: sube 25cm -> repisa 1, sube 25cm más -> repisa 2
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO - 1, 'tapacanto_0_4mm'); // repisa 1 (25cm)
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO - 1, 'tapacanto_0_4mm'); // repisa 2 (50cm)
+
+    // Desde ahí: 3 cajones (mismas medidas que Cocina, 25cm alto cada uno)
+    for (var i = 0; i < 3; i++) generarCajon(acc, modulo, ancho, 25);
+    agregarHerraje(acc, modulo, RIEL_DEFAULT_KEY, 3);
+
+    // Repisa de cierre al terminar los cajones (125cm desde abajo), fondo TOTAL sin restar
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO, 'tapacanto_0_4mm');
+
+    // Repisas cada 30cm desde ahí hasta completar el alto
+    agregarRepisasCada30cm(acc, modulo, material, ancho, 50 + 75);
+  }
+
+  // --- Módulo 50cm: Cajonera + repisas ---
+  function calcularClosetCajoneraRepisas(acc, modulo, p) {
+    var ancho = 50; // ancho fijo
+    var material = materialClosetDe(p);
+    var altoLateral = CLOSET_ALTO - 2 * GROSOR_18;
+
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO, 'tapacanto_0_4mm'); // superior
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO, 'tapacanto_0_4mm'); // inferior
+    piezaSinCanto(acc, modulo, 'durolac', ancho, CLOSET_ALTO);
+
+    agregarInteriorCajoneraRepisas(acc, modulo, material, ancho);
+
+    var numPuertas = agregarPuertasClosetSiCorresponde(acc, modulo, material, ancho, altoLateral, p.conPuerta);
+    return { puertas: numPuertas, cajones: 3 };
+  }
+
+  // --- Módulo "Solo Colgador" ---
+  function calcularClosetColgador(acc, modulo, p) {
+    var ancho = p.ancho;
+    var material = materialClosetDe(p);
+    var altoLateral = CLOSET_ALTO - 2 * GROSOR_18;
+
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO, 'tapacanto_0_4mm'); // superior
+    piezaHorizontal(acc, modulo, material, ancho, CLOSET_FONDO, 'tapacanto_0_4mm'); // inferior
+    piezaSinCanto(acc, modulo, 'durolac', ancho, CLOSET_ALTO);
+
+    // 2 barras colgadoras (a 6cm y 110cm desde arriba) — solo herraje, sin pieza de melamina
+    agregarHerraje(acc, modulo, 'barra_closet_ovalada', 2);
+    agregarHerraje(acc, modulo, 'soportes_barra', 4); // 2 soportes por barra
+
+    var numPuertas = agregarPuertasClosetSiCorresponde(acc, modulo, material, ancho, altoLateral, p.conPuerta);
+    return { puertas: numPuertas, cajones: 0 };
+  }
+
+  // --- Módulo combinado: cajonera+repisas (mitad) + colgador (mitad), solo si ancho <= 100cm ---
+  function calcularClosetCombinado(acc, modulo, p) {
+    var ancho = p.ancho;
+    var anchoMedio = ancho / 2;
+    var material = materialClosetDe(p);
+    var altoLateral = CLOSET_ALTO - 2 * GROSOR_18;
+
+    // 3 laterales (izq, central COMPARTIDO, der) en vez de 4 — ahorro de material
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+    piezaVertical(acc, modulo, material, CLOSET_FONDO, altoLateral, 'tapacanto_0_4mm');
+
+    // Mitad 1: cajonera + repisas
+    piezaHorizontal(acc, modulo, material, anchoMedio, CLOSET_FONDO, 'tapacanto_0_4mm');
+    piezaHorizontal(acc, modulo, material, anchoMedio, CLOSET_FONDO, 'tapacanto_0_4mm');
+    piezaSinCanto(acc, modulo, 'durolac', anchoMedio, CLOSET_ALTO);
+    agregarInteriorCajoneraRepisas(acc, modulo, material, anchoMedio);
+
+    // Mitad 2: solo colgador
+    piezaHorizontal(acc, modulo, material, anchoMedio, CLOSET_FONDO, 'tapacanto_0_4mm');
+    piezaHorizontal(acc, modulo, material, anchoMedio, CLOSET_FONDO, 'tapacanto_0_4mm');
+    piezaSinCanto(acc, modulo, 'durolac', anchoMedio, CLOSET_ALTO);
+    agregarHerraje(acc, modulo, 'barra_closet_ovalada', 2);
+    agregarHerraje(acc, modulo, 'soportes_barra', 4);
+
+    // 1 puerta por mitad (cada mitad <=50cm, siempre bajo el umbral de 2 puertas)
+    var numPuertas = agregarPuertasClosetSiCorresponde(acc, modulo, material, anchoMedio, altoLateral, p.conPuerta)
+      + agregarPuertasClosetSiCorresponde(acc, modulo, material, anchoMedio, altoLateral, p.conPuerta);
+
+    return { puertas: numPuertas, cajones: 3 };
+  }
+
+  var MODULOS_CLOSET = {
+    closet_cajonera_repisas: {
+      label: 'Cajonera + repisas (50cm)',
+      campos: [
+        { key: 'conPuerta', label: 'Lleva puerta', tipo: 'checkbox', valorDefecto: true }
+      ],
+      calcular: calcularClosetCajoneraRepisas
+    },
+    closet_colgador: {
+      label: 'Solo Colgador',
+      campos: [
+        { key: 'ancho', label: 'Ancho (cm)', min: 30, max: 200, valorDefecto: 60 },
+        { key: 'conPuerta', label: 'Lleva puerta', tipo: 'checkbox', valorDefecto: true }
+      ],
+      calcular: calcularClosetColgador
+    },
+    closet_combinado: {
+      label: 'Combinado (cajonera+repisas + colgador)',
+      campos: [
+        { key: 'ancho', label: 'Ancho total (cm, máx. 100)', min: 40, max: 100, valorDefecto: 90 },
+        { key: 'conPuerta', label: 'Lleva puerta', tipo: 'checkbox', valorDefecto: true }
+      ],
+      calcular: calcularClosetCombinado
+    }
+  };
+
+  function modulosClosetDisponibles() {
+    var out = [];
+    for (var key in MODULOS_CLOSET) out.push(key);
+    return out;
+  }
+
+  // ---------------------------------------------------------------------
   // Registro de módulos disponibles (para la UI)
   // ---------------------------------------------------------------------
 
@@ -523,12 +686,21 @@
     return out;
   }
 
+  // Tabla combinada usada por calcularModulo/calcularProyecto para poder resolver
+  // tanto módulos de Cocina (MODULOS) como de Closet (MODULOS_CLOSET) por su tipo,
+  // sin mezclar el listado filtrado por forma de cocina.
+  var TODOS_MODULOS = {};
+  (function () {
+    for (var k1 in MODULOS) TODOS_MODULOS[k1] = MODULOS[k1];
+    for (var k2 in MODULOS_CLOSET) TODOS_MODULOS[k2] = MODULOS_CLOSET[k2];
+  }());
+
   // ---------------------------------------------------------------------
   // Cálculo de un módulo individual (para previsualizar antes de agregarlo)
   // ---------------------------------------------------------------------
 
   function calcularModulo(tipo, params, idModulo) {
-    var def = MODULOS[tipo];
+    var def = TODOS_MODULOS[tipo];
     if (!def) throw new Error('Tipo de módulo desconocido: ' + tipo);
     var acc = nuevoAcumulador();
     var resumen = def.calcular(acc, idModulo || tipo, params || {});
@@ -562,21 +734,36 @@
     var resumenModulos = [];
 
     var lista = modulosSeleccionados.slice();
-    var tieneCajonera = lista.some(function (m) { return m.tipo === 'cajonera'; });
-    if (!tieneCajonera) {
+    if (!config.omitirCajoneraAutomatica) {
       // "Al calcular por metros lineales totales, siempre se debe agregar
       // 1 módulo de cajones de 3 cajones" — se aplica como mínimo del
       // proyecto si el usuario no agregó ninguna cajonera manualmente.
-      lista.push({ tipo: 'cajonera', params: { ancho: 60, cantidadCajones: 3 }, idModulo: 'cajonera_auto', auto: true });
+      // Regla exclusiva de Cocina: config.omitirCajoneraAutomatica:true la
+      // desactiva para proyectos de Closet, que no usan este tipo de módulo.
+      var tieneCajonera = lista.some(function (m) { return m.tipo === 'cajonera'; });
+      if (!tieneCajonera) {
+        lista.push({ tipo: 'cajonera', params: { ancho: 60, cantidadCajones: 3 }, idModulo: 'cajonera_auto', auto: true });
+      }
     }
 
     lista.forEach(function (m, idx) {
-      var def = MODULOS[m.tipo];
+      var def = TODOS_MODULOS[m.tipo];
       if (!def) throw new Error('Tipo de módulo desconocido: ' + m.tipo);
       var idModulo = m.idModulo || (m.tipo + '_' + idx);
       var resumen = def.calcular(acc, idModulo, m.params || {});
       resumenModulos.push({ idModulo: idModulo, tipo: m.tipo, params: m.params, auto: !!m.auto, resumen: resumen });
     });
+
+    // Cubierta (cuarzo/postformado): se agrega automáticamente, proporcional a los
+    // metros lineales de Mueble Base del proyecto (la cubierta va sobre el mueble
+    // base, no sobre aéreos/otros). config.tipoCubierta: 'cubierta_cuarzo' |
+    // 'cubierta_postformado' | falsy (sin cubierta).
+    var metrosLinealBase = lista
+      .filter(function (m) { return m.tipo === 'base'; })
+      .reduce(function (sum, m) { return sum + ((m.params && m.params.ancho) || 0); }, 0) / 100;
+    if (config.tipoCubierta) {
+      agregarOtro(acc, 'cubierta_auto', 'cuarzoPostformado', config.tipoCubierta, metrosLinealBase);
+    }
 
     // --- Melamina / durolac: agregación de área por material y optimización de planchas ---
     var areaPorMaterial = {};
@@ -705,16 +892,23 @@
     var largoReferencia = config.largoReferenciaM || TASA_LARGO_REFERENCIA_M;
     var anchoModulo = config.anchoModuloReferenciaCm || TASA_ANCHO_MODULO_REFERENCIA_CM;
 
+    // Las corridas de referencia NUNCA llevan tipoCubierta: la cubierta se calcula
+    // aparte, sobre los metros reales que ingresa el usuario (ver estimarRapido),
+    // no sobre el largo arbitrario de la corrida de referencia.
+    var configSinCubierta = {};
+    for (var k in config) { if (config.hasOwnProperty(k)) configSinCubierta[k] = config[k]; }
+    configSinCubierta.tipoCubierta = null;
+
     // calcularProyecto siempre agrega 1 cajonera automática si la lista no trae ninguna;
     // se resta ese costo para aislar el costo puro de la corrida recta de base/aéreo.
     var costoCajoneraAuto = calcularProyecto(
-      [{ tipo: 'cajonera', params: { ancho: 60, cantidadCajones: 3 } }], precios, config
+      [{ tipo: 'cajonera', params: { ancho: 60, cantidadCajones: 3 } }], precios, configSinCubierta
     ).valorTotalCliente;
 
-    var rAbajo = calcularProyecto(corridaRecta('base', largoReferencia, anchoModulo), precios, config);
+    var rAbajo = calcularProyecto(corridaRecta('base', largoReferencia, anchoModulo), precios, configSinCubierta);
     var tasaAbajo = (rAbajo.valorTotalCliente - costoCajoneraAuto) / largoReferencia;
 
-    var rArriba = calcularProyecto(corridaRecta('aereo', largoReferencia, anchoModulo), precios, config);
+    var rArriba = calcularProyecto(corridaRecta('aereo', largoReferencia, anchoModulo), precios, configSinCubierta);
     var tasaArriba = (rArriba.valorTotalCliente - costoCajoneraAuto) / largoReferencia;
 
     return { tasaAbajo: tasaAbajo, tasaArriba: tasaArriba, costoCajoneraAuto: costoCajoneraAuto, largoReferenciaM: largoReferencia };
@@ -727,7 +921,17 @@
     var rangoPct = (config.rangoIncertidumbrePct != null) ? config.rangoIncertidumbrePct : RANGO_INCERTIDUMBRE_PCT;
 
     var tasas = calcularTasasMetroLineal(precios, config);
-    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto;
+
+    // Cubierta: proporcional a los metros lineales de "cocina abajo" (mueble base)
+    // que el usuario realmente ingresó — no al largo de la corrida de referencia.
+    var costoCubierta = 0;
+    if (config.tipoCubierta) {
+      var precioCubierta = precios.cuarzoPostformado[config.tipoCubierta];
+      if (!precioCubierta) throw new Error('Precio no encontrado para cubierta: ' + config.tipoCubierta);
+      costoCubierta = precioCubierta.valor * metrosAbajo;
+    }
+
+    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta;
 
     return {
       metrosAbajo: metrosAbajo,
@@ -735,7 +939,52 @@
       tasaAbajo: round0(tasas.tasaAbajo),
       tasaArriba: round0(tasas.tasaArriba),
       costoCajoneraAuto: round0(tasas.costoCajoneraAuto),
+      costoCubierta: round0(costoCubierta),
+      tipoCubierta: config.tipoCubierta || null,
       largoReferenciaM: tasas.largoReferenciaM,
+      estimacion: round0(estimacion),
+      rangoMin: round0(estimacion * (1 - rangoPct)),
+      rangoMax: round0(estimacion * (1 + rangoPct)),
+      rangoIncertidumbrePct: rangoPct
+    };
+  }
+
+  // ---------------------------------------------------------------------
+  // Closet — modo rápido por metros lineales totales. Calibra la tasa $/metro
+  // corriendo una corrida de referencia de módulos "Combinado" de 100cm (que
+  // ya representa la distribución cajonera+repisas / colgador) a través del
+  // motor real, en vez de un número fijo — igual filosofía que en Cocina.
+  // ---------------------------------------------------------------------
+
+  var CLOSET_TASA_LARGO_REFERENCIA_M = 12;
+
+  function calcularTasaMetroLinealCloset(precios, config) {
+    config = config || {};
+    var largoReferencia = config.largoReferenciaM || CLOSET_TASA_LARGO_REFERENCIA_M;
+    var materialKey = config.materialKey || 'melamina_blanca_18';
+    var conPuerta = (config.conPuerta != null) ? config.conPuerta : true;
+
+    var n = Math.round(largoReferencia); // 1 módulo Combinado de 100cm por cada metro
+    var lista = [];
+    for (var i = 0; i < n; i++) {
+      lista.push({ tipo: 'closet_combinado', params: { ancho: 100, conPuerta: conPuerta, materialKey: materialKey } });
+    }
+    var r = calcularProyecto(lista, precios, { omitirCajoneraAutomatica: true });
+    return { tasaMetroLineal: r.valorTotalCliente / largoReferencia, largoReferenciaM: largoReferencia };
+  }
+
+  function estimarRapidoCloset(metrosLineales, precios, config) {
+    config = config || {};
+    metrosLineales = metrosLineales || 0;
+    var rangoPct = (config.rangoIncertidumbrePct != null) ? config.rangoIncertidumbrePct : RANGO_INCERTIDUMBRE_PCT;
+
+    var tasa = calcularTasaMetroLinealCloset(precios, config);
+    var estimacion = tasa.tasaMetroLineal * metrosLineales;
+
+    return {
+      metrosLineales: metrosLineales,
+      tasaMetroLineal: round0(tasa.tasaMetroLineal),
+      largoReferenciaM: tasa.largoReferenciaM,
       estimacion: round0(estimacion),
       rangoMin: round0(estimacion * (1 - rangoPct)),
       rangoMax: round0(estimacion * (1 + rangoPct)),
@@ -749,10 +998,14 @@
   return {
     MODULOS: MODULOS,
     modulosDisponibles: modulosDisponibles,
+    MODULOS_CLOSET: MODULOS_CLOSET,
+    modulosClosetDisponibles: modulosClosetDisponibles,
     calcularModulo: calcularModulo,
     calcularProyecto: calcularProyecto,
     calcularTasasMetroLineal: calcularTasasMetroLineal,
     estimarRapido: estimarRapido,
+    calcularTasaMetroLinealCloset: calcularTasaMetroLinealCloset,
+    estimarRapidoCloset: estimarRapidoCloset,
     planchasNecesarias: planchasNecesarias,
     _internal: { GROSOR_18: GROSOR_18, RIEL_DEFAULT_KEY: RIEL_DEFAULT_KEY }
   };

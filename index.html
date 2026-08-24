@@ -540,6 +540,18 @@
                                     </div>
                                 </div>
 
+                                <!-- Cubierta: se agrega automáticamente, proporcional a los metros lineales de Mueble Base -->
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label>Cubierta (se agrega automáticamente sobre el mueble base)</label>
+                                    <div class="btn-toggle-group" id="cubierta-toggle">
+                                        <button type="button" class="toggle-btn selected"
+                                            data-cubierta="cubierta_cuarzo">Cuarzo</button>
+                                        <button type="button" class="toggle-btn"
+                                            data-cubierta="cubierta_postformado">Postformado</button>
+                                        <button type="button" class="toggle-btn" data-cubierta="">Sin cubierta</button>
+                                    </div>
+                                </div>
+
                                 <!-- Extras (recargo fijo, no forman parte del cálculo de materiales por módulo) -->
                                 <div class="form-group" style="margin-top: 20px;">
                                     <label for="metros-isla">Isla (m)</label>
@@ -554,42 +566,66 @@
                                 </div>
                             </div>
 
-                            <!-- Campos para Closet -->
+                            <!-- Campos para Closet / Walk-in Closet (comparten el mismo motor de módulos) -->
                             <div id="closet-inputs" style="display: none;">
-                                <!-- Tipo de closet -->
-                                <div class="form-group">
-                                    <label>Tipo de mueble</label>
-
-                                    <!-- Opciones para Closet Normal -->
-                                    <div class="btn-toggle-group" id="opciones-closet" data-field="tipo_closet"
-                                        style="display: flex; flex-direction: column; gap: 8px;">
-                                        <button type="button" class="toggle-btn selected"
-                                            style="text-align: left; border-radius: 8px;"
-                                            onclick="setClosetType('550000', this)">Closet completo blanco</button>
-                                        <button type="button" class="toggle-btn"
-                                            style="text-align: left; border-radius: 8px;"
-                                            onclick="setClosetType('675000', this)">Closet interior blanco + puertas de
-                                            color</button>
-                                    </div>
-
-                                    <!-- Opciones para Walk-in Closet -->
-                                    <div class="btn-toggle-group" id="opciones-walking" data-field="tipo_closet"
-                                        style="display: none; flex-direction: column; gap: 8px;">
-                                        <button type="button" class="toggle-btn selected"
-                                            style="text-align: left; border-radius: 8px;"
-                                            onclick="setClosetType('480000', this)">Walk-in closet blanco
-                                            completo</button>
-                                        <button type="button" class="toggle-btn"
-                                            style="text-align: left; border-radius: 8px;"
-                                            onclick="setClosetType('625000', this)">Walk-in closet completo de
-                                            color</button>
+                                <!-- Modo de cotización -->
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label>Modo de cotización</label>
+                                    <div class="btn-toggle-group" id="modo-cotizador-closet-toggle">
+                                        <button type="button" class="toggle-btn selected" data-modo="detallado">Detallado
+                                            (módulo por módulo)</button>
+                                        <button type="button" class="toggle-btn" data-modo="rapida">Rápida (metraje
+                                            lineal)</button>
                                     </div>
                                 </div>
-                                <!-- Ancho en metros -->
-                                <div class="form-group">
-                                    <label for="ancho-closet">Ancho (m)</label>
-                                    <input type="number" id="ancho-closet" min="0" step="0.1"
-                                        placeholder="Ej: 2.4 o 240">
+
+                                <!-- Material -->
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label>Material (melamina 18mm)</label>
+                                    <div class="btn-toggle-group" id="material-closet-toggle">
+                                        <button type="button" class="toggle-btn selected"
+                                            data-material="melamina_blanca_18">Blanca</button>
+                                        <button type="button" class="toggle-btn"
+                                            data-material="melamina_color_18">Color</button>
+                                    </div>
+                                </div>
+
+                                <!-- MODO DETALLADO -->
+                                <div id="modo-detallado-closet-container">
+                                    <!-- Constructor de módulos -->
+                                    <div class="form-group">
+                                        <label for="modulo-closet-tipo-select">Tipo de módulo a agregar</label>
+                                        <select id="modulo-closet-tipo-select" class="modulo-select"></select>
+                                    </div>
+
+                                    <div id="modulo-closet-campos-dinamicos"></div>
+
+                                    <button type="button" class="btn-toggle-vitrina" id="btn-agregar-modulo-closet"
+                                        style="margin-top: 10px;">
+                                        <i class="fa-solid fa-plus"></i> Agregar módulo a la cotización
+                                    </button>
+
+                                    <div id="modulos-closet-agregados" style="margin-top: 18px;"></div>
+                                </div>
+
+                                <!-- MODO RÁPIDA -->
+                                <div id="modo-rapida-closet-container" style="display: none;">
+                                    <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">
+                                        Ingresa el metraje lineal total de tu closet para una estimación rápida.
+                                        Considera una distribución estándar de 50% cajonera+repisas y 50% colgador.
+                                        El resultado se muestra como un rango aproximado, no como un valor cerrado.
+                                    </p>
+                                    <div class="form-group">
+                                        <label for="metros-lineal-closet">Metros lineales totales (m)</label>
+                                        <input type="number" id="metros-lineal-closet" min="0" step="0.1"
+                                            placeholder="Ej: 3.5">
+                                    </div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="closet-rapida-con-puerta" checked>
+                                        <label for="closet-rapida-con-puerta">
+                                            <span class="custom-checkbox"></span> Lleva puertas
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -808,13 +844,19 @@
                 .then(data => { PRECIOS = data; })
                 .catch(err => console.error('No se pudo cargar precios.json:', err));
 
-            let seleccionCloset = { tipo: "550000" };
             let activeProjectType = "cocina";
 
             let modoCotizador = "detallado"; // "detallado" | "rapida"
+            let tipoCubierta = "cubierta_cuarzo"; // "cubierta_cuarzo" | "cubierta_postformado" | ""
             let formaCocina = "recta";
             let modulosProyecto = []; // { uid, tipo, params, idModulo }
             let moduloUidCounter = 0;
+
+            // Closet / Walk-in Closet: comparten el mismo motor de módulos y la misma lista.
+            let modoCotizadorCloset = "detallado"; // "detallado" | "rapida"
+            let materialClosetSeleccionado = "melamina_blanca_18"; // "melamina_blanca_18" | "melamina_color_18"
+            let modulosClosetProyecto = []; // { uid, tipo, params, idModulo }
+            let moduloClosetUidCounter = 0;
 
             const form = document.getElementById("simple-calculator-form");
             const btnCalcular = document.getElementById("btn-calcular-simple");
@@ -982,6 +1024,165 @@
                 btn.addEventListener("click", () => window.setModoCotizador(btn.getAttribute("data-modo"), btn));
             });
 
+            // ---------------- Cubierta (Cuarzo / Postformado / Sin cubierta) ----------------
+
+            window.setTipoCubierta = function (valor, btnEl) {
+                tipoCubierta = valor;
+                if (btnEl) {
+                    btnEl.parentNode.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("selected"));
+                    btnEl.classList.add("selected");
+                }
+                placeholder.style.display = "block";
+                detalles.style.display = "none";
+            };
+
+            document.querySelectorAll("#cubierta-toggle .toggle-btn").forEach(btn => {
+                btn.addEventListener("click", () => window.setTipoCubierta(btn.getAttribute("data-cubierta"), btn));
+            });
+
+            // ---------------- Constructor de módulos de Closet / Walk-in Closet ----------------
+
+            const moduloClosetSelect = document.getElementById("modulo-closet-tipo-select");
+            const camposClosetDinamicos = document.getElementById("modulo-closet-campos-dinamicos");
+            const btnAgregarModuloCloset = document.getElementById("btn-agregar-modulo-closet");
+            const modulosClosetAgregadosEl = document.getElementById("modulos-closet-agregados");
+
+            function renderSelectorModulosCloset() {
+                if (!window.CotizadorMotor || !moduloClosetSelect) return;
+                const disponibles = CotizadorMotor.modulosClosetDisponibles();
+                moduloClosetSelect.innerHTML = "";
+                disponibles.forEach(tipo => {
+                    const opt = document.createElement("option");
+                    opt.value = tipo;
+                    opt.textContent = CotizadorMotor.MODULOS_CLOSET[tipo].label;
+                    moduloClosetSelect.appendChild(opt);
+                });
+                renderCamposDinamicosCloset();
+            }
+
+            function renderCamposDinamicosCloset() {
+                if (!camposClosetDinamicos) return;
+                camposClosetDinamicos.innerHTML = "";
+                if (!window.CotizadorMotor || !moduloClosetSelect || !moduloClosetSelect.value) return;
+                const def = CotizadorMotor.MODULOS_CLOSET[moduloClosetSelect.value];
+                if (!def) return;
+                def.campos.forEach(campo => {
+                    const wrap = document.createElement("div");
+                    if (campo.tipo === "checkbox") {
+                        wrap.className = "form-group checkbox-group";
+                        wrap.style.marginTop = "10px";
+                        wrap.innerHTML = '<input type="checkbox" id="campo-closet-' + campo.key + '" ' + (campo.valorDefecto ? "checked" : "") + '>' +
+                            '<label for="campo-closet-' + campo.key + '"><span class="custom-checkbox"></span> ' + campo.label + '</label>';
+                    } else {
+                        wrap.className = "form-group";
+                        wrap.style.marginTop = "10px";
+                        wrap.innerHTML = '<label>' + campo.label + '</label><input type="number" id="campo-closet-' + campo.key + '" min="' + (campo.min || 0) + '"' + (campo.max ? ' max="' + campo.max + '"' : "") + ' value="' + (campo.valorDefecto != null ? campo.valorDefecto : "") + '">';
+                    }
+                    camposClosetDinamicos.appendChild(wrap);
+                });
+            }
+
+            function leerCamposFormularioCloset(tipo) {
+                const def = CotizadorMotor.MODULOS_CLOSET[tipo];
+                const params = {};
+                def.campos.forEach(campo => {
+                    const el = document.getElementById("campo-closet-" + campo.key);
+                    if (!el) return;
+                    if (campo.tipo === "checkbox") {
+                        params[campo.key] = el.checked;
+                    } else {
+                        params[campo.key] = parseFloat(el.value) || 0;
+                    }
+                });
+                return params;
+            }
+
+            function etiquetaModuloCloset(tipo, params) {
+                const def = CotizadorMotor.MODULOS_CLOSET[tipo];
+                const partes = def.campos
+                    .filter(c => c.tipo !== "checkbox")
+                    .map(c => c.label.replace(/\(.*\)/, "").trim() + ": " + params[c.key] + (/ancho|alto|fondo/i.test(c.key) ? "cm" : ""));
+                if (params.conPuerta != null) partes.push(params.conPuerta ? "con puerta" : "sin puerta");
+                return def.label + (partes.length ? " — " + partes.join(", ") : "");
+            }
+
+            function renderListaModulosCloset() {
+                if (!modulosClosetAgregadosEl) return;
+                if (modulosClosetProyecto.length === 0) {
+                    modulosClosetAgregadosEl.innerHTML = '<p style="color:#999; font-size:0.85rem;">Aún no has agregado módulos. Agrega al menos un módulo (Cajonera+repisas, Solo Colgador o Combinado) para cotizar.</p>';
+                    return;
+                }
+                modulosClosetAgregadosEl.innerHTML = modulosClosetProyecto.map(m =>
+                    '<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; margin-bottom:6px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.15); font-size:0.85rem; color:#eee;">' +
+                    '<span>' + etiquetaModuloCloset(m.tipo, m.params) + '</span>' +
+                    '<button type="button" data-uid="' + m.uid + '" class="btn-quitar-modulo-closet" style="background:none;border:none;color:#e05c5c;cursor:pointer;font-size:1rem;">&times;</button>' +
+                    '</div>'
+                ).join("");
+                modulosClosetAgregadosEl.querySelectorAll(".btn-quitar-modulo-closet").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const uid = parseInt(btn.getAttribute("data-uid"), 10);
+                        modulosClosetProyecto = modulosClosetProyecto.filter(m => m.uid !== uid);
+                        renderListaModulosCloset();
+                        placeholder.style.display = "block";
+                        detalles.style.display = "none";
+                    });
+                });
+            }
+
+            if (moduloClosetSelect) moduloClosetSelect.addEventListener("change", renderCamposDinamicosCloset);
+
+            if (btnAgregarModuloCloset) {
+                btnAgregarModuloCloset.addEventListener("click", () => {
+                    if (!window.CotizadorMotor) {
+                        alert("El motor de cálculo aún se está cargando, intenta de nuevo en un segundo.");
+                        return;
+                    }
+                    const tipo = moduloClosetSelect.value;
+                    const params = leerCamposFormularioCloset(tipo);
+                    if (tipo === "closet_combinado" && params.ancho > 100) {
+                        alert("El módulo combinado solo aplica hasta 100cm de ancho total.");
+                        return;
+                    }
+                    moduloClosetUidCounter++;
+                    modulosClosetProyecto.push({ uid: moduloClosetUidCounter, tipo: tipo, params: params, idModulo: tipo + "_" + moduloClosetUidCounter });
+                    renderListaModulosCloset();
+                    placeholder.style.display = "block";
+                    detalles.style.display = "none";
+                });
+            }
+
+            window.setMaterialCloset = function (valor, btnEl) {
+                materialClosetSeleccionado = valor;
+                if (btnEl) {
+                    btnEl.parentNode.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("selected"));
+                    btnEl.classList.add("selected");
+                }
+                placeholder.style.display = "block";
+                detalles.style.display = "none";
+            };
+
+            document.querySelectorAll("#material-closet-toggle .toggle-btn").forEach(btn => {
+                btn.addEventListener("click", () => window.setMaterialCloset(btn.getAttribute("data-material"), btn));
+            });
+
+            window.setModoCotizadorCloset = function (modo, btnEl) {
+                modoCotizadorCloset = modo;
+                if (btnEl) {
+                    btnEl.parentNode.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("selected"));
+                    btnEl.classList.add("selected");
+                }
+                const detalladoEl = document.getElementById("modo-detallado-closet-container");
+                const rapidaEl = document.getElementById("modo-rapida-closet-container");
+                if (detalladoEl) detalladoEl.style.display = modo === "detallado" ? "block" : "none";
+                if (rapidaEl) rapidaEl.style.display = modo === "rapida" ? "block" : "none";
+                placeholder.style.display = "block";
+                detalles.style.display = "none";
+            };
+
+            document.querySelectorAll("#modo-cotizador-closet-toggle .toggle-btn").forEach(btn => {
+                btn.addEventListener("click", () => window.setModoCotizadorCloset(btn.getAttribute("data-modo"), btn));
+            });
+
             // ---------------- Selector de tipo de proyecto / closet ----------------
 
             window.setProjectType = function (type, btnEl) {
@@ -996,44 +1197,20 @@
                     document.getElementById("cocina-inputs").style.display = "block";
                     document.getElementById("closet-inputs").style.display = "none";
                 } else {
+                    // "closet" y "walking" comparten exactamente el mismo constructor de módulos.
                     document.getElementById("cocina-inputs").style.display = "none";
                     document.getElementById("closet-inputs").style.display = "block";
-
-                    if (type === "closet") {
-                        document.getElementById("opciones-closet").style.display = "flex";
-                        document.getElementById("opciones-walking").style.display = "none";
-                        seleccionCloset.tipo = "550000";
-                        const btns = document.querySelectorAll("#opciones-closet .toggle-btn");
-                        btns.forEach(b => b.classList.remove("selected"));
-                        btns[0].classList.add("selected");
-                    } else {
-                        document.getElementById("opciones-closet").style.display = "none";
-                        document.getElementById("opciones-walking").style.display = "flex";
-                        seleccionCloset.tipo = "480000";
-                        const btns = document.querySelectorAll("#opciones-walking .toggle-btn");
-                        btns.forEach(b => b.classList.remove("selected"));
-                        btns[0].classList.add("selected");
-                    }
                 }
 
                 placeholder.style.display = "block";
                 detalles.style.display = "none";
             };
 
-            window.setClosetType = function (value, btnEl) {
-                seleccionCloset.tipo = value;
-                if (btnEl) {
-                    const buttons = btnEl.parentNode.querySelectorAll(".toggle-btn");
-                    buttons.forEach(b => b.classList.remove("selected"));
-                    btnEl.classList.add("selected");
-                }
-            };
-
             function initToggleButtons() {
                 const groups = form.querySelectorAll(".btn-toggle-group");
                 groups.forEach(group => {
                     const field = group.getAttribute("data-field");
-                    if (field === "tipo_closet" || group.id === "project-type-toggle" || group.id === "forma-cocina-toggle" || group.id === "modo-cotizador-toggle") return;
+                    if (field === "tipo_closet" || group.id === "project-type-toggle" || group.id === "forma-cocina-toggle" || group.id === "modo-cotizador-toggle" || group.id === "cubierta-toggle" || group.id === "material-closet-toggle" || group.id === "modo-cotizador-closet-toggle") return;
 
                     const buttons = group.querySelectorAll(".toggle-btn");
                     buttons.forEach(btn => {
@@ -1075,6 +1252,9 @@
                     const ledValor = usaLed ? EXTRA_LED : 0;
                     const islaWaText = metrosIsla > 0 ? "\n- Isla: " + metrosIsla + "m" : "";
                     const ledWaText = usaLed ? "\n- Iluminación LED: Sí" : "";
+                    const cubiertaLabel = tipoCubierta === "cubierta_cuarzo" ? "Cuarzo"
+                        : tipoCubierta === "cubierta_postformado" ? "Postformado" : "Sin cubierta";
+                    const cubiertaWaText = "\n- Cubierta: " + cubiertaLabel;
 
                     if (modoCotizador === "rapida") {
                         // ---- MODO RÁPIDA: metraje lineal total ----
@@ -1088,7 +1268,7 @@
 
                         let est;
                         try {
-                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, {});
+                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, { tipoCubierta: tipoCubierta });
                         } catch (e) {
                             console.error(e);
                             alert("Ocurrió un error al calcular la estimación: " + e.message);
@@ -1115,7 +1295,8 @@
                             html += "<div>Metros abajo x tasa: " + formatoCLP(metrosAbajo) + " → " + formatoCLP(est.tasaAbajo * metrosAbajo) + "</div>";
                             html += "<div>Metros arriba x tasa: " + formatoCLP(metrosArriba) + " → " + formatoCLP(est.tasaArriba * metrosArriba) + "</div>";
                             html += "<div>Cajonera automática (3 cajones, exacta): " + formatoCLP(est.costoCajoneraAuto) + "</div>";
-                            html += "<div>Punto medio (sin extras): " + formatoCLP(est.estimacion) + "</div>";
+                            if (est.tipoCubierta) html += "<div>Cubierta " + cubiertaLabel + " (" + metrosAbajo + "m x mueble base): " + formatoCLP(est.costoCubierta) + "</div>";
+                            html += "<div>Punto medio (sin Isla/LED): " + formatoCLP(est.estimacion) + "</div>";
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
                             html += "<div>Rango de incertidumbre: ±" + Math.round(est.rangoIncertidumbrePct * 100) + "%</div>";
@@ -1125,7 +1306,7 @@
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + islaWaText + ledWaText + "\n- Rango estimado: " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + cubiertaWaText + islaWaText + ledWaText + "\n- Rango estimado: " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----
@@ -1137,7 +1318,7 @@
                         const listaParaMotor = modulosProyecto.map(m => ({ tipo: m.tipo, params: m.params, idModulo: m.idModulo }));
                         let resultado;
                         try {
-                            resultado = CotizadorMotor.calcularProyecto(listaParaMotor, PRECIOS, {});
+                            resultado = CotizadorMotor.calcularProyecto(listaParaMotor, PRECIOS, { tipoCubierta: tipoCubierta });
                         } catch (e) {
                             console.error(e);
                             alert("Ocurrió un error al calcular la cotización: " + e.message);
@@ -1158,7 +1339,7 @@
                             html += "<div>Subtotal Melamina+Tapacanto (sin IVA): " + formatoCLP(resultado.subtotales.melaminaTapacantoSinIva) + "</div>";
                             html += "<div>Subtotal Melamina+Tapacanto (con IVA " + Math.round(resultado.parametros.ivaPct * 100) + "%): " + formatoCLP(resultado.subtotales.melaminaTapacantoConIva) + "</div>";
                             html += "<div>Subtotal Quincallería (sin IVA): " + formatoCLP(resultado.subtotales.quincalleria) + "</div>";
-                            html += "<div>Subtotal Cuarzo/Postformado/Otros (sin IVA): " + formatoCLP(resultado.subtotales.cuarzoPostformadoOtros) + "</div>";
+                            html += "<div>Subtotal Cuarzo/Postformado/Otros (sin IVA, incluye Cubierta " + cubiertaLabel + "): " + formatoCLP(resultado.subtotales.cuarzoPostformadoOtros) + "</div>";
                             html += "<div>Total Materiales: " + formatoCLP(resultado.subtotales.totalMateriales) + "</div>";
                             html += "<div>Base Mano de Obra (Melamina sin IVA + Quincallería): " + formatoCLP(resultado.subtotales.baseManoDeObra) + "</div>";
                             html += "<div>Mano de Obra (" + Math.round(resultado.parametros.manoDeObraPct * 100) + "%, sin IVA): " + formatoCLP(resultado.subtotales.manoDeObra) + "</div>";
@@ -1173,46 +1354,112 @@
 
                         const formaLabel = formaCocina === "L" ? "Forma L" : formaCocina === "U" ? "Forma U" : "Línea recta";
                         const resumenModulosTexto = modulosProyecto.map(m => "- " + etiquetaModulo(m.tipo, m.params)).join("\n");
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web:\n- Forma: " + formaLabel + "\n" + resumenModulosTexto + islaWaText + ledWaText + "\n- Estimación total: " + formatoCLP(total) + " CLP.\nMe gustaría agendar una asesoría de diseño.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web:\n- Forma: " + formaLabel + "\n" + resumenModulosTexto + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación total: " + formatoCLP(total) + " CLP.\nMe gustaría agendar una asesoría de diseño.";
                     }
 
                 } else {
-                    // Closet calculations
-                    const precioUnitario = parseInt(seleccionCloset.tipo);
-                    const ancho = parseFloat(document.getElementById("ancho-closet").value) || 0;
-
-                    if (ancho <= 0) {
-                        alert("Por favor, ingresa el ancho.");
+                    // Closet / Walk-in Closet: mismo motor de módulos que Cocina, sin forma ni cajonera automática.
+                    if (!window.CotizadorMotor || !PRECIOS) {
+                        alert("El cotizador aún se está cargando. Intenta de nuevo en unos segundos.");
                         return;
                     }
 
-                    const anchoMl = ancho > 10 ? (ancho / 100) : ancho;
-                    const total = precioUnitario * anchoMl;
-                    valorNumericoTracking = total;
-
-                    placeholder.style.display = "none";
-                    detalles.style.display = "block";
-
-                    totalEl.textContent = formatoCLP(total);
-
-                    if (desgloseEl) desgloseEl.style.display = "none";
-                    if (infoMsg) infoMsg.style.display = "block";
-
+                    const materialLabel = materialClosetSeleccionado === "melamina_color_18" ? "Color" : "Blanca";
                     const projectLabel = activeProjectType === "closet" ? "Closet Normal" : "Walk-in Closet";
-                    let tipoDetalle = "";
-                    if (activeProjectType === "closet") {
-                        tipoDetalle = precioUnitario === 550000 ? "Completo Blanco" : "Interior Blanco + Puertas de Color";
+
+                    if (modoCotizadorCloset === "rapida") {
+                        // ---- MODO RÁPIDA: metraje lineal total ----
+                        const metrosClosetLineal = parseFloat(document.getElementById("metros-lineal-closet").value) || 0;
+                        const closetConPuerta = document.getElementById("closet-rapida-con-puerta").checked;
+
+                        if (metrosClosetLineal <= 0) {
+                            alert("Ingresa los metros lineales totales del closet.");
+                            return;
+                        }
+
+                        let estCloset;
+                        try {
+                            estCloset = CotizadorMotor.estimarRapidoCloset(metrosClosetLineal, PRECIOS, {
+                                materialKey: materialClosetSeleccionado,
+                                conPuerta: closetConPuerta
+                            });
+                        } catch (e) {
+                            console.error(e);
+                            alert("Ocurrió un error al calcular la estimación: " + e.message);
+                            return;
+                        }
+
+                        valorNumericoTracking = estCloset.estimacion;
+
+                        placeholder.style.display = "none";
+                        detalles.style.display = "block";
+                        totalEl.textContent = formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax);
+                        if (totalLabelEl) totalLabelEl.textContent = "Rango estimado (CLP)";
+                        if (totalNotaEl) totalNotaEl.style.display = "block";
+
+                        if (infoMsg) infoMsg.style.display = "none";
+
+                        if (desgloseEl && desgloseContenidoEl) {
+                            let html = "";
+                            html += "<div>Material: " + materialLabel + " | Puertas: " + (closetConPuerta ? "Sí" : "No") + "</div>";
+                            html += "<div>Tasa $/metro lineal: " + formatoCLP(estCloset.tasaMetroLineal) + " (referencia " + estCloset.largoReferenciaM + "m)</div>";
+                            html += "<div>Punto medio: " + formatoCLP(estCloset.estimacion) + "</div>";
+                            html += "<div>Rango de incertidumbre: ±" + Math.round(estCloset.rangoIncertidumbrePct * 100) + "%</div>";
+                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Rango al Cliente: " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + "</div>";
+                            desgloseContenidoEl.innerHTML = html;
+                            desgloseEl.style.display = "block";
+                            desgloseEl.open = false;
+                        }
+
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar un " + projectLabel + " en su sitio web (estimación rápida):\n- Metros lineales totales: " + metrosClosetLineal + "m\n- Material: " + materialLabel + "\n- Puertas: " + (closetConPuerta ? "Sí" : "No") + "\n- Rango estimado: " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, considera 50% cajonera+repisas y 50% colgador)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+
                     } else {
-                        tipoDetalle = precioUnitario === 480000 ? "Blanco Completo" : "Completo de Color";
-                    }
+                        // ---- MODO DETALLADO: módulo por módulo ----
+                        if (modulosClosetProyecto.length === 0) {
+                            alert("Agrega al menos un módulo (Cajonera+repisas, Solo Colgador o Combinado) antes de calcular.");
+                            return;
+                        }
 
-                    waText = `Hola MuebleríaLG SPA, acabo de cotizar un ${projectLabel} en su sitio web:\n- Tipo: ${tipoDetalle}\n- Ancho: ${anchoMl}m\n- Estimación total: ${formatoCLP(total)} CLP.\n*(La cotización considera una distribución de 50% colgador, 50% repisas y 3 cajones)*\nMe gustaría agendar una asesoría de diseño.`;
+                        const listaClosetParaMotor = modulosClosetProyecto.map(m => ({
+                            tipo: m.tipo,
+                            params: Object.assign({}, m.params, { materialKey: materialClosetSeleccionado }),
+                            idModulo: m.idModulo
+                        }));
+                        let resultadoCloset;
+                        try {
+                            resultadoCloset = CotizadorMotor.calcularProyecto(listaClosetParaMotor, PRECIOS, { omitirCajoneraAutomatica: true });
+                        } catch (e) {
+                            console.error(e);
+                            alert("Ocurrió un error al calcular la cotización: " + e.message);
+                            return;
+                        }
 
-                    if (typeof showToast === "function") {
-                        showToast(
-                            "La cotización considera una distribución interior estándar que incluye espacio para colgador (50%), áreas con repisas (50%) y 3 cajones.",
-                            "info"
-                        );
+                        const total = resultadoCloset.valorTotalCliente;
+                        valorNumericoTracking = total;
+
+                        placeholder.style.display = "none";
+                        detalles.style.display = "block";
+                        totalEl.textContent = formatoCLP(total);
+
+                        if (infoMsg) infoMsg.style.display = "none";
+
+                        if (desgloseEl && desgloseContenidoEl) {
+                            let html = "";
+                            html += "<div>Material: " + materialLabel + "</div>";
+                            html += "<div>Subtotal Melamina+Tapacanto (sin IVA): " + formatoCLP(resultadoCloset.subtotales.melaminaTapacantoSinIva) + "</div>";
+                            html += "<div>Subtotal Melamina+Tapacanto (con IVA " + Math.round(resultadoCloset.parametros.ivaPct * 100) + "%): " + formatoCLP(resultadoCloset.subtotales.melaminaTapacantoConIva) + "</div>";
+                            html += "<div>Subtotal Quincallería (sin IVA): " + formatoCLP(resultadoCloset.subtotales.quincalleria) + "</div>";
+                            html += "<div>Total Materiales: " + formatoCLP(resultadoCloset.subtotales.totalMateriales) + "</div>";
+                            html += "<div>Base Mano de Obra (Melamina sin IVA + Quincallería): " + formatoCLP(resultadoCloset.subtotales.baseManoDeObra) + "</div>";
+                            html += "<div>Mano de Obra (" + Math.round(resultadoCloset.parametros.manoDeObraPct * 100) + "%, sin IVA): " + formatoCLP(resultadoCloset.subtotales.manoDeObra) + "</div>";
+                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor Total al Cliente: " + formatoCLP(total) + "</div>";
+                            desgloseContenidoEl.innerHTML = html;
+                            desgloseEl.style.display = "block";
+                            desgloseEl.open = false;
+                        }
+
+                        const resumenModulosClosetTexto = modulosClosetProyecto.map(m => "- " + etiquetaModuloCloset(m.tipo, m.params)).join("\n");
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar un " + projectLabel + " en su sitio web:\n- Material: " + materialLabel + "\n" + resumenModulosClosetTexto + "\n- Estimación total: " + formatoCLP(total) + " CLP.\nMe gustaría agendar una asesoría de diseño.";
                     }
                 }
 
@@ -1241,6 +1488,8 @@
             btnCalcular.addEventListener("click", calcularPresupuesto);
             renderSelectorModulos();
             renderListaModulos();
+            renderSelectorModulosCloset();
+            renderListaModulosCloset();
         })();
     </script>
 
