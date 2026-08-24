@@ -656,7 +656,8 @@
                                 <span class="price-label" id="simple-total-label">Total estimado (CLP)</span>
                                 <h2 class="price-value" id="simple-total">$0</h2>
                                 <p id="simple-total-nota" style="display:none; font-size: 0.78rem; color:#aaa; margin-top: 4px;">
-                                    Estimación aproximada — el valor final puede variar según el detalle de tu cocina.
+                                    Estimación aproximada por metraje lineal — valor tope, el costo final puede ser
+                                    menor y se ajusta con el detalle exacto de tu proyecto.
                                 </p>
 
                                 <!-- Desglose interno (uso interno, no se muestra al cliente) -->
@@ -1277,14 +1278,11 @@
 
                         const rangoMin = est.rangoMin + islaValor + ledValor;
                         const rangoMax = est.rangoMax + islaValor + ledValor;
-                        const puntoMedio = est.estimacion + islaValor + ledValor;
-
                         placeholder.style.display = "none";
                         detalles.style.display = "block";
-                        totalEl.textContent = formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax);
-                        if (totalLabelEl) totalLabelEl.textContent = "Rango estimado (CLP)";
+                        totalEl.textContent = formatoCLP(rangoMax);
                         if (totalNotaEl) totalNotaEl.style.display = "block";
-                        valorNumericoTracking = puntoMedio;
+                        valorNumericoTracking = rangoMax;
 
                         if (infoMsg) infoMsg.style.display = "none";
 
@@ -1300,13 +1298,14 @@
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
                             html += "<div>Rango de incertidumbre: ±" + Math.round(est.rangoIncertidumbrePct * 100) + "%</div>";
-                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Rango al Cliente: " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + "</div>";
+                            html += "<div>Rango interno completo (referencia, no se muestra al cliente): " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + "</div>";
+                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor mostrado al cliente (tope del rango): " + formatoCLP(rangoMax) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
                             desgloseEl.style.display = "block";
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + cubiertaWaText + islaWaText + ledWaText + "\n- Rango estimado: " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----
@@ -1389,12 +1388,11 @@
                             return;
                         }
 
-                        valorNumericoTracking = estCloset.estimacion;
+                        valorNumericoTracking = estCloset.rangoMax;
 
                         placeholder.style.display = "none";
                         detalles.style.display = "block";
-                        totalEl.textContent = formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax);
-                        if (totalLabelEl) totalLabelEl.textContent = "Rango estimado (CLP)";
+                        totalEl.textContent = formatoCLP(estCloset.rangoMax);
                         if (totalNotaEl) totalNotaEl.style.display = "block";
 
                         if (infoMsg) infoMsg.style.display = "none";
@@ -1405,13 +1403,14 @@
                             html += "<div>Tasa $/metro lineal: " + formatoCLP(estCloset.tasaMetroLineal) + " (referencia " + estCloset.largoReferenciaM + "m)</div>";
                             html += "<div>Punto medio: " + formatoCLP(estCloset.estimacion) + "</div>";
                             html += "<div>Rango de incertidumbre: ±" + Math.round(estCloset.rangoIncertidumbrePct * 100) + "%</div>";
-                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Rango al Cliente: " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + "</div>";
+                            html += "<div>Rango interno completo (referencia, no se muestra al cliente): " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + "</div>";
+                            html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor mostrado al cliente (tope del rango): " + formatoCLP(estCloset.rangoMax) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
                             desgloseEl.style.display = "block";
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar un " + projectLabel + " en su sitio web (estimación rápida):\n- Metros lineales totales: " + metrosClosetLineal + "m\n- Material: " + materialLabel + "\n- Puertas: " + (closetConPuerta ? "Sí" : "No") + "\n- Rango estimado: " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, considera 50% cajonera+repisas y 50% colgador)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar un " + projectLabel + " en su sitio web (estimación rápida):\n- Metros lineales totales: " + metrosClosetLineal + "m\n- Material: " + materialLabel + "\n- Puertas: " + (closetConPuerta ? "Sí" : "No") + "\n- Estimación: hasta " + formatoCLP(estCloset.rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, considera 50% cajonera+repisas y 50% colgador)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----
