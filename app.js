@@ -46,10 +46,10 @@ const proyectos = [
         desc: "Cocina moderna con isla central, diseñada en melamina Sierra y cubierta de cuarzo Snow, una combinación que transmite elegancia, calidez y sofisticación. Cada superficie, cada textura y cada línea se integran para crear un espacio único, pensado para disfrutar, compartir y vivir momentos memorables. Materiales de alta calidad, estética contemporánea y un diseño que eleva la experiencia diaria a un nivel superior.",
         tag: "Cocina Moderna",
         images: [
-            "assets/machali1.jpg",
-            "assets/machali2.jpg",
-            "assets/machali3.jpg",
-            "assets/machali4.jpg"
+            "assets/machali1.webp",
+            "assets/machali2.webp",
+            "assets/machali3.webp",
+            "assets/machali4.webp"
         ],
         materials: "Melamina 18mm color Sierra / Cuarzo Blanco Snow",
         hardware: "Bisagras y cajones telescópicos con cierre suave",
@@ -61,10 +61,10 @@ const proyectos = [
         desc: "Cocina frente al lago diseñada en tonos cálidos y mobiliario en melamina color natural, creada para envolver el espacio en una sensación de armonía, serenidad y elegancia contemporánea. La combinación de materiales de alta calidad y la vista al entorno natural elevan cada detalle, transformando la cocina en un ambiente acogedor, sofisticado y lleno de vida, donde cada momento se disfruta con una calidez única.",
         tag: "Cocina en el lago",
         images: [
-            "assets/rapel1.png",
-            "assets/rapel2.png",
-            "assets/rapel3.png",
-            "assets/rapel4.png"
+            "assets/rapel1.webp",
+            "assets/rapel2.webp",
+            "assets/rapel3.webp",
+            "assets/rapel4.webp"
         ],
         materials: "Melamina 18mm color Carvalo y Blanco / Cubiertas de Cuarzo Blanco Snow",
         hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina con puertas de aluminio negro",
@@ -76,10 +76,10 @@ const proyectos = [
         desc: "Cocina rústica moderna en la montaña, fabricada en melamina Vison UltraMate y cubierta de cuarzo blanco espejado. Una combinación que realza la esencia cálida del entorno natural con un toque contemporáneo de gran sofisticación. Cada textura y cada superficie han sido seleccionadas para ofrecer un ambiente acogedor, elegante y de alta calidad, donde la estética, la funcionalidad y la conexión con el paisaje se unen para crear un espacio único, lleno de carácter y diseñado para disfrutar momentos inolvidables.",
         tag: "Cocina de Montaña",
         images: [
-            "assets/malalcahuello1.png",
-            "assets/malalcahuello2.png",
-            "assets/malalcahuello3.png",
-            "assets/malalcahuello4.png"
+            "assets/malalcahuello1.webp",
+            "assets/malalcahuello2.webp",
+            "assets/malalcahuello3.webp",
+            "assets/malalcahuello4.webp"
         ],
         materials: "Melamina 18mm color Vison UltraMate / Cuarzo Blanco Espejado",
         hardware: "Bisagras y cajones telescópicos con cierre suave",
@@ -91,10 +91,10 @@ const proyectos = [
         desc: "Cocina moderna y elegante, realzada por la combinación de melamina Azul Acero y una cubierta de cuarzo blanco. Un diseño que fusiona sofisticación, armonía y alta calidad, creando un espacio contemporáneo donde cada detalle aporta luminosidad, estilo y una experiencia única para disfrutar y compartir.",
         tag: "Cocina moderna y elegante",
         images: [
-            "assets/lascondes1.png",
-            "assets/lascondes2.png",
-            "assets/lascondes3.png",
-            "assets/lascondes4.png"
+            "assets/lascondes1.webp",
+            "assets/lascondes2.webp",
+            "assets/lascondes3.webp",
+            "assets/lascondes4.webp"
         ],
         materials: "Melamina 18mm color Azul Acero/ Cuarzo blanco Snow",
         hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina",
@@ -106,10 +106,10 @@ const proyectos = [
         desc: "Cocina moderna de diseño limpio, realzada por la elegancia de la melamina Azul Acero y una cubierta de cuarzo en tonos amaderados. Una combinación que aporta profundidad, calidez y alta calidad, creando un espacio contemporáneo donde cada línea y cada textura se integran con armonía. El resultado es una cocina sofisticada, equilibrada y diseñada para disfrutar momentos únicos en un ambiente lleno de estilo.",
         tag: "Cocina moderna en campo",
         images: [
-            "assets/temuco1.jpg",
-            "assets/temuco2.jpg",
-            "assets/temuco3.jpg",
-            "assets/temuco4.jpg"
+            "assets/temuco1.webp",
+            "assets/temuco2.webp",
+            "assets/temuco3.webp",
+            "assets/temuco4.webp"
         ],
         materials: "Melamina 18mm color Azul Acero / Cubiertas de Cuarzo Taupe",
         hardware: "Bisagras y cajones telescópicos con cierre suave",
@@ -121,10 +121,10 @@ const proyectos = [
         desc: "“Cocina contemporánea en tono Gris Grafito, diseñada con un elegante contraste y acompañada de una cubierta de cuarzo que aporta luminosidad, sofisticación y alta calidad. La armonía entre sus materiales y su estética moderna crea un espacio imponente, equilibrado y lleno de carácter, pensado para disfrutar cada momento en un ambiente de diseño excepcional.",
         tag: "Cocina Contemporánea",
         images: [
-            "assets/olivar1.jpg",
-            "assets/olivar2.jpg",
-            "assets/olivar3.jpg",
-            "assets/olivar4.jpg"
+            "assets/olivar1.webp",
+            "assets/olivar2.webp",
+            "assets/olivar3.webp",
+            "assets/olivar4.webp"
         ],
         materials: "Melamina 18mm Gris Grafito / Cuarzo Blanco Snow",
         hardware: "Bisagras y rieles ocultos con cierre suave",
@@ -136,10 +136,10 @@ const proyectos = [
         desc: "Cocina clásica de estilo vintage en tono verde, realzada con cubiertas de cuarzo blanco y tiradores de latón que aportan un brillo cálido y sofisticado. Cada detalle ha sido cuidadosamente seleccionado para transmitir elegancia, carácter y alta calidad, creando un ambiente encantador donde la estética tradicional se fusiona con la funcionalidad contemporánea. Un espacio lleno de personalidad, diseñado para disfrutar momentos únicos en un entorno que inspira nostalgia y distinción.",
         tag: "Cocina Shaker Clásica",
         images: [
-            "assets/shaker1.jpg",
-            "assets/shaker2.jpg",
-            "assets/shaker3.jpg",
-            "assets/shaker4.jpg"
+            "assets/shaker1.webp",
+            "assets/shaker2.webp",
+            "assets/shaker3.webp",
+            "assets/shaker4.webp"
         ],
         materials: "Melamina 18mm blanco en interior con puertas laminadas estilo Shaker color Verde  / Cuarzo Blanco Snow",
         hardware: "Tiradores de latón macizo, rieles y bisagras cierre suave, con iluminacion led calida",
@@ -153,10 +153,10 @@ const proyectos = [
         desc: "Cocina de concepto abierto con frentes en melamina Carvalo y Lino, vitrinas de exhibición iluminadas y una isla central con cubierta de cuarzo blanco Calacatta. Un diseño que combina elegancia, calidez y alta calidad, creando un espacio contemporáneo donde la iluminación, las texturas y los materiales se integran con armonía. Cada detalle está pensado para ofrecer una experiencia sofisticada, funcional y llena de estilo, ideal para disfrutar y compartir en un ambiente moderno y acogedor.",
         tag: "Cocina con Isla",
         images: [
-            "assets/colina1.jpg",
-            "assets/colina2.jpg",
-            "assets/colina3.jpg",
-            "assets/colina4.jpg"
+            "assets/colina1.webp",
+            "assets/colina2.webp",
+            "assets/colina3.webp",
+            "assets/colina4.webp"
         ],
         materials: "Melamina 18mm color Carvalo y Lino / Cuarzo Calacatta",
         hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina",
@@ -170,10 +170,10 @@ const proyectos = [
         desc: "Cocina de concepto abierto con una combinación de melamina Gris Grafito y detalles en aluminio, creando un contraste moderno y sofisticado. Las cubiertas de Cuarzo Blanco Sky aportan luminosidad y pureza al diseño, mientras que la repisa abierta con iluminación LED cálida genera una atmósfera acogedora y equilibrada. Cada material y cada línea se integran con precisión para lograr un espacio contemporáneo, funcional y visualmente armónico.",
         tag: "Cocina Integrada",
         images: [
-            "assets/santiago_1.png",
-            "assets/santiago_2.png",
-            "assets/santiago_3.png",
-            "assets/santiago_4.png"
+            "assets/santiago_1.webp",
+            "assets/santiago_2.webp",
+            "assets/santiago_3.webp",
+            "assets/santiago_4.webp"
         ],
         materials: "Melamina 18mm color Gris Grafito y Aluminio/ Cubierta de Cuarzo Blanco Sky",
         hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación Led"
@@ -185,10 +185,10 @@ const proyectos = [
         desc: "Diseño moderno que combina revestimiento Carvalo con melamina en tono Carvalo y Verde Glaciar, creando una composición cálida y contemporánea. Las cubiertas de Cuarzo Blanco Perla aportan luminosidad y pureza al conjunto, mientras que las vitrinas iluminadas con puertas de aluminio negro generan un contraste elegante y sofisticado. Cada material y cada línea se integran con armonía para lograr un espacio funcional, equilibrado y visualmente imponente.",
         tag: "Cocina Contemporánea",
         images: [
-            "assets/olivar2_1.png",
-            "assets/olivar2_2.jpg",
-            "assets/olivar2_3.jpg",
-            "assets/olivar2_4.jpg"
+            "assets/olivar2_1.webp",
+            "assets/olivar2_2.webp",
+            "assets/olivar2_3.webp",
+            "assets/olivar2_4.webp"
         ],
         materials: "Melamina 18mm color Verde Glaciar y Carvalo  / Cubierta de Cuarzo Blanco Perla",
         hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación Led, Puertas de aluminio negro"
@@ -200,10 +200,10 @@ const proyectos = [
         desc: "Diseño elegante de cocina a medida con una combinación de melamina Negro Matt y Colina, creando un contraste moderno y sofisticado. Las cubiertas de Cuarzo Blanco Cristal aportan luminosidad y pureza al espacio, mientras que la vitrina y los muebles aéreos con iluminación LED cálida generan una atmósfera acogedora y equilibrada. Cada material y cada línea se integran con precisión para lograr una cocina contemporánea, funcional y visualmente imponente.",
         tag: "Cocina Integrada",
         images: [
-            "assets/mostazal1.png",
-            "assets/mostazal2.png",
-            "assets/mostazal3.jpg",
-            "assets/mostazal4.jpg"
+            "assets/mostazal1.webp",
+            "assets/mostazal2.webp",
+            "assets/mostazal3.webp",
+            "assets/mostazal4.webp"
         ],
         materials: "Melamina 18mm color Negro Matt y Colina  / Cubierta de Cuarzo Blanco Cristal",
         hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación led"
@@ -215,9 +215,9 @@ const proyectos = [
         desc: "Nuestros walk‑in closets están diseñados como espacios de organización integral, fabricados en melamina de 18 mm en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias, proporciones equilibradas y una distribución arquitectónica que optimiza el recorrido y la funcionalidad. La modulación, iluminación y selección de materiales se trabajan con precisión para crear un ambiente elegante, práctico y de alta calidad, donde el orden se vive como una experiencia y la estética se integra con total armonía, logrando un espacio sofisticado, amplio y perfectamente equilibrado.",
         tag: "Walk-in Closet",
         images: [
-            "assets/walkin_closet1.png",
-            "assets/walkin_closet3.jpg",
-            "assets/walkin_closet4.jpg"
+            "assets/walkin_closet1.webp",
+            "assets/walkin_closet3.webp",
+            "assets/walkin_closet4.webp"
         ],
         materials: "Melamina Blanca Seda / Tableros de Roble Veteado",
         hardware: "Rieles ocultos Hettich soft-close, perfiles LED empotrados con sensor",
@@ -231,9 +231,9 @@ const proyectos = [
         desc: "Mueble bar y cava integrado a medida en melamina nogal amazónico. Vitrinas con marcos de aluminio negro, cristal templado y repisas con iluminación cálida LED sensorizada.",
         tag: "Mobiliario Bar & Cava",
         images: [
-            "assets/tv_condes1.jpg",
-            "assets/tv_condes2.jpg",
-            "assets/tv_condes3.jpg"
+            "assets/tv_condes1.webp",
+            "assets/tv_condes2.webp",
+            "assets/tv_condes3.webp"
         ],
         materials: "Melamina 18mm Nogal Amazónico / Cristal Templado / Aluminio Negro",
         hardware: "Rieles ocultos y bisagras cierre suave e iluminación LED empotrada",
@@ -247,9 +247,9 @@ const proyectos = [
         desc: "Exclusivo centro de entretenimiento y mueble para TV a medida con revestimiento de palillaje acústico en roble natural, vitrinas de exhibición laterales iluminadas con tiras LED cálidas de encendido suave y cava de vinos integrada.",
         tag: "Mobiliario Rack TV",
         images: [
-            "assets/chicureo1.jpg",
-            "assets/chicureo2.jpg",
-            "assets/chicureo3.jpg"
+            "assets/chicureo1.webp",
+            "assets/chicureo2.webp",
+            "assets/chicureo3.webp"
         ],
         materials: "Melamina 18mm Teca Italia / Revestimiento Wall Panel / Vidrio",
         hardware: "Rieles ocultos y bisagras cierre suave e iluminación LED integrada sensorizada",
@@ -263,10 +263,10 @@ const proyectos = [
         desc: "Todos nuestros closets son fabricados en melamina de 18 mm, disponibles en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias y un estilo único que resalta la organización y la funcionalidad. Cada módulo y cada detalle han sido cuidadosamente trabajados para ofrecer un espacio elegante, práctico y de alta calidad, donde el orden se convierte en protagonista y la estética se integra con total armonía, creando un ambiente sofisticado y perfectamente equilibrado.",
         tag: "Closet Integrado",
         images: [
-            "assets/closet1.png",
-            "assets/closet2.jpg",
-            "assets/closet3.jpg",
-            "assets/closet4.jpg"
+            "assets/closet1.webp",
+            "assets/closet2.webp",
+            "assets/closet3.webp",
+            "assets/closet4.webp"
         ],
         materials: "Melamina 18mm Color Blanco / Tiradores de Acero Color Negro",
         hardware: "Tiradores de perfil de aluminio negro mate, bisagras cierre suave",
@@ -279,13 +279,106 @@ const proyectos = [
         title: "Walk-in Closets",
         desc: "Nuestros walk‑in closets están diseñados como espacios de organización integral, fabricados en melamina de 18 mm en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias, proporciones equilibradas y una distribución arquitectónica que optimiza el recorrido y la funcionalidad. La modulación, iluminación y selección de materiales se trabajan con precisión para crear un ambiente elegante, práctico y de alta calidad, donde el orden se vive como una experiencia y la estética se integra con total armonía, logrando un espacio sofisticado, amplio y perfectamente equilibrado.",
         tag: "Walk-in Closet",
-        images: ["assets/walkin_closet_main.jpg"],
+        images: ["assets/walkin_closet_main.webp"],
         materials: "Melamina Roble Veteado / Cristal Templado / Aluminio",
         hardware: "Rieles ocultos de extracción total soft-close and sensores de presencia",
         dimensions: "Ancho: 4.0m, Fondo: 3.8m",
         finish: "Herrajes integrados y marcos de aluminio negro anodizado"
     }
 ];
+
+/* ============================================================
+   MAPA DE DIMENSIONES Y HELPER DE IMÁGENES RESPONSIVAS
+============================================================ */
+
+const imageDimensionsMap = {
+    "machali1": { w: 576, h: 1024 },
+    "machali2": { w: 681, h: 1024 },
+    "machali3": { w: 819, h: 1024 },
+    "machali4": { w: 682, h: 1024 },
+    "rapel1": { w: 941, h: 1672 },
+    "rapel2": { w: 1024, h: 1536 },
+    "rapel3": { w: 941, h: 1672 },
+    "rapel4": { w: 941, h: 1672 },
+    "malalcahuello1": { w: 941, h: 1672 },
+    "malalcahuello2": { w: 941, h: 1672 },
+    "malalcahuello3": { w: 941, h: 1672 },
+    "malalcahuello4": { w: 941, h: 1672 },
+    "lascondes1": { w: 941, h: 1672 },
+    "lascondes2": { w: 941, h: 1672 },
+    "lascondes3": { w: 941, h: 1672 },
+    "lascondes4": { w: 941, h: 1672 },
+    "temuco1": { w: 1024, h: 1024 },
+    "temuco2": { w: 576, h: 1024 },
+    "temuco3": { w: 576, h: 1024 },
+    "temuco4": { w: 576, h: 1024 },
+    "olivar1": { w: 1024, h: 1024 },
+    "olivar2": { w: 576, h: 1024 },
+    "olivar3": { w: 576, h: 1024 },
+    "olivar4": { w: 576, h: 1024 },
+    "shaker1": { w: 1024, h: 1024 },
+    "shaker2": { w: 681, h: 1024 },
+    "shaker3": { w: 681, h: 1024 },
+    "shaker4": { w: 681, h: 1024 },
+    "colina1": { w: 768, h: 1024 },
+    "colina2": { w: 1024, h: 576 },
+    "colina3": { w: 1024, h: 576 },
+    "colina4": { w: 819, h: 1024 },
+    "santiago_1": { w: 576, h: 1024 },
+    "santiago_2": { w: 576, h: 1024 },
+    "santiago_3": { w: 576, h: 1024 },
+    "santiago_4": { w: 576, h: 1024 },
+    "olivar2_1": { w: 576, h: 1024 },
+    "olivar2_2": { w: 576, h: 1024 },
+    "olivar2_3": { w: 576, h: 1024 },
+    "olivar2_4": { w: 576, h: 1024 },
+    "mostazal1": { w: 576, h: 1024 },
+    "mostazal2": { w: 576, h: 1024 },
+    "mostazal3": { w: 576, h: 1024 },
+    "mostazal4": { w: 576, h: 1024 },
+    "walkin_closet1": { w: 1024, h: 576 },
+    "walkin_closet3": { w: 576, h: 1024 },
+    "walkin_closet4": { w: 576, h: 1024 },
+    "tv_condes1": { w: 576, h: 1024 },
+    "tv_condes2": { w: 576, h: 1024 },
+    "tv_condes3": { w: 576, h: 1024 },
+    "chicureo1": { w: 576, h: 1024 },
+    "chicureo2": { w: 576, h: 1024 },
+    "chicureo3": { w: 576, h: 1024 },
+    "closet1": { w: 576, h: 1024 },
+    "closet2": { w: 576, h: 1024 },
+    "closet3": { w: 576, h: 1024 },
+    "closet4": { w: 576, h: 1024 },
+    "walkin_closet_main": { w: 681, h: 1024 },
+    "featured_1": { w: 1024, h: 768 },
+    "featured_2": { w: 1024, h: 768 },
+    "featured_3": { w: 576, h: 1024 },
+    "featured_4": { w: 1024, h: 576 },
+    "featured_5": { w: 576, h: 1024 },
+    "featured_6": { w: 1024, h: 576 },
+    "featured_7": { w: 576, h: 1024 },
+    "featured_8": { w: 576, h: 1024 },
+    "featured_9": { w: 768, h: 1024 },
+    "featured_10": { w: 768, h: 1024 },
+    "featured_11": { w: 768, h: 1024 },
+    "featured_12": { w: 576, h: 1024 },
+    "featured_13": { w: 1024, h: 768 },
+    "featured_14": { w: 681, h: 1024 },
+    "featured_15": { w: 576, h: 1024 },
+    "featured_16": { w: 1024, h: 576 },
+    "featured_17": { w: 576, h: 1024 },
+    "featured_18": { w: 1024, h: 576 }
+};
+
+function getResponsiveSrcsetAttr(imgPath) {
+    if (!imgPath || !imgPath.endsWith(".webp")) return "";
+    const nameMatch = imgPath.match(/\/([^\/]+)\.webp$/);
+    const key = nameMatch ? nameMatch[1] : "";
+    const dims = imageDimensionsMap[key];
+    const dimAttr = dims ? `width="${dims.w}" height="${dims.h}"` : "";
+    const base = imgPath.slice(0, -5);
+    return `srcset="${base}-400w.webp 400w, ${base}-800w.webp 800w, ${imgPath} 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" ${dimAttr} loading="lazy"`.trim();
+}
 
 /* ============================================================
    FUNCIÓN QUE RENDERIZA LAS FOTOS EN COCINAS MODERNAS
@@ -305,7 +398,7 @@ window.renderKitchenGallery = function (list) {
             card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
 
             card.innerHTML = `
-                <img src="${img}" alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" loading="lazy" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
+                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
             `;
             grid.appendChild(card);
         });
@@ -335,7 +428,7 @@ window.renderClosetGallery = function (list) {
             card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
 
             card.innerHTML = `
-                <img src="${img}" alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" loading="lazy" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
+                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
             `;
             grid.appendChild(card);
         });
@@ -390,7 +483,7 @@ window.renderDecorGallery = function (list) {
             card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
 
             card.innerHTML = `
-                <img src="${img}" alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" loading="lazy" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
+                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
                 <div class="render-info-overlay" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', this.parentNode.querySelector('.render-img').src)">
                     <span style="font-family: var(--font-secondary) !important; color: var(--color-text-gray); font-size: 0.85rem; display: block; margin-bottom: 12px;">${proyecto.desc}</span>
                     <button class="btn btn-gold btn-small" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')" style="font-size: 0.75rem; padding: 6px 12px; width: auto; font-family: var(--font-primary) !important; text-transform: uppercase;">${proyecto.title.replace(/Proyecto\s+/i, "")}</button>
@@ -476,30 +569,30 @@ function cargarPortafolio() {
     if (decorGrid) decorGrid.innerHTML = "";
 
     const destacadosImages = [
-        "assets/featured_1.jpg",
-        "assets/featured_2.jpg",
-        "assets/featured_3.jpg",
-        "assets/featured_4.jpg",
-        "assets/featured_5.jpg",
-        "assets/featured_6.jpg",
-        "assets/featured_7.jpg",
-        "assets/featured_8.jpg",
-        "assets/featured_9.jpg",
-        "assets/featured_10.jpg",
-        "assets/featured_11.jpg",
-        "assets/featured_12.jpg",
-        "assets/featured_13.jpg",
-        "assets/featured_14.jpg",
-        "assets/featured_15.jpg",
-        "assets/featured_16.jpg",
-        "assets/featured_17.png",
-        "assets/featured_18.jpg"
+        "assets/featured_1.webp",
+        "assets/featured_2.webp",
+        "assets/featured_3.webp",
+        "assets/featured_4.webp",
+        "assets/featured_5.webp",
+        "assets/featured_6.webp",
+        "assets/featured_7.webp",
+        "assets/featured_8.webp",
+        "assets/featured_9.webp",
+        "assets/featured_10.webp",
+        "assets/featured_11.webp",
+        "assets/featured_12.webp",
+        "assets/featured_13.webp",
+        "assets/featured_14.webp",
+        "assets/featured_15.webp",
+        "assets/featured_16.webp",
+        "assets/featured_17.webp",
+        "assets/featured_18.webp"
     ];
 
     destacadosImages.forEach((img, idx) => {
         const featuredCardHTML = `
             <div class="render-item proyecto-card project-card" data-category="featured" data-project-id="featured-${idx}" style="cursor: pointer;" data-aos="zoom-in" onclick="window.openLightbox('${img}', this.parentNode)">
-                <img src="${img}" alt="Proyecto Destacado ${idx + 1}" class="render-img" loading="lazy" onclick="event.stopPropagation(); window.openLightbox(this.src, this.parentNode.parentNode)">
+                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="Proyecto Destacado ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openLightbox(this.src, this.parentNode.parentNode)">
             </div>
         `;
 

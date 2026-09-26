@@ -2,7 +2,55 @@
 <html lang="es-CL">
 
 <head>
-    <!-- Meta Pixel Code -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUEBLERIALG SPA - Muebles a Medida de Alto Nivel</title>
+    <meta name="description"
+        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
+
+    <!-- Preload para el candidato LCP de la primera pantalla (Hero Background y Logo) -->
+    <link rel="preload" as="image" href="assets/hero_bg-400w.webp" media="(max-width: 600px)" type="image/webp">
+    <link rel="preload" as="image" href="assets/hero_bg.webp" media="(min-width: 601px)" type="image/webp">
+    <link rel="preload" as="image" href="assets/logo-400w.webp" media="(max-width: 600px)" type="image/webp">
+
+    <!-- Open Graph / vista previa para Google, WhatsApp, Facebook, etc. -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mueblerialgspa.com/">
+    <meta property="og:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
+    <meta property="og:description"
+        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
+    <meta property="og:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="es_CL">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
+    <meta name="twitter:description"
+        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile.">
+    <meta name="twitter:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.webp">
+
+    <!-- Google Fonts & FontAwesome (Carga no bloqueante de fuentes y CDN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- Local Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicon reforzado para máxima compatibilidad entre navegadores -->
+    <link rel="icon" href="assets/favicon.webp" type="image/webp">
+    <link rel="icon" sizes="32x32" href="assets/favicon.webp" type="image/webp">
+    <link rel="icon" sizes="192x192" href="assets/favicon.webp" type="image/webp">
+    <link rel="shortcut icon" href="assets/favicon.webp" type="image/webp">
+    <link rel="apple-touch-icon" href="assets/favicon.webp">
+
+    <!-- Meta Pixel Code (Asincrónico) -->
     <script>
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
@@ -21,48 +69,6 @@
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1701078527825603&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUEBLERIALG SPA - Muebles a Medida de Alto Nivel</title>
-    <meta name="description"
-        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
-
-    <!-- Open Graph / vista previa para Google, WhatsApp, Facebook, etc. -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mueblerialgspa.com/">
-    <meta property="og:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
-    <meta property="og:description"
-        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
-    <meta property="og:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="es_CL">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MUEBLERIALG SPA - Muebles a Medida de Alto Nivel">
-    <meta name="twitter:description"
-        content="Diseño y fabricación de muebles a medida premium en Santiago, Chile.">
-    <meta name="twitter:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.jpg">
-
-    <!-- Google Fonts: Outfit (Geometric Sans-serif) for body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Local Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Favicon reforzado para máxima compatibilidad entre navegadores -->
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    <link rel="icon" sizes="32x32" href="assets/favicon.png" type="image/png">
-    <link rel="icon" sizes="192x192" href="assets/favicon.png" type="image/png">
-    <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 
 <body>
@@ -71,7 +77,7 @@
     <header class="main-header" id="header">
         <div class="header-container">
             <a href="#" class="logo-container" id="nav-logo">
-                <img src="assets/logo.png" alt="MUEBLERIALG SPA Logo" class="header-logo">
+                <img src="assets/logo.webp" srcset="assets/logo-400w.webp 400w, assets/logo.webp 969w" sizes="(max-width: 600px) 200px, 400px" width="969" height="785" fetchpriority="high" alt="MUEBLERIALG SPA Logo" class="header-logo">
                 <span class="brand-text">MUEBLERIALG<span class="gold-text"> SPA</span></span>
             </a>
 
@@ -103,22 +109,20 @@
 
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
-        <div class="hero-bg"
-            style="background-image: linear-gradient(180deg, rgba(18, 18, 18, 0.7) 0%, rgba(18, 18, 18, 0.95) 100%), url('assets/hero_bg.jpg');">
-        </div>
+        <div class="hero-bg"></div>
         <div class="hero-content container">
-            <h1 class="hero-title animate-text" data-aos="fade-up" data-aos-delay="200"
+            <h1 class="hero-title animate-text"
                 style="margin-bottom: 5px; font-family: var(--font-primary) !important;">
                 Muebles a tú Medida <span class="gradient-gold-text">y diseño</span>
             </h1>
-            <p class="hero-subtitle-tag" data-aos="fade-up" data-aos-delay="300"
+            <p class="hero-subtitle-tag"
                 style="color: var(--color-metallic-gold); font-size: 1.5rem; letter-spacing: 0.12em; margin-bottom: 25px; font-weight: 700; text-transform: uppercase; font-family: var(--font-primary);">
                 MUEBLERIALG SPA
             </p>
-            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">
+            <p class="hero-subtitle">
                 “Tu hogar merece sentirse tan especial como quienes lo habitan.”
             </p>
-            <div class="hero-cta" data-aos="fade-up" data-aos-delay="600">
+            <div class="hero-cta">
                 <a href="#quote-calculator" class="btn btn-gold btn-glow">Cotiza tu proyecto <i
                         class="fa-solid fa-arrow-right"></i></a>
             </div>
@@ -144,7 +148,7 @@
                 <!-- Card 1: Cocinas -->
                 <a href="#kitchens" class="category-card" data-category="kitchen" data-aos="fade-up">
                     <div class="category-img-wrap">
-                        <img src="assets/kitchen_luxury.jpg" alt="Cocinas Modernas" class="category-img">
+                        <img src="assets/kitchen_luxury.webp" srcset="assets/kitchen_luxury-400w.webp 400w, assets/kitchen_luxury-800w.webp 800w, assets/kitchen_luxury.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="1024" height="1024" alt="Cocinas Modernas" class="category-img" loading="lazy">
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -160,7 +164,7 @@
                 <a href="#closets" onclick="window.selectClosetTab('walk-in')" class="category-card"
                     data-category="closet" data-aos="fade-up" data-aos-delay="150">
                     <div class="category-img-wrap">
-                        <img src="assets/walkin_closet_main.jpg" alt="Walk-in Closets y Closets" class="category-img">
+                        <img src="assets/walkin_closet_main.webp" srcset="assets/walkin_closet_main-400w.webp 400w, assets/walkin_closet_main.webp 681w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="681" height="1024" alt="Walk-in Closets y Closets" class="category-img" loading="lazy">
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -177,7 +181,7 @@
                 <a href="#closets" onclick="window.selectClosetTab('closet')" class="category-card"
                     data-category="closet" data-aos="fade-up" data-aos-delay="220">
                     <div class="category-img-wrap">
-                        <img src="assets/closet1.png" alt="Closets a Medida" class="category-img">
+                        <img src="assets/closet1.webp" srcset="assets/closet1-400w.webp 400w, assets/closet1.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="576" height="1024" alt="Closets a Medida" class="category-img" loading="lazy">
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -192,7 +196,7 @@
                 <!-- Card 3: Muebles Decorativos -->
                 <a href="#decor" class="category-card" data-category="living" data-aos="fade-up" data-aos-delay="300">
                     <div class="category-img-wrap">
-                        <img src="assets/decor_main.jpg" alt="Muebles Decorativos" class="category-img">
+                        <img src="assets/decor_main.webp" srcset="assets/decor_main-400w.webp 400w, assets/decor_main.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="576" height="1024" alt="Muebles Decorativos" class="category-img" loading="lazy">
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -261,8 +265,8 @@
                 <div class="about-image-side" data-aos="fade-left">
                     <div class="about-img-frame animate-glow"
                         style="border-radius: 8px; overflow: hidden; margin-bottom: 15px; width: 100%;">
-                        <img src="assets/about_first_kitchen.jpg" alt="Nuestra primera cocina artesanal"
-                            class="about-side-img" style="height: 380px; object-fit: cover; width: 100%;">
+                        <img src="assets/about_first_kitchen.webp" srcset="assets/about_first_kitchen-400w.webp 400w, assets/about_first_kitchen-800w.webp 800w, assets/about_first_kitchen.webp 1024w" sizes="(max-width: 600px) 100vw, 50vw" width="1024" height="870" alt="Nuestra primera cocina artesanal"
+                            class="about-side-img" style="height: 380px; object-fit: cover; width: 100%;" loading="lazy">
                     </div>
                     <p class="about-img-caption">
                         "Esta imagen refleja nuestros inicios en este rubro: nuestra primera cocina fabricada. Un
@@ -288,28 +292,28 @@
 
             <div class="renders-grid">
                 <div class="render-item" data-aos="zoom-in">
-                    <img src="assets/render_1.jpg" alt="Render Cocina Gris y Blanco" class="render-img">
+                    <img src="assets/render_1.webp" srcset="assets/render_1-400w.webp 400w, assets/render_1-800w.webp 800w, assets/render_1.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Gris y Blanco" class="render-img" loading="lazy">
                     <div class="render-info-overlay">
                         <h4>Render Cocina Gris Grafito, Aluminio y Cuarzo Blanco</h4>
                         <span>Simulación de melamina gris mate y cubiertas de cuarzo blanco</span>
                     </div>
                 </div>
                 <div class="render-item" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="assets/render_2.jpg" alt="Render Cocina Roble y Negro" class="render-img">
+                    <img src="assets/render_2.webp" srcset="assets/render_2-400w.webp 400w, assets/render_2-800w.webp 800w, assets/render_2.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Roble y Negro" class="render-img" loading="lazy">
                     <div class="render-info-overlay">
                         <h4>Render Cocina Roble y Negro</h4>
                         <span>Visualización de iluminación LED cálida y repisas suspendidas</span>
                     </div>
                 </div>
                 <div class="render-item" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="assets/render_3.jpg" alt="Render Cocina Verde Oliva" class="render-img">
+                    <img src="assets/render_3.webp" srcset="assets/render_3-400w.webp 400w, assets/render_3-800w.webp 800w, assets/render_3.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Verde Oliva" class="render-img" loading="lazy">
                     <div class="render-info-overlay">
                         <h4>Render Cocina Verde Oliva</h4>
                         <span>Simulación de espacio integrado con isla central en palillaje</span>
                     </div>
                 </div>
                 <div class="render-item" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="assets/render_4.jpg" alt="Render Divisor de Espacios con TV" class="render-img">
+                    <img src="assets/render_4.webp" srcset="assets/render_4-400w.webp 400w, assets/render_4-800w.webp 800w, assets/render_4.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="678" alt="Render Divisor de Espacios con TV" class="render-img" loading="lazy">
                     <div class="render-info-overlay">
                         <h4>Render Divisor de Espacios con TV</h4>
                         <span>Panel divisorio funcional con palillaje de madera y vitrinas</span>
@@ -1712,7 +1716,7 @@
         style="background: var(--color-black-deep); padding: 50px 0; border-top: 1px solid rgba(255, 215, 0, 0.08); text-align: center;">
         <div class="container">
             <div class="footer-logo-wrapper" style="margin-bottom: 25px;">
-                <img src="assets/logo.png" alt="MUEBLERIALG SPA Logo"
+                <img src="assets/logo.webp" srcset="assets/logo-400w.webp 400w, assets/logo.webp 969w" sizes="(max-width: 600px) 200px, 400px" width="969" height="785" alt="MUEBLERIALG SPA Logo" loading="lazy"
                     style="height: 60px; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));">
                 <h3
                     style="font-family: var(--font-primary) !important; color: var(--color-metallic-gold); font-size: 1.5rem; margin-top: 10px; letter-spacing: 0.1em;">
