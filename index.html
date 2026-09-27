@@ -8,10 +8,12 @@
     <meta name="description"
         content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
 
-    <!-- Preload para el candidato LCP de la primera pantalla (Hero Background y Logo) -->
-    <link rel="preload" as="image" href="assets/hero_bg-400w.webp" media="(max-width: 600px)" type="image/webp">
-    <link rel="preload" as="image" href="assets/hero_bg.webp" media="(min-width: 601px)" type="image/webp">
-    <link rel="preload" as="image" href="assets/logo-400w.webp" media="(max-width: 600px)" type="image/webp">
+    <!-- Preload de la imagen principal (hero), candidata a LCP: AVIF liviano en móvil, srcset en computador -->
+    <link rel="preload" as="image" type="image/avif" href="assets/optimizadas/hero_bg-480w.avif"
+        media="(max-width: 600px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/avif" media="(min-width: 601px)" fetchpriority="high"
+        imagesrcset="assets/optimizadas/hero_bg-800w.avif 800w, assets/optimizadas/hero_bg-1024w.avif 1024w"
+        imagesizes="100vw">
 
     <!-- Open Graph / vista previa para Google, WhatsApp, Facebook, etc. -->
     <meta property="og:type" content="website">
@@ -82,7 +84,11 @@
     <header class="main-header" id="header">
         <div class="header-container">
             <a href="#" class="logo-container" id="nav-logo">
-                <img src="assets/logo.webp" srcset="assets/logo-400w.webp 400w, assets/logo.webp 969w" sizes="(max-width: 600px) 200px, 400px" width="969" height="785" fetchpriority="high" alt="MUEBLERIALG SPA Logo" class="header-logo">
+                <picture>
+                    <source type="image/avif" srcset="assets/optimizadas/logo-160w.avif 160w, assets/optimizadas/logo-320w.avif 320w" sizes="50px">
+                    <source type="image/webp" srcset="assets/optimizadas/logo-160w.webp 160w, assets/optimizadas/logo-320w.webp 320w" sizes="50px">
+                    <img src="assets/optimizadas/logo-160w.webp" width="969" height="785" alt="MUEBLERIALG SPA Logo" class="header-logo">
+                </picture>
                 <span class="brand-text">MUEBLERIALG<span class="gold-text"> SPA</span></span>
             </a>
 
@@ -114,7 +120,16 @@
 
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
-        <div class="hero-bg"></div>
+        <!-- Imagen principal: <picture> para servir AVIF/WebP del tamaño justo; sin lazy y con prioridad alta (LCP) -->
+        <div class="hero-bg">
+            <picture>
+                <source type="image/avif" media="(max-width: 600px)" srcset="assets/optimizadas/hero_bg-480w.avif">
+                <source type="image/avif" srcset="assets/optimizadas/hero_bg-800w.avif 800w, assets/optimizadas/hero_bg-1024w.avif 1024w" sizes="100vw">
+                <source type="image/webp" media="(max-width: 600px)" srcset="assets/optimizadas/hero_bg-480w.webp">
+                <source type="image/webp" srcset="assets/optimizadas/hero_bg-800w.webp 800w, assets/optimizadas/hero_bg-1024w.webp 1024w" sizes="100vw">
+                <img src="assets/optimizadas/hero_bg-1024w.webp" width="1024" height="1024" alt="" fetchpriority="high" class="hero-bg-img">
+            </picture>
+        </div>
         <div class="hero-content container">
             <h1 class="hero-title animate-text"
                 style="margin-bottom: 5px; font-family: var(--font-primary) !important;">

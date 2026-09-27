@@ -332,6 +332,12 @@ h6 {
     min-width: 0;
 }
 
+/* El logo va dentro de <picture>: sin espacio extra de línea base */
+.logo-container picture {
+    display: flex;
+    flex-shrink: 0;
+}
+
 .header-logo {
     height: 40px;
     width: auto;
@@ -445,17 +451,33 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-image: linear-gradient(180deg, rgba(18, 18, 18, 0.7) 0%, rgba(18, 18, 18, 0.95) 100%), url('assets/hero_bg.webp');
     transform: scale(1.05);
     animation: zoomSlow 20s infinite alternate;
     z-index: 1;
 }
 
-@media (max-width: 600px) {
+/* La foto del hero es un <img> (permite AVIF/WebP, srcset y prioridad alta); se ve igual que el fondo anterior */
+.hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Degradado oscuro sobre la foto (antes estaba en background-image) */
+.hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(18, 18, 18, 0.7) 0%, rgba(18, 18, 18, 0.95) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
     .hero-bg {
-        background-image: linear-gradient(180deg, rgba(18, 18, 18, 0.7) 0%, rgba(18, 18, 18, 0.95) 100%), url('assets/hero_bg-400w.webp');
+        animation: none;
     }
 }
 
