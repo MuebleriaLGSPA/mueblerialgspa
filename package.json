@@ -1,0 +1,16 @@
+{
+  "name": "mueblerialgspa",
+  "private": true,
+  "description": "Sitio web de MUEBLERIALG SPA. Los archivos fuente se editan directamente; 'npm run build' genera la version optimizada en dist/ (la usa Netlify).",
+  "type": "module",
+  "scripts": {
+    "imagenes": "node scripts/imagenes.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5"
+  }
+}
