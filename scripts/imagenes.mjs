@@ -26,6 +26,8 @@ import path from 'node:path';
 const ORIGEN = 'assets';
 const DESTINO = path.join('assets', 'optimizadas');
 const ANCHOS = [480, 800, 1200, 1600];
+// Anchos adicionales para imágenes que se muestran pequeñas (el logo del encabezado mide ~50 px)
+const ANCHOS_EXTRA = { logo: [160, 320] };
 const CALIDAD = { avif: { quality: 50, effort: 4 }, webp: { quality: 76, effort: 5 } };
 const forzar = process.argv.includes('--forzar');
 
@@ -59,10 +61,10 @@ const originales = [];
 for (const [base, candidatos] of porBase) originales.push(await elegirOriginal(base, candidatos));
 
 // Anchos a generar para una foto de ancho "w": los estándar menores que w + el ancho original (tope 1600)
-function anchosPara(w) {
-    const lista = ANCHOS.filter(a => a < w);
+function anchosPara(w, base) {
+    const lista = [...(ANCHOS_EXTRA[base] || []), ...ANCHOS].filter(a => a < w);
     lista.push(Math.min(w, ANCHOS[ANCHOS.length - 1]));
-    return [...new Set(lista)];
+    return [...new Set(lista)].sort((a, b) => a - b);
 }
 
 const dimensiones = {};
@@ -78,7 +80,7 @@ for (const archivo of originales) {
     const esVertical = (meta.orientation || 1) >= 5;
     const w = esVertical ? meta.height : meta.width;
     const h = esVertical ? meta.width : meta.height;
-    const anchos = anchosPara(w);
+    const anchos = anchosPara(w, base);
     dimensiones[base] = { w, h, anchos };
 
     for (const ancho of anchos) {
