@@ -1,0 +1,20 @@
+FUENTES ALOJADAS EN EL SITIO — MUEBLERIALG SPA
+==============================================
+
+gagalin-latin.woff2
+  Fuente: Gagalin Regular, descargada de oNline Web Fonts
+  (https://www.onlinewebfonts.com). Subconjunto con caracteres latinos.
+  Licencia: Creative Commons Attribution 4.0 (CC BY 4.0)
+  https://creativecommons.org/licenses/by/4.0/
+  Crédito requerido: "Font made from oNline Web Fonts is licensed by CC BY 4.0"
+  (http://www.onlinewebfonts.com)
+
+montserrat-latin-variable.woff2
+  Fuente: Montserrat (fuente variable), Google Fonts.
+  Copyright 2011 The Montserrat Project Authors.
+  Licencia: SIL Open Font License 1.1 — https://openfontlicense.org
+
+caveat-latin-variable.woff2
+  Fuente: Caveat (fuente variable), Google Fonts.
+  Copyright 2014 The Caveat Project Authors.
+  Licencia: SIL Open Font License 1.1 — https://openfontlicense.org

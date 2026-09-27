@@ -33,17 +33,10 @@
         content="Diseño y fabricación de muebles a medida premium en Santiago, Chile.">
     <meta name="twitter:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.webp">
 
-    <!-- Google Fonts & FontAwesome (Carga no bloqueante de fuentes y CDN) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font Awesome (CDN con versión fija, carga no bloqueante). Las fuentes de texto se alojan en assets/fuentes/ -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/240a7cb10b49b02c94ceddc459d385a9?family=Gagalin-Regular" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700;800&display=swap">
-        <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/240a7cb10b49b02c94ceddc459d385a9?family=Gagalin-Regular">
-    </noscript>
+    <!-- Fuente de los títulos (el texto del hero es candidato a LCP): se precarga; el resto se carga al usarse -->
+    <link rel="preload" as="font" type="font/woff2" href="assets/fuentes/gagalin-latin.woff2" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 

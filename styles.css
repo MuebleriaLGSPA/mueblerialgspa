@@ -4,7 +4,36 @@
    ========================================================================== */
 
 /* 1. TYPOGRAPHY & IMPORTS */
-/* Fuentes (Gagalin, Caveat, Montserrat, Outfit) cargadas con <link> no bloqueante en index.html */
+/* Fuentes alojadas en el sitio (assets/fuentes/), woff2 y solo caracteres latinos.
+   - Gagalin: títulos (subconjunto latino). Licencia CC BY 4.0 — "Font made from
+     <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a> is licensed by CC BY 4.0".
+   - Montserrat y Caveat: fuentes variables de Google Fonts (licencia SIL OFL 1.1),
+     un solo archivo cubre todos los pesos usados. Ver assets/fuentes/LICENCIAS.txt */
+@font-face {
+    font-family: "Gagalin-Regular";
+    src: url("assets/fuentes/gagalin-latin.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("assets/fuentes/montserrat-latin-variable.woff2") format("woff2");
+    font-weight: 300 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Caveat";
+    src: url("assets/fuentes/caveat-latin-variable.woff2") format("woff2");
+    font-weight: 400 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
     /* Color Palette */
