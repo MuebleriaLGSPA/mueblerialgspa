@@ -329,52 +329,8 @@
                 </p>
             </div>
 
-            <div class="renders-grid">
-                <div class="render-item" data-aos="zoom-in">
-                    <picture>
-                        <source type="image/avif" srcset="assets/optimizadas/render_1-480w.avif 480w, assets/optimizadas/render_1-800w.avif 800w, assets/optimizadas/render_1-1024w.avif 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <source type="image/webp" srcset="assets/optimizadas/render_1-480w.webp 480w, assets/optimizadas/render_1-800w.webp 800w, assets/optimizadas/render_1-1024w.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <img src="assets/optimizadas/render_1-800w.webp" width="1024" height="682" alt="Render Cocina Gris y Blanco" class="render-img" loading="lazy" decoding="async">
-                    </picture>
-                    <div class="render-info-overlay">
-                        <h3>Render Cocina Gris Grafito, Aluminio y Cuarzo Blanco</h3>
-                        <span>Simulación de melamina gris mate y cubiertas de cuarzo blanco</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="100">
-                    <picture>
-                        <source type="image/avif" srcset="assets/optimizadas/render_2-480w.avif 480w, assets/optimizadas/render_2-800w.avif 800w, assets/optimizadas/render_2-1024w.avif 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <source type="image/webp" srcset="assets/optimizadas/render_2-480w.webp 480w, assets/optimizadas/render_2-800w.webp 800w, assets/optimizadas/render_2-1024w.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <img src="assets/optimizadas/render_2-800w.webp" width="1024" height="682" alt="Render Cocina Roble y Negro" class="render-img" loading="lazy" decoding="async">
-                    </picture>
-                    <div class="render-info-overlay">
-                        <h3>Render Cocina Roble y Negro</h3>
-                        <span>Visualización de iluminación LED cálida y repisas suspendidas</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="200">
-                    <picture>
-                        <source type="image/avif" srcset="assets/optimizadas/render_3-480w.avif 480w, assets/optimizadas/render_3-800w.avif 800w, assets/optimizadas/render_3-1024w.avif 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <source type="image/webp" srcset="assets/optimizadas/render_3-480w.webp 480w, assets/optimizadas/render_3-800w.webp 800w, assets/optimizadas/render_3-1024w.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <img src="assets/optimizadas/render_3-800w.webp" width="1024" height="682" alt="Render Cocina Verde Oliva" class="render-img" loading="lazy" decoding="async">
-                    </picture>
-                    <div class="render-info-overlay">
-                        <h3>Render Cocina Verde Oliva</h3>
-                        <span>Simulación de espacio integrado con isla central en palillaje</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="300">
-                    <picture>
-                        <source type="image/avif" srcset="assets/optimizadas/render_4-480w.avif 480w, assets/optimizadas/render_4-800w.avif 800w, assets/optimizadas/render_4-1024w.avif 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <source type="image/webp" srcset="assets/optimizadas/render_4-480w.webp 480w, assets/optimizadas/render_4-800w.webp 800w, assets/optimizadas/render_4-1024w.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw">
-                        <img src="assets/optimizadas/render_4-800w.webp" width="1024" height="678" alt="Render Divisor de Espacios con TV" class="render-img" loading="lazy" decoding="async">
-                    </picture>
-                    <div class="render-info-overlay">
-                        <h3>Render Divisor de Espacios con TV</h3>
-                        <span>Panel divisorio funcional con palillaje de madera y vitrinas</span>
-                    </div>
-                </div>
-            </div>
+            <!-- Se genera desde window.RENDERS (proyectos-data.js). Móvil: carrusel con puntos; computador: cuadrícula -->
+            <div class="renders-grid renders-carrusel" id="renders-grid"></div>
         </div>
     </section>
 
@@ -406,103 +362,34 @@
         </div>
     </section>
 
-    <!-- SECCIÓN COCINAS -->
-    <section class="renders-section section black-bg-lighter" id="kitchens">
+    <!-- PORTAFOLIO: Cocinas, Walk-in Closets, Closets y Decorativos (datos en proyectos-data.js) -->
+    <section class="renders-section section black-bg-lighter portafolio-section" id="portafolio">
+        <!-- Anclas de los enlaces existentes: #kitchens, #closets y #decor activan su filtro -->
+        <span id="kitchens" class="ancla-portafolio" aria-hidden="true"></span>
+        <span id="closets" class="ancla-portafolio" aria-hidden="true"></span>
+        <span id="decor" class="ancla-portafolio" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-tag green-tag">Especialidad</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Cocinas Modernas</h2>
+                <span class="section-tag green-tag" id="portafolio-tag">Portafolio</span>
+                <h2 class="section-title" id="portafolio-titulo" style="font-family: var(--font-primary) !important;">Nuestros Proyectos</h2>
                 <div class="gold-line center"></div>
-                <p class="section-sub">“Mobiliario que acompaña tu vida, resiste tus momentos y embellece el hogar donde
-                    tu familia crece.”</p>
+                <p class="section-sub" id="portafolio-sub">Explora cocinas, walk-in closets, closets y proyectos decorativos fabricados a medida.</p>
             </div>
 
-            <!-- Filtros de Cocinas por Ubicación (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="filter-btn-rect active" onclick="filterKitchenProject('cocina-machali', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Machalí</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-rapel', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Rapel</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-malalcahuello', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Malalcahuello</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-lascondes', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Las Condes</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-temuco', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Temuco</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-olivar-1', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Olivar 1</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-shaker', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Shaker</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-colina', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Colina</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-santiago', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Santiago</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-olivar-2', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Olivar 2</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-mostazal', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Mostazal</button>
+            <div class="filtros-portafolio" role="group" aria-label="Filtrar proyectos por categoría">
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="todos" aria-pressed="true">Todos</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="cocina" aria-pressed="false">Cocinas</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="walk-in" aria-pressed="false">Walk-in Closets</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="closet" aria-pressed="false">Closets</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="decorativo" aria-pressed="false">Decorativos</button>
             </div>
 
-            <div class="renders-grid" id="kitchens-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN CLOSETS -->
-    <section class="sub-gallery-section section" id="closets">
-        <div class="container">
-            <div class="section-header text-center">
-                <span class="section-tag green-tag">Organización</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Walk-in Closets y Closets
-                </h2>
-                <div class="gold-line center"></div>
-                <p class="section-sub">Creamos espacios de organización que transforman tu dormitorio en un lugar donde
-                    todo encuentra su equilibrio, integrando diseño, funcionalidad y una sensación de armonía que se
-                    vive día a día.</p>
-            </div>
-
-            <!-- Filtros de Closets (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button id="btn-filter-walk-in" class="filter-btn-rect active"
-                    onclick="filterClosetProject('walk-in', this)"
-                    style="font-family: var(--font-primary) !important;">Walk-in Closets</button>
-                <button id="btn-filter-closet" class="filter-btn-rect" onclick="filterClosetProject('closet', this)"
-                    style="font-family: var(--font-primary) !important;">Closets</button>
-            </div>
-
-            <div class="renders-grid" id="closets-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN DECORATIVOS -->
-    <section class="renders-section section black-bg-lighter" id="decor">
-        <div class="container">
-            <div class="section-header text-center">
-                <span class="section-tag green-tag">Interiorismo</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Proyectos Decorativos
-                </h2>
-                <div class="gold-line center"></div>
-                <p class="section-sub">Muros revestidos, repisas suspendidas, paneles acústicos y barras integradas que
-                    aportan carácter y lujo a tu hogar.</p>
-            </div>
-
-            <!-- Filtros de Proyectos Decorativos por Ubicación (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="filter-btn-rect active" onclick="filterDecorProject('tv-wall-luxury', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Bar y Cava</button>
-                <button class="filter-btn-rect" onclick="filterDecorProject('quinchos', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Rack TV</button>
-            </div>
-
-            <div class="renders-grid" id="decor-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
+            <!-- Tarjetas generadas desde window.PROYECTOS. Móvil: fila con scroll; computador: cuadrícula -->
+            <div class="portafolio-grid" id="portafolio-grid"></div>
+            <p class="portafolio-ayuda">
+                <span class="ayuda-tactil">Toca un proyecto para ver sus fotos</span>
+                <span class="ayuda-mouse">Haz clic en un proyecto para ver sus fotos</span>
+            </p>
         </div>
     </section>
 
@@ -1876,46 +1763,6 @@
         </div>
     </footer>
 
-    <!-- MODAL DETALLE DE PROYECTO -->
-    <div class="project-modal" id="project-detail-modal">
-        <div class="modal-backdrop" id="modal-close-backdrop"></div>
-        <div class="modal-content-wrapper">
-            <button class="modal-close-btn" id="modal-close-btn" aria-label="Cerrar">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="modal-body-grid">
-                <!-- Lado Galería -->
-                <div class="modal-gallery-side">
-                    <div class="modal-main-img-container">
-                        <img alt="" id="modal-main-img">
-                    </div>
-                    <div class="modal-thumbnails" id="modal-thumbnails-container">
-                        <!-- Creados dinámicamente -->
-                    </div>
-                </div>
-                <!-- Lado Detalles -->
-                <div class="modal-info-side">
-                    <span class="project-tag" id="modal-project-tag"></span>
-                    <h3 class="modal-project-title" id="modal-project-title"></h3>
-                    <p class="modal-project-desc" id="modal-project-desc"></p>
-
-                    <div class="technical-table">
-                        <div class="tech-row">
-                            <span>Materiales</span>
-                            <strong id="modal-materials"></strong>
-                        </div>
-                        <div class="tech-row" id="modal-hardware-row">
-                            <span>Herrajes</span>
-                            <strong id="modal-hardware"></strong>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL AGENDAR VISITA SHOWROOM -->
     <div class="project-modal modal-narrow" id="meeting-modal">
         <div class="modal-backdrop" id="meeting-close-backdrop"></div>
@@ -1950,40 +1797,9 @@
         </div>
     </div>
 
-    <!-- LIGHTBOX MODAL PARA RENDERS E IMÁGENES -->
-    <div class="modal-wrapper" id="lightbox-modal"
-        style="display: none; align-items: center; justify-content: center; z-index: 2000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;">
-        <div class="modal-close-backdrop" id="lightbox-close-backdrop" onclick="closeLightbox()"
-            style="background: rgba(10, 10, 10, 0.98); position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
-        </div>
-        <div class="modal-content"
-            style="max-width: 90vw; max-height: 90vh; padding: 0; background: transparent; border: none; box-shadow: none; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2001;">
-            <button class="modal-close-btn" id="lightbox-close-btn" onclick="closeLightbox()"
-                style="top: -50px; right: 10px; color: #fff; font-size: 2.5rem; background: transparent; border: none; cursor: pointer; position: absolute;">&times;</button>
-
-            <!-- Flecha Izquierda -->
-            <button id="lightbox-prev" onclick="navigateLightbox(-1)" aria-label="Imagen anterior">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-
-            <!-- Imagen con Zoom -->
-            <div
-                style="position: relative; overflow: hidden; border-radius: 4px; border: 1.5px solid var(--color-metallic-gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.25); background: #000;">
-                <img id="lightbox-img" alt="Foto ampliada del proyecto"
-                    style="max-width: 100%; max-height: 80vh; display: block; object-fit: contain; cursor: zoom-in; transition: transform 0.3s ease;">
-                <div
-                    style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; color: #ccc; font-family: var(--font-secondary); pointer-events: none;">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i> Clic para Zoom
-                </div>
-            </div>
-
-            <!-- Flecha Derecha -->
-            <button id="lightbox-next" onclick="navigateLightbox(1)" aria-label="Imagen siguiente">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
     <!-- JS Script Source -->
+    <script src="assets/optimizadas/dimensiones.js" defer></script>
+    <script src="proyectos-data.js" defer></script>
     <script src="app.js" defer></script>
 
 </body>

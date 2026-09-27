@@ -3030,3 +3030,417 @@ textarea:focus+label {
         transform: translateY(-50%) scale(0.9);
     }
 }
+
+/* ==========================================================================
+   GALERÍA: PORTAFOLIO CON FILTROS, TARJETAS, RENDERS Y VISOR DE FOTOS
+   ========================================================================== */
+
+/* <picture> no altera el diseño: la imagen se comporta como hija directa del contenedor */
+.render-item picture,
+.tarjeta-proyecto-img picture {
+    display: contents;
+}
+
+/* Renders y destacados ahora son botones (accesibles con teclado): se ven igual que antes */
+button.render-item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+button.render-item:focus-visible,
+.tarjeta-proyecto:focus-visible,
+.filtro-chip:focus-visible,
+.carousel-dot:focus-visible {
+    outline: 2px solid var(--color-metallic-gold);
+    outline-offset: 3px;
+}
+
+/* Las anclas #kitchens, #closets y #decor quedan al inicio del portafolio */
+.portafolio-section {
+    position: relative;
+}
+
+.ancla-portafolio {
+    position: absolute;
+    top: 0;
+}
+
+/* Filtros (chips): mínimo 44x44 px para tocar cómodamente */
+.filtros-portafolio {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 36px;
+}
+
+.filtro-chip {
+    min-height: 44px;
+    min-width: 44px;
+    font-family: var(--font-primary) !important;
+}
+
+.filtro-chip[aria-pressed="true"] {
+    border-color: var(--color-metallic-gold);
+    color: var(--color-metallic-gold);
+    background-color: rgba(212, 175, 55, 0.08);
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.12);
+}
+
+/* Tarjetas de proyecto: cuadrícula en computador */
+.portafolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.tarjeta-proyecto {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-black-deep);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-proyecto[hidden] {
+    display: none;
+}
+
+.tarjeta-proyecto-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tarjeta-proyecto-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 60px 20px 20px;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.6) 55%, rgba(10, 10, 10, 0) 100%);
+}
+
+.tarjeta-proyecto-etiqueta {
+    font-family: var(--font-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-metallic-gold);
+}
+
+.tarjeta-proyecto-titulo {
+    font-family: var(--font-primary); /* es <strong>: la regla global de Montserrat solo aplica a span/p/button */
+    font-weight: normal;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-white);
+}
+
+.tarjeta-proyecto-fotos {
+    font-family: var(--font-secondary);
+    font-size: 12px;
+    color: var(--color-text-gray);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tarjeta-proyecto:hover {
+        border-color: rgba(212, 175, 55, 0.35);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65), 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+
+    .tarjeta-proyecto:hover .tarjeta-proyecto-img img {
+        transform: scale(1.05);
+    }
+}
+
+/* Texto de ayuda según dispositivo */
+.portafolio-ayuda {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-text-gray);
+}
+
+.ayuda-mouse {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ayuda-tactil {
+        display: none;
+    }
+
+    .ayuda-mouse {
+        display: inline;
+    }
+}
+
+@media (max-width: 1023px) {
+    .portafolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Móvil: fila horizontal con scroll nativo y encaje; asoma la tarjeta siguiente */
+@media (max-width: 767px) {
+    .portafolio-grid {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 20px;
+        margin: 0 -20px;
+        padding: 0 20px 8px;
+        scrollbar-width: none;
+    }
+
+    .portafolio-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tarjeta-proyecto {
+        flex: 0 0 78%;
+        scroll-snap-align: start;
+    }
+
+    .filtros-portafolio {
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .filtro-chip {
+        padding: 10px 14px;
+    }
+}
+
+/* Renders: cuadrícula en computador; carrusel con puntos en móvil */
+.renders-carrusel + .carousel-dots {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .renders-grid.renders-carrusel {
+        display: flex;
+        grid-template-columns: none;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .renders-carrusel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .renders-carrusel .render-item {
+        flex: 0 0 88%;
+        height: 240px;
+        scroll-snap-align: start;
+    }
+
+    .renders-carrusel + .carousel-dots {
+        display: flex;
+    }
+}
+
+/* ---------- Visor de fotos (visor-fotos.js + PhotoSwipe) ---------- */
+/* Mientras el visor está abierto el body queda fijo (lo hace visor-fotos.js); sin scroll suave al restaurar */
+html.visor-abierto,
+html.visor-abierto * {
+    scroll-behavior: auto !important;
+}
+
+.visor-ficha {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 84px;
+    max-height: 45vh;
+    overflow-y: auto;
+    padding: 8px 16px;
+    text-align: center;
+    color: var(--color-text-white);
+    font-family: var(--font-secondary);
+}
+
+.pswp:has(.visor-miniaturas[hidden]) .visor-ficha {
+    bottom: 16px;
+}
+
+.visor-ficha-titulo {
+    font-family: var(--font-primary) !important; /* la regla global fuerza Montserrat en span/p */
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-metallic-gold);
+    margin: 0;
+}
+
+.visor-ficha-titulo span {
+    color: var(--color-text-gray);
+    font-family: var(--font-secondary);
+    font-size: 13px;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.visor-ficha-detalles {
+    max-width: 680px;
+    margin: 6px auto 0;
+    font-size: 14px;
+    text-align: left;
+}
+
+.visor-ficha-detalles summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    cursor: pointer;
+    color: var(--color-text-gray);
+}
+
+.visor-ficha-detalles[open] {
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 8px 16px 14px;
+}
+
+.visor-ficha-detalles p,
+.visor-ficha-detalles li {
+    color: #d8d8d8;
+    line-height: 1.5;
+}
+
+.visor-ficha-detalles ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+}
+
+.visor-miniaturas {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    justify-content: safe center;
+    gap: 8px;
+    padding: 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.visor-miniaturas::-webkit-scrollbar {
+    display: none;
+}
+
+.visor-miniatura {
+    flex: 0 0 auto;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    overflow: hidden;
+    background: none;
+    opacity: 0.55;
+    cursor: pointer;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.visor-miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.visor-miniatura.activa,
+.visor-miniatura:hover,
+.visor-miniatura:focus-visible {
+    opacity: 1;
+    border-color: var(--color-metallic-gold);
+    outline: none;
+}
+
+.visor-cotizar,
+.visor-ayuda {
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 92vw;
+    text-align: center;
+}
+
+/* PhotoSwipe fuerza opacity/pointer-events en sus elementos de interfaz: se usa mayor especificidad */
+.pswp .visor-cotizar {
+    transition: opacity 0.25s ease;
+}
+
+.pswp .visor-cotizar:not(.visible) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.visor-cotizar .btn {
+    min-height: 44px;
+    white-space: nowrap;
+}
+
+.visor-ayuda {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: rgba(10, 10, 10, 0.75);
+    color: #dddddd;
+    font-family: var(--font-secondary);
+    font-size: 13px;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* La ayuda nunca recibe clics (photoswipe.css se carga después y activaría pointer-events) */
+.pswp.pswp .visor-ayuda {
+    pointer-events: none;
+}
+
+.pswp .visor-ayuda.oculta,
+.pswp:has(.visor-cotizar.visible) .visor-ayuda {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tarjeta-proyecto-img img,
+    .visor-miniatura,
+    .visor-cotizar,
+    .visor-ayuda {
+        transition: none;
+    }
+}

@@ -35,1026 +35,283 @@ function showToast(message, type = "success") {
 }
 
 /* ============================================================
-   PORTAFOLIO DE PROYECTOS (DATOS)
+   GALERÍA: PORTAFOLIO, DESTACADOS Y RENDERS
+   Los datos vienen de proyectos-data.js (window.PROYECTOS,
+   window.DESTACADOS, window.RENDERS) y las dimensiones de
+   assets/optimizadas/dimensiones.js (generado por npm run imagenes).
+   El visor de fotos (visor-fotos.js) se carga solo al abrir una galería.
 ============================================================ */
 
-const proyectos = [
-    {
-        id: "cocina-machali",
-        category: "kitchen",
-        title: "Proyecto Machalí",
-        desc: "Cocina moderna con isla central, diseñada en melamina Sierra y cubierta de cuarzo Snow, una combinación que transmite elegancia, calidez y sofisticación. Cada superficie, cada textura y cada línea se integran para crear un espacio único, pensado para disfrutar, compartir y vivir momentos memorables. Materiales de alta calidad, estética contemporánea y un diseño que eleva la experiencia diaria a un nivel superior.",
-        tag: "Cocina Moderna",
-        images: [
-            "assets/machali1.webp",
-            "assets/machali2.webp",
-            "assets/machali3.webp",
-            "assets/machali4.webp"
-        ],
-        materials: "Melamina 18mm color Sierra / Cuarzo Blanco Snow",
-        hardware: "Bisagras y cajones telescópicos con cierre suave",
-    },
-    {
-        id: "cocina-rapel",
-        category: "kitchen",
-        title: "Proyecto Rapel",
-        desc: "Cocina frente al lago diseñada en tonos cálidos y mobiliario en melamina color natural, creada para envolver el espacio en una sensación de armonía, serenidad y elegancia contemporánea. La combinación de materiales de alta calidad y la vista al entorno natural elevan cada detalle, transformando la cocina en un ambiente acogedor, sofisticado y lleno de vida, donde cada momento se disfruta con una calidez única.",
-        tag: "Cocina en el lago",
-        images: [
-            "assets/rapel1.webp",
-            "assets/rapel2.webp",
-            "assets/rapel3.webp",
-            "assets/rapel4.webp"
-        ],
-        materials: "Melamina 18mm color Carvalo y Blanco / Cubiertas de Cuarzo Blanco Snow",
-        hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina con puertas de aluminio negro",
-    },
-    {
-        id: "cocina-malalcahuello",
-        category: "kitchen",
-        title: "Proyecto Malalcahuello",
-        desc: "Cocina rústica moderna en la montaña, fabricada en melamina Vison UltraMate y cubierta de cuarzo blanco espejado. Una combinación que realza la esencia cálida del entorno natural con un toque contemporáneo de gran sofisticación. Cada textura y cada superficie han sido seleccionadas para ofrecer un ambiente acogedor, elegante y de alta calidad, donde la estética, la funcionalidad y la conexión con el paisaje se unen para crear un espacio único, lleno de carácter y diseñado para disfrutar momentos inolvidables.",
-        tag: "Cocina de Montaña",
-        images: [
-            "assets/malalcahuello1.webp",
-            "assets/malalcahuello2.webp",
-            "assets/malalcahuello3.webp",
-            "assets/malalcahuello4.webp"
-        ],
-        materials: "Melamina 18mm color Vison UltraMate / Cuarzo Blanco Espejado",
-        hardware: "Bisagras y cajones telescópicos con cierre suave",
-    },
-    {
-        id: "cocina-lascondes",
-        category: "kitchen",
-        title: "Proyecto Las Condes",
-        desc: "Cocina moderna y elegante, realzada por la combinación de melamina Azul Acero y una cubierta de cuarzo blanco. Un diseño que fusiona sofisticación, armonía y alta calidad, creando un espacio contemporáneo donde cada detalle aporta luminosidad, estilo y una experiencia única para disfrutar y compartir.",
-        tag: "Cocina moderna y elegante",
-        images: [
-            "assets/lascondes1.webp",
-            "assets/lascondes2.webp",
-            "assets/lascondes3.webp",
-            "assets/lascondes4.webp"
-        ],
-        materials: "Melamina 18mm color Azul Acero/ Cuarzo blanco Snow",
-        hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina",
-    },
-    {
-        id: "cocina-temuco",
-        category: "kitchen",
-        title: "Proyecto Temuco",
-        desc: "Cocina moderna de diseño limpio, realzada por la elegancia de la melamina Azul Acero y una cubierta de cuarzo en tonos amaderados. Una combinación que aporta profundidad, calidez y alta calidad, creando un espacio contemporáneo donde cada línea y cada textura se integran con armonía. El resultado es una cocina sofisticada, equilibrada y diseñada para disfrutar momentos únicos en un ambiente lleno de estilo.",
-        tag: "Cocina moderna en campo",
-        images: [
-            "assets/temuco1.webp",
-            "assets/temuco2.webp",
-            "assets/temuco3.webp",
-            "assets/temuco4.webp"
-        ],
-        materials: "Melamina 18mm color Azul Acero / Cubiertas de Cuarzo Taupe",
-        hardware: "Bisagras y cajones telescópicos con cierre suave",
-    },
-    {
-        id: "cocina-olivar-1",
-        category: "kitchen",
-        title: "Proyecto Olivar 1",
-        desc: "“Cocina contemporánea en tono Gris Grafito, diseñada con un elegante contraste y acompañada de una cubierta de cuarzo que aporta luminosidad, sofisticación y alta calidad. La armonía entre sus materiales y su estética moderna crea un espacio imponente, equilibrado y lleno de carácter, pensado para disfrutar cada momento en un ambiente de diseño excepcional.",
-        tag: "Cocina Contemporánea",
-        images: [
-            "assets/olivar1.webp",
-            "assets/olivar2.webp",
-            "assets/olivar3.webp",
-            "assets/olivar4.webp"
-        ],
-        materials: "Melamina 18mm Gris Grafito / Cuarzo Blanco Snow",
-        hardware: "Bisagras y rieles ocultos con cierre suave",
-    },
-    {
-        id: "cocina-shaker",
-        category: "kitchen",
-        title: "Proyecto Shaker",
-        desc: "Cocina clásica de estilo vintage en tono verde, realzada con cubiertas de cuarzo blanco y tiradores de latón que aportan un brillo cálido y sofisticado. Cada detalle ha sido cuidadosamente seleccionado para transmitir elegancia, carácter y alta calidad, creando un ambiente encantador donde la estética tradicional se fusiona con la funcionalidad contemporánea. Un espacio lleno de personalidad, diseñado para disfrutar momentos únicos en un entorno que inspira nostalgia y distinción.",
-        tag: "Cocina Shaker Clásica",
-        images: [
-            "assets/shaker1.webp",
-            "assets/shaker2.webp",
-            "assets/shaker3.webp",
-            "assets/shaker4.webp"
-        ],
-        materials: "Melamina 18mm blanco en interior con puertas laminadas estilo Shaker color Verde  / Cuarzo Blanco Snow",
-        hardware: "Tiradores de latón macizo, rieles y bisagras cierre suave, con iluminacion led calida",
-        dimensions: "Largo Base: 4.5m, Isla: 1.8m",
-        finish: "Pintura satinada de tacto suave y alta durabilidad"
-    },
-    {
-        id: "cocina-colina",
-        category: "kitchen",
-        title: "Proyecto Colina",
-        desc: "Cocina de concepto abierto con frentes en melamina Carvalo y Lino, vitrinas de exhibición iluminadas y una isla central con cubierta de cuarzo blanco Calacatta. Un diseño que combina elegancia, calidez y alta calidad, creando un espacio contemporáneo donde la iluminación, las texturas y los materiales se integran con armonía. Cada detalle está pensado para ofrecer una experiencia sofisticada, funcional y llena de estilo, ideal para disfrutar y compartir en un ambiente moderno y acogedor.",
-        tag: "Cocina con Isla",
-        images: [
-            "assets/colina1.webp",
-            "assets/colina2.webp",
-            "assets/colina3.webp",
-            "assets/colina4.webp"
-        ],
-        materials: "Melamina 18mm color Carvalo y Lino / Cuarzo Calacatta",
-        hardware: "Bisagras y cajones telescópicos con cierre suave, Iluminación calida para Muebles aereos y Vitrina",
-        dimensions: "Largo Base: 4.8m, Isla: 2.2m",
-        finish: "Roble natural veteado mate y lacado suave"
-    },
-    {
-        id: "cocina-santiago",
-        category: "kitchen",
-        title: "Proyecto Santiago",
-        desc: "Cocina de concepto abierto con una combinación de melamina Gris Grafito y detalles en aluminio, creando un contraste moderno y sofisticado. Las cubiertas de Cuarzo Blanco Sky aportan luminosidad y pureza al diseño, mientras que la repisa abierta con iluminación LED cálida genera una atmósfera acogedora y equilibrada. Cada material y cada línea se integran con precisión para lograr un espacio contemporáneo, funcional y visualmente armónico.",
-        tag: "Cocina Integrada",
-        images: [
-            "assets/santiago_1.webp",
-            "assets/santiago_2.webp",
-            "assets/santiago_3.webp",
-            "assets/santiago_4.webp"
-        ],
-        materials: "Melamina 18mm color Gris Grafito y Aluminio/ Cubierta de Cuarzo Blanco Sky",
-        hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación Led"
-    },
-    {
-        id: "cocina-olivar-2",
-        category: "kitchen",
-        title: "Proyecto Olivar 2",
-        desc: "Diseño moderno que combina revestimiento Carvalo con melamina en tono Carvalo y Verde Glaciar, creando una composición cálida y contemporánea. Las cubiertas de Cuarzo Blanco Perla aportan luminosidad y pureza al conjunto, mientras que las vitrinas iluminadas con puertas de aluminio negro generan un contraste elegante y sofisticado. Cada material y cada línea se integran con armonía para lograr un espacio funcional, equilibrado y visualmente imponente.",
-        tag: "Cocina Contemporánea",
-        images: [
-            "assets/olivar2_1.webp",
-            "assets/olivar2_2.webp",
-            "assets/olivar2_3.webp",
-            "assets/olivar2_4.webp"
-        ],
-        materials: "Melamina 18mm color Verde Glaciar y Carvalo  / Cubierta de Cuarzo Blanco Perla",
-        hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación Led, Puertas de aluminio negro"
-    },
-    {
-        id: "cocina-mostazal",
-        category: "kitchen",
-        title: "Proyecto Mostazal",
-        desc: "Diseño elegante de cocina a medida con una combinación de melamina Negro Matt y Colina, creando un contraste moderno y sofisticado. Las cubiertas de Cuarzo Blanco Cristal aportan luminosidad y pureza al espacio, mientras que la vitrina y los muebles aéreos con iluminación LED cálida generan una atmósfera acogedora y equilibrada. Cada material y cada línea se integran con precisión para lograr una cocina contemporánea, funcional y visualmente imponente.",
-        tag: "Cocina Integrada",
-        images: [
-            "assets/mostazal1.webp",
-            "assets/mostazal2.webp",
-            "assets/mostazal3.webp",
-            "assets/mostazal4.webp"
-        ],
-        materials: "Melamina 18mm color Negro Matt y Colina  / Cubierta de Cuarzo Blanco Cristal",
-        hardware: "Rieles ocultos y bisagras con sistema cierre suave, iluminación led"
-    },
-    {
-        id: "closet-luxury",
-        category: "closet",
-        title: "",
-        desc: "Nuestros walk‑in closets están diseñados como espacios de organización integral, fabricados en melamina de 18 mm en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias, proporciones equilibradas y una distribución arquitectónica que optimiza el recorrido y la funcionalidad. La modulación, iluminación y selección de materiales se trabajan con precisión para crear un ambiente elegante, práctico y de alta calidad, donde el orden se vive como una experiencia y la estética se integra con total armonía, logrando un espacio sofisticado, amplio y perfectamente equilibrado.",
-        tag: "Walk-in Closet",
-        images: [
-            "assets/walkin_closet1.webp",
-            "assets/walkin_closet3.webp",
-            "assets/walkin_closet4.webp"
-        ],
-        materials: "Melamina Blanca Seda / Tableros de Roble Veteado",
-        hardware: "Rieles ocultos Hettich soft-close, perfiles LED empotrados con sensor",
-        dimensions: "Ancho: 4.2m, Fondo: 3.5m",
-        finish: "Interiores lacados y cantos de PVC termolaminados de alta resistencia"
-    },
-    {
-        id: "tv-wall-luxury",
-        category: "living",
-        title: "Mueble Bar y Cava",
-        desc: "Mueble bar y cava integrado a medida en melamina nogal amazónico. Vitrinas con marcos de aluminio negro, cristal templado y repisas con iluminación cálida LED sensorizada.",
-        tag: "Mobiliario Bar & Cava",
-        images: [
-            "assets/tv_condes1.webp",
-            "assets/tv_condes2.webp",
-            "assets/tv_condes3.webp"
-        ],
-        materials: "Melamina 18mm Nogal Amazónico / Cristal Templado / Aluminio Negro",
-        hardware: "Rieles ocultos y bisagras cierre suave e iluminación LED empotrada",
-        dimensions: "Ancho: 2.8m, Alto: 2.4m",
-        finish: "Barniz protector satinado anticuñas"
-    },
-    {
-        id: "quinchos",
-        category: "outdoor-decor",
-        title: "Proyecto Rack TV",
-        desc: "Exclusivo centro de entretenimiento y mueble para TV a medida con revestimiento de palillaje acústico en roble natural, vitrinas de exhibición laterales iluminadas con tiras LED cálidas de encendido suave y cava de vinos integrada.",
-        tag: "Mobiliario Rack TV",
-        images: [
-            "assets/chicureo1.webp",
-            "assets/chicureo2.webp",
-            "assets/chicureo3.webp"
-        ],
-        materials: "Melamina 18mm Teca Italia / Revestimiento Wall Panel / Vidrio",
-        hardware: "Rieles ocultos y bisagras cierre suave e iluminación LED integrada sensorizada",
-        dimensions: "Ancho: 3.6m, Alto: 2.5m, Fondo: 0.45m",
-        finish: "Barniz protector satinado de alta durabilidad"
-    },
-    {
-        id: "closet-noble-mostazal",
-        category: "closet",
-        title: "Proyecto Closet",
-        desc: "Todos nuestros closets son fabricados en melamina de 18 mm, disponibles en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias y un estilo único que resalta la organización y la funcionalidad. Cada módulo y cada detalle han sido cuidadosamente trabajados para ofrecer un espacio elegante, práctico y de alta calidad, donde el orden se convierte en protagonista y la estética se integra con total armonía, creando un ambiente sofisticado y perfectamente equilibrado.",
-        tag: "Closet Integrado",
-        images: [
-            "assets/closet1.webp",
-            "assets/closet2.webp",
-            "assets/closet3.webp",
-            "assets/closet4.webp"
-        ],
-        materials: "Melamina 18mm Color Blanco / Tiradores de Acero Color Negro",
-        hardware: "Tiradores de perfil de aluminio negro mate, bisagras cierre suave",
-        dimensions: "Ancho: 3.2m, Alto: 2.4m, Fondo: 0.6m",
-        finish: "Frentes de puertas lisos antihuella soft-touch premium"
-    },
-    {
-        id: "closets",
-        category: "closet",
-        title: "Walk-in Closets",
-        desc: "Nuestros walk‑in closets están diseñados como espacios de organización integral, fabricados en melamina de 18 mm en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias, proporciones equilibradas y una distribución arquitectónica que optimiza el recorrido y la funcionalidad. La modulación, iluminación y selección de materiales se trabajan con precisión para crear un ambiente elegante, práctico y de alta calidad, donde el orden se vive como una experiencia y la estética se integra con total armonía, logrando un espacio sofisticado, amplio y perfectamente equilibrado.",
-        tag: "Walk-in Closet",
-        images: ["assets/walkin_closet_main.webp"],
-        materials: "Melamina Roble Veteado / Cristal Templado / Aluminio",
-        hardware: "Rieles ocultos de extracción total soft-close and sensores de presencia",
-        dimensions: "Ancho: 4.0m, Fondo: 3.8m",
-        finish: "Herrajes integrados y marcos de aluminio negro anodizado"
-    }
-];
+const RUTA_IMG = "assets/optimizadas/";
 
-/* ============================================================
-   MAPA DE DIMENSIONES Y HELPER DE IMÁGENES RESPONSIVAS
-============================================================ */
-
-const imageDimensionsMap = {
-    "machali1": { w: 576, h: 1024 },
-    "machali2": { w: 681, h: 1024 },
-    "machali3": { w: 819, h: 1024 },
-    "machali4": { w: 682, h: 1024 },
-    "rapel1": { w: 941, h: 1672 },
-    "rapel2": { w: 1024, h: 1536 },
-    "rapel3": { w: 941, h: 1672 },
-    "rapel4": { w: 941, h: 1672 },
-    "malalcahuello1": { w: 941, h: 1672 },
-    "malalcahuello2": { w: 941, h: 1672 },
-    "malalcahuello3": { w: 941, h: 1672 },
-    "malalcahuello4": { w: 941, h: 1672 },
-    "lascondes1": { w: 941, h: 1672 },
-    "lascondes2": { w: 941, h: 1672 },
-    "lascondes3": { w: 941, h: 1672 },
-    "lascondes4": { w: 941, h: 1672 },
-    "temuco1": { w: 1024, h: 1024 },
-    "temuco2": { w: 576, h: 1024 },
-    "temuco3": { w: 576, h: 1024 },
-    "temuco4": { w: 576, h: 1024 },
-    "olivar1": { w: 1024, h: 1024 },
-    "olivar2": { w: 576, h: 1024 },
-    "olivar3": { w: 576, h: 1024 },
-    "olivar4": { w: 576, h: 1024 },
-    "shaker1": { w: 1024, h: 1024 },
-    "shaker2": { w: 681, h: 1024 },
-    "shaker3": { w: 681, h: 1024 },
-    "shaker4": { w: 681, h: 1024 },
-    "colina1": { w: 768, h: 1024 },
-    "colina2": { w: 1024, h: 576 },
-    "colina3": { w: 1024, h: 576 },
-    "colina4": { w: 819, h: 1024 },
-    "santiago_1": { w: 576, h: 1024 },
-    "santiago_2": { w: 576, h: 1024 },
-    "santiago_3": { w: 576, h: 1024 },
-    "santiago_4": { w: 576, h: 1024 },
-    "olivar2_1": { w: 576, h: 1024 },
-    "olivar2_2": { w: 576, h: 1024 },
-    "olivar2_3": { w: 576, h: 1024 },
-    "olivar2_4": { w: 576, h: 1024 },
-    "mostazal1": { w: 576, h: 1024 },
-    "mostazal2": { w: 576, h: 1024 },
-    "mostazal3": { w: 576, h: 1024 },
-    "mostazal4": { w: 576, h: 1024 },
-    "walkin_closet1": { w: 1024, h: 576 },
-    "walkin_closet3": { w: 576, h: 1024 },
-    "walkin_closet4": { w: 576, h: 1024 },
-    "tv_condes1": { w: 576, h: 1024 },
-    "tv_condes2": { w: 576, h: 1024 },
-    "tv_condes3": { w: 576, h: 1024 },
-    "chicureo1": { w: 576, h: 1024 },
-    "chicureo2": { w: 576, h: 1024 },
-    "chicureo3": { w: 576, h: 1024 },
-    "closet1": { w: 576, h: 1024 },
-    "closet2": { w: 576, h: 1024 },
-    "closet3": { w: 576, h: 1024 },
-    "closet4": { w: 576, h: 1024 },
-    "walkin_closet_main": { w: 681, h: 1024 },
-    "featured_1": { w: 1024, h: 768 },
-    "featured_2": { w: 1024, h: 768 },
-    "featured_3": { w: 576, h: 1024 },
-    "featured_4": { w: 1024, h: 576 },
-    "featured_5": { w: 576, h: 1024 },
-    "featured_6": { w: 1024, h: 576 },
-    "featured_7": { w: 576, h: 1024 },
-    "featured_8": { w: 576, h: 1024 },
-    "featured_9": { w: 768, h: 1024 },
-    "featured_10": { w: 768, h: 1024 },
-    "featured_11": { w: 768, h: 1024 },
-    "featured_12": { w: 576, h: 1024 },
-    "featured_13": { w: 1024, h: 768 },
-    "featured_14": { w: 681, h: 1024 },
-    "featured_15": { w: 576, h: 1024 },
-    "featured_16": { w: 1024, h: 576 },
-    "featured_17": { w: 576, h: 1024 },
-    "featured_18": { w: 1024, h: 576 }
-};
-
-function getResponsiveSrcsetAttr(imgPath) {
-    if (!imgPath || !imgPath.endsWith(".webp")) return "";
-    const nameMatch = imgPath.match(/\/([^\/]+)\.webp$/);
-    const key = nameMatch ? nameMatch[1] : "";
-    const dims = imageDimensionsMap[key];
-    const dimAttr = dims ? `width="${dims.w}" height="${dims.h}"` : "";
-    const base = imgPath.slice(0, -5);
-    return `srcset="${base}-400w.webp 400w, ${base}-800w.webp 800w, ${imgPath} 1600w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" ${dimAttr} loading="lazy"`.trim();
+/* <picture> AVIF → WebP con srcset/sizes, width/height reales y carga diferida */
+function pictureHTML(archivo, alt, sizes, clase = "") {
+    const d = (window.DIMENSIONES_IMAGENES || {})[archivo];
+    if (!d) return `<img src="${RUTA_IMG}${archivo}-480w.webp" alt="${alt}" class="${clase}" loading="lazy" decoding="async">`;
+    const anchos = d.anchos.filter(a => a >= 480);
+    const set = f => anchos.map(a => `${RUTA_IMG}${archivo}-${a}w.${f} ${a}w`).join(", ");
+    const respaldo = anchos.filter(a => a <= 800).pop() || anchos[0];
+    return `<picture>` +
+        `<source type="image/avif" srcset="${set("avif")}" sizes="${sizes}">` +
+        `<source type="image/webp" srcset="${set("webp")}" sizes="${sizes}">` +
+        `<img src="${RUTA_IMG}${archivo}-${respaldo}w.webp" width="${d.w}" height="${d.h}" alt="${alt}" class="${clase}" loading="lazy" decoding="async">` +
+        `</picture>`;
 }
 
-/* ============================================================
-   FUNCIÓN QUE RENDERIZA LAS FOTOS EN COCINAS MODERNAS
-============================================================ */
+/* Visor: se importa la primera vez que se necesita (y se precalienta al acercar el dedo/mouse) */
+let promesaVisor = null;
+function cargarVisor() {
+    if (!promesaVisor) promesaVisor = import("./visor-fotos.js");
+    return promesaVisor;
+}
+async function abrirGaleria(fotos, indice, ficha) {
+    const { abrirVisor } = await cargarVisor();
+    abrirVisor({ fotos, indice, ficha });
+}
+function precalentarVisor(el) {
+    ["pointerenter", "touchstart", "focusin"].forEach(ev => el.addEventListener(ev, cargarVisor, { once: true, passive: true }));
+}
 
-window.renderKitchenGallery = function (list) {
-    const grid = document.getElementById("kitchens-gallery-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
+/* ------------------------------------------------------------
+   PORTAFOLIO CON FILTROS (Todos · Cocinas · Walk-in · Closets · Decorativos)
+------------------------------------------------------------ */
+const TEXTOS_FILTRO = {
+    todos: { tag: "Portafolio", titulo: "Nuestros Proyectos", sub: "Explora cocinas, walk-in closets, closets y proyectos decorativos fabricados a medida." },
+    cocina: { tag: "Especialidad", titulo: "Cocinas Modernas", sub: "“Mobiliario que acompaña tu vida, resiste tus momentos y embellece el hogar donde tu familia crece.”" },
+    "walk-in": { tag: "Organización", titulo: "Walk-in Closets y Closets", sub: "Creamos espacios de organización que transforman tu dormitorio en un lugar donde todo encuentra su equilibrio, integrando diseño, funcionalidad y una sensación de armonía que se vive día a día." },
+    closet: { tag: "Organización", titulo: "Walk-in Closets y Closets", sub: "Creamos espacios de organización que transforman tu dormitorio en un lugar donde todo encuentra su equilibrio, integrando diseño, funcionalidad y una sensación de armonía que se vive día a día." },
+    decorativo: { tag: "Interiorismo", titulo: "Proyectos Decorativos", sub: "Muros revestidos, repisas suspendidas, paneles acústicos y barras integradas que aportan carácter y lujo a tu hogar." }
+};
 
-    list.forEach(proyecto => {
-        proyecto.images.forEach((img, idx) => {
-            const card = document.createElement("div");
-            card.className = "render-item project-card";
-            card.setAttribute("data-project-id", proyecto.id);
-            card.setAttribute("data-aos", "zoom-in");
-            card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
+// Enlaces existentes (#kitchens, #closets, #decor) → filtro que activan
+const ANCLA_A_FILTRO = { kitchens: "cocina", closets: "walk-in", decor: "decorativo" };
 
-            card.innerHTML = `
-                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
-            `;
-            grid.appendChild(card);
-        });
+function renderPortafolio() {
+    const grid = document.getElementById("portafolio-grid");
+    if (!grid || !window.PROYECTOS) return;
+    grid.innerHTML = window.PROYECTOS.map(p => {
+        const n = p.fotos.length;
+        return `
+            <button type="button" class="tarjeta-proyecto" data-id="${p.id}" data-categoria="${p.categoria}"
+                aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"} de ${p.titulo}">
+                <span class="tarjeta-proyecto-img">
+                    ${pictureHTML(p.fotos[0].archivo, p.fotos[0].alt, "(max-width: 767px) 80vw, (max-width: 1023px) 50vw, 380px")}
+                </span>
+                <span class="tarjeta-proyecto-info">
+                    <span class="tarjeta-proyecto-etiqueta">${p.etiqueta}</span>
+                    <strong class="tarjeta-proyecto-titulo">${p.titulo}</strong>
+                    <span class="tarjeta-proyecto-fotos"><i class="fa-regular fa-images" aria-hidden="true"></i> ${n} ${n === 1 ? "foto" : "fotos"}</span>
+                </span>
+            </button>`;
+    }).join("");
+
+    grid.addEventListener("click", e => {
+        const tarjeta = e.target.closest(".tarjeta-proyecto");
+        if (!tarjeta) return;
+        const p = window.PROYECTOS.find(x => x.id === tarjeta.dataset.id);
+        if (p) abrirGaleria(p.fotos, 0, p);
+    });
+    precalentarVisor(grid);
+}
+
+function aplicarFiltro(filtro, { desplazar = false } = {}) {
+    if (!TEXTOS_FILTRO[filtro]) filtro = "todos";
+    document.querySelectorAll(".filtro-chip").forEach(chip => {
+        chip.setAttribute("aria-pressed", chip.dataset.filtro === filtro ? "true" : "false");
+    });
+    document.querySelectorAll(".tarjeta-proyecto").forEach(t => {
+        t.hidden = filtro !== "todos" && t.dataset.categoria !== filtro;
+    });
+    const textos = TEXTOS_FILTRO[filtro];
+    const tag = document.getElementById("portafolio-tag");
+    const titulo = document.getElementById("portafolio-titulo");
+    const sub = document.getElementById("portafolio-sub");
+    if (tag) tag.textContent = textos.tag;
+    if (titulo) titulo.textContent = textos.titulo;
+    if (sub) sub.textContent = textos.sub;
+    const grid = document.getElementById("portafolio-grid");
+    if (grid) grid.scrollLeft = 0; // en móvil vuelve a la primera tarjeta
+    if (desplazar) {
+        const seccion = document.getElementById("portafolio");
+        if (seccion) seccion.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
+}
+
+// Compatibilidad: las tarjetas de categorías llaman a selectClosetTab('walk-in' | 'closet')
+window.selectClosetTab = function (tipo) {
+    aplicarFiltro(tipo === "closet" ? "closet" : "walk-in", { desplazar: true });
+};
+
+function iniciarFiltros() {
+    document.querySelectorAll(".filtro-chip").forEach(chip => {
+        chip.addEventListener("click", () => aplicarFiltro(chip.dataset.filtro));
     });
 
-    if (typeof window.applyTiltListeners === "function") {
-        window.applyTiltListeners();
-    }
-};
-
-
-/* ============================================================
-   FUNCIÓN QUE RENDERIZA LAS FOTOS EN CLOSETS Y WALK-IN CLOSETS
-============================================================ */
-
-window.renderClosetGallery = function (list) {
-    const grid = document.getElementById("closets-gallery-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    list.forEach(proyecto => {
-        proyecto.images.forEach((img, idx) => {
-            const card = document.createElement("div");
-            card.className = "render-item project-card";
-            card.setAttribute("data-project-id", proyecto.id);
-            card.setAttribute("data-aos", "zoom-in");
-            card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
-
-            card.innerHTML = `
-                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
-            `;
-            grid.appendChild(card);
-        });
+    // Enlaces a #kitchens, #closets o #decor: activan el filtro y hacen scroll al portafolio
+    document.addEventListener("click", e => {
+        const enlace = e.target.closest('a[href="#kitchens"], a[href="#closets"], a[href="#decor"]');
+        if (!enlace) return;
+        e.preventDefault();
+        const ancla = enlace.getAttribute("href").slice(1);
+        // Las tarjetas de closets ya llaman a selectClosetTab con el tipo exacto
+        if (!enlace.hasAttribute("onclick")) aplicarFiltro(ANCLA_A_FILTRO[ancla], { desplazar: true });
+        history.replaceState(null, "", "#" + ancla);
     });
 
-    if (typeof window.applyTiltListeners === "function") {
-        window.applyTiltListeners();
-    }
-};
+    // Llegada directa con el hash en la URL (ej. mueblerialgspa.com/#decor)
+    const inicial = ANCLA_A_FILTRO[location.hash.slice(1)];
+    aplicarFiltro(inicial || "todos", { desplazar: Boolean(inicial) });
+}
 
-window.filterClosetProject = function (closetType, btnEl) {
-    if (btnEl) {
-        const buttons = btnEl.parentNode.querySelectorAll(".filter-btn-rect, .filter-btn");
-        buttons.forEach(b => b.classList.remove("active"));
-        btnEl.classList.add("active");
-    }
+/* ------------------------------------------------------------
+   CARRUSEL (destacados y renders en móvil)
+   Manual: flechas, arrastre con mouse, deslizamiento táctil con scroll-snap
+   y puntos indicadores. Sin auto-scroll: el desplazamiento continuo
+   impedía que Chrome midiera el LCP (error NO_LCP).
+------------------------------------------------------------ */
+function crearCarrusel(track, { prevBtn = null, nextBtn = null, puntosTras = track } = {}) {
+    const items = Array.from(track.children);
+    if (!items.length) return;
 
-    const closetProjects = proyectos.filter(p => p.category === "closet");
-    if (closetType === "walk-in") {
-        const filtered = closetProjects.filter(p => p.tag.toLowerCase().includes("walk-in"));
-        renderClosetGallery(filtered);
-    } else {
-        const filtered = closetProjects.filter(p => !p.tag.toLowerCase().includes("walk-in"));
-        renderClosetGallery(filtered);
-    }
-};
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let hasMoved = false;
 
-window.selectClosetTab = function (type) {
-    const tabs = document.querySelectorAll("#closets .filter-btn-rect");
-    if (type === 'walk-in' && tabs[0]) {
-        tabs[0].click();
-    } else if (type === 'closet' && tabs[1]) {
-        tabs[1].click();
-    }
-};
+    const cardStep = () => {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 24;
+        return (items[0] ? items[0].clientWidth : 300) + gap;
+    };
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
 
-/* ============================================================
-   FUNCIÓN QUE RENDERIZA LAS FOTOS EN PROYECTOS DECORATIVOS
-============================================================ */
-
-window.renderDecorGallery = function (list) {
-    const grid = document.getElementById("decor-gallery-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    list.forEach(proyecto => {
-        proyecto.images.forEach((img, idx) => {
-            const card = document.createElement("div");
-            card.className = "render-item project-card";
-            card.setAttribute("data-project-id", proyecto.id);
-            card.setAttribute("data-aos", "zoom-in");
-            card.setAttribute("onclick", `window.openProjectModal('${proyecto.id}', '${img}')`);
-
-            card.innerHTML = `
-                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="${proyecto.title} - Imagen ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')">
-                <div class="render-info-overlay" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', this.parentNode.querySelector('.render-img').src)">
-                    <span style="font-family: var(--font-secondary) !important; color: var(--color-text-gray); font-size: 0.85rem; display: block; margin-bottom: 12px;">${proyecto.desc}</span>
-                    <button class="btn btn-gold btn-small" onclick="event.stopPropagation(); window.openProjectModal('${proyecto.id}', '${img}')" style="font-size: 0.75rem; padding: 6px 12px; width: auto; font-family: var(--font-primary) !important; text-transform: uppercase;">${proyecto.title.replace(/Proyecto\s+/i, "")}</button>
-                </div>
-            `;
-            grid.appendChild(card);
+    // Puntos indicadores (uno por elemento)
+    const dotsWrap = document.createElement("div");
+    dotsWrap.className = "carousel-dots";
+    const dots = items.map((item, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("aria-label", "Ver imagen " + (i + 1) + " de " + items.length);
+        dot.addEventListener("click", () => {
+            track.scrollTo({ left: item.offsetLeft - items[0].offsetLeft, behavior: "smooth" });
         });
+        dotsWrap.appendChild(dot);
+        return dot;
     });
+    puntosTras.after(dotsWrap);
 
-    if (typeof window.applyTiltListeners === "function") {
-        window.applyTiltListeners();
-    }
-};
+    let pendiente = false;
+    const updateDots = () => {
+        pendiente = false;
+        const atEnd = track.scrollLeft >= maxScroll() - 2;
+        const index = atEnd ? items.length - 1 : Math.round(track.scrollLeft / cardStep());
+        dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    };
+    track.addEventListener("scroll", () => {
+        if (!pendiente) { pendiente = true; requestAnimationFrame(updateDots); }
+    }, { passive: true });
+    updateDots();
 
-window.filterDecorProject = function (projectId, btnEl) {
-    if (btnEl) {
-        const buttons = btnEl.parentNode.querySelectorAll(".filter-btn-rect, .filter-btn");
-        buttons.forEach(b => b.classList.remove("active"));
-        btnEl.classList.add("active");
-    }
-
-    const decorProjects = proyectos.filter(p => p.category === "living" || p.category === "outdoor-decor");
-    if (projectId === "all") {
-        renderDecorGallery(decorProjects);
-    } else {
-        const filtered = decorProjects.filter(p => p.id === projectId);
-        renderDecorGallery(filtered);
-    }
-};
-
-/* ============================================================
-   FILTROS DE GALERÍAS
-============================================================ */
-
-window.filterKitchenProject = function (projectId, btnEl) {
-    if (btnEl) {
-        const buttons = btnEl.parentNode.querySelectorAll(".filter-btn-rect, .filter-btn");
-        buttons.forEach(b => b.classList.remove("active"));
-        btnEl.classList.add("active");
-    }
-
-    const kitchenProjects = proyectos.filter(p => p.category === "kitchen");
-    if (projectId === "all") {
-        renderKitchenGallery(kitchenProjects);
-    } else {
-        const filtered = kitchenProjects.filter(p => p.id === projectId);
-        renderKitchenGallery(filtered);
-    }
-};
-
-window.filterFeaturedProject = function (category, btnEl) {
-    if (btnEl) {
-        const buttons = btnEl.parentNode.querySelectorAll(".filter-btn-rect, .filter-btn");
-        buttons.forEach(b => b.classList.remove("active"));
-        btnEl.classList.add("active");
-    }
-
-    const grid = document.getElementById("proyectos-destacados");
-    if (grid) {
-        const cards = grid.querySelectorAll(".project-card");
-        cards.forEach(card => {
-            const cardCat = card.getAttribute("data-category");
-            if (category === "all" || cardCat === category || (category === "living" && cardCat === "living") || (category === "outdoor-decor" && cardCat === "outdoor-decor")) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    }
-};
-
-/* ============================================================
-   CARGAR PORTAFOLIO GENERAL
-============================================================ */
-
-function cargarPortafolio() {
-    const featuredGrid = document.getElementById("proyectos-destacados");
-    const closetsGrid = document.getElementById("closets-gallery-grid");
-    const decorGrid = document.getElementById("decor-gallery-grid");
-
-    if (featuredGrid) featuredGrid.innerHTML = "";
-    if (closetsGrid) closetsGrid.innerHTML = "";
-    if (decorGrid) decorGrid.innerHTML = "";
-
-    const destacadosImages = [
-        "assets/featured_1.webp",
-        "assets/featured_2.webp",
-        "assets/featured_3.webp",
-        "assets/featured_4.webp",
-        "assets/featured_5.webp",
-        "assets/featured_6.webp",
-        "assets/featured_7.webp",
-        "assets/featured_8.webp",
-        "assets/featured_9.webp",
-        "assets/featured_10.webp",
-        "assets/featured_11.webp",
-        "assets/featured_12.webp",
-        "assets/featured_13.webp",
-        "assets/featured_14.webp",
-        "assets/featured_15.webp",
-        "assets/featured_16.webp",
-        "assets/featured_17.webp",
-        "assets/featured_18.webp"
-    ];
-
-    destacadosImages.forEach((img, idx) => {
-        const featuredCardHTML = `
-            <div class="render-item proyecto-card project-card" data-category="featured" data-project-id="featured-${idx}" style="cursor: pointer;" data-aos="zoom-in" onclick="window.openLightbox('${img}', this.parentNode)">
-                <img src="${img}" ${getResponsiveSrcsetAttr(img)} alt="Proyecto Destacado ${idx + 1}" class="render-img" onclick="event.stopPropagation(); window.openLightbox(this.src, this.parentNode.parentNode)">
-            </div>
-        `;
-
-        if (featuredGrid) {
-            featuredGrid.insertAdjacentHTML("beforeend", featuredCardHTML);
-        }
-    });
-
-    if (typeof window.applyTiltListeners === "function") {
-        window.applyTiltListeners();
-    }
-
-    // Carrusel manual: flechas, arrastre con mouse, deslizamiento táctil y puntos indicadores.
-    // Sin auto-scroll: el desplazamiento continuo impedía que Chrome midiera el LCP (error NO_LCP).
-    if (featuredGrid) {
-        const cards = Array.from(featuredGrid.children);
-        const container = document.getElementById("featured-carousel-container");
-        const prevBtn = document.getElementById("btn-featured-prev");
-        const nextBtn = document.getElementById("btn-featured-next");
-
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        let hasMoved = false;
-
-        const cardStep = () => {
-            const item = featuredGrid.querySelector(".render-item");
-            const gap = parseFloat(getComputedStyle(featuredGrid).columnGap) || 24;
-            return (item ? item.clientWidth : 300) + gap;
+    // Flechas: al llegar a un extremo vuelven al otro
+    if (prevBtn) {
+        prevBtn.onclick = () => {
+            if (track.scrollLeft <= 2) track.scrollTo({ left: maxScroll(), behavior: "smooth" });
+            else track.scrollBy({ left: -cardStep(), behavior: "smooth" });
         };
-        const maxScroll = () => featuredGrid.scrollWidth - featuredGrid.clientWidth;
-
-        // Puntos indicadores (uno por proyecto)
-        const dotsWrap = document.createElement("div");
-        dotsWrap.className = "carousel-dots";
-        const dots = cards.map((card, i) => {
-            const dot = document.createElement("button");
-            dot.type = "button";
-            dot.className = "carousel-dot";
-            dot.setAttribute("aria-label", "Ver proyecto " + (i + 1));
-            dot.addEventListener("click", () => {
-                featuredGrid.scrollTo({ left: card.offsetLeft - cards[0].offsetLeft, behavior: "smooth" });
-            });
-            dotsWrap.appendChild(dot);
-            return dot;
-        });
-        (container || featuredGrid).after(dotsWrap);
-
-        const updateDots = () => {
-            const atEnd = featuredGrid.scrollLeft >= maxScroll() - 2;
-            const index = atEnd ? cards.length - 1 : Math.round(featuredGrid.scrollLeft / cardStep());
-            dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    }
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            if (track.scrollLeft >= maxScroll() - 2) track.scrollTo({ left: 0, behavior: "smooth" });
+            else track.scrollBy({ left: cardStep(), behavior: "smooth" });
         };
-        featuredGrid.addEventListener("scroll", updateDots, { passive: true });
-        updateDots();
-
-        // Flechas: al llegar a un extremo vuelven al otro
-        if (prevBtn) {
-            prevBtn.onclick = () => {
-                if (featuredGrid.scrollLeft <= 2) {
-                    featuredGrid.scrollTo({ left: maxScroll(), behavior: "smooth" });
-                } else {
-                    featuredGrid.scrollBy({ left: -cardStep(), behavior: "smooth" });
-                }
-            };
-        }
-        if (nextBtn) {
-            nextBtn.onclick = () => {
-                if (featuredGrid.scrollLeft >= maxScroll() - 2) {
-                    featuredGrid.scrollTo({ left: 0, behavior: "smooth" });
-                } else {
-                    featuredGrid.scrollBy({ left: cardStep(), behavior: "smooth" });
-                }
-            };
-        }
-
-        // Arrastre con mouse (en táctil se usa el deslizamiento nativo)
-        const endDrag = () => {
-            if (!isDown) return;
-            isDown = false;
-            featuredGrid.style.scrollSnapType = "";
-            featuredGrid.style.scrollBehavior = "";
-        };
-
-        featuredGrid.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - featuredGrid.offsetLeft;
-            scrollLeft = featuredGrid.scrollLeft;
-            hasMoved = false;
-            // Desactiva el encaje y el scroll suave mientras se arrastra para que siga al cursor
-            featuredGrid.style.scrollSnapType = "none";
-            featuredGrid.style.scrollBehavior = "auto";
-        });
-
-        featuredGrid.addEventListener('mouseleave', endDrag);
-        featuredGrid.addEventListener('mouseup', endDrag);
-
-        featuredGrid.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - featuredGrid.offsetLeft;
-            const walk = (x - startX) * 1.5; // Drag speed multiplier
-            if (Math.abs(walk) > 8) {
-                hasMoved = true;
-            }
-            featuredGrid.scrollLeft = scrollLeft - walk;
-        });
-
-        featuredGrid.addEventListener('click', (e) => {
-            if (hasMoved) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        }, true); // Capture phase to prevent opening lightbox on drag release
     }
+
+    // Arrastre con mouse (en táctil se usa el deslizamiento nativo)
+    const endDrag = () => {
+        if (!isDown) return;
+        isDown = false;
+        track.style.scrollSnapType = "";
+        track.style.scrollBehavior = "";
+    };
+    track.addEventListener("mousedown", e => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        hasMoved = false;
+        // Desactiva el encaje y el scroll suave mientras se arrastra para que siga al cursor
+        track.style.scrollSnapType = "none";
+        track.style.scrollBehavior = "auto";
+    });
+    track.addEventListener("mouseleave", endDrag);
+    track.addEventListener("mouseup", endDrag);
+    track.addEventListener("mousemove", e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const walk = (e.pageX - track.offsetLeft - startX) * 1.5;
+        if (Math.abs(walk) > 8) hasMoved = true;
+        track.scrollLeft = scrollLeft - walk;
+    });
+    // Evita abrir el visor al soltar un arrastre
+    track.addEventListener("click", e => {
+        if (hasMoved) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
 }
 
-/* ============================================================
-   MODALES DEL SITIO (DETALLE PROYECTO & AGENDA)
-   ============================================================ */
-
-window.openProjectModal = function (id, imgSrc) {
-    const renderProjects = {
-        "render-isla": {
-            title: "Render Cocina Gris y Blanco",
-            desc: "Simulación fotorrealista de melamina gris mate y cubiertas de cuarzo blanco con iluminación LED decorativa integrada.",
-            tag: "Render 3D",
-            materials: "Melamina Gris Mate / Cuarzo Blanco",
-            hardware: "Perfiles LED empotrados / Bisagras cierre suave",
-            dimensions: "Ancho: 4.5m, Alto: 2.3m",
-            finish: "Tacto antihuella soft-touch premium"
-        },
-        "render-dormitorio": {
-            title: "Render Cocina Roble y Negro",
-            desc: "Simulación de cocina moderna en melamina roble y negro, con vitrina iluminada de exhibición lateral y tiradores ocultos.",
-            tag: "Render 3D",
-            materials: "Melamina Roble y Negro Mate / Cristal Templado",
-            hardware: "Iluminación LED cálida sensorizada y bisagras cierre suave",
-            dimensions: "Ancho: 3.8m, Alto: 2.4m",
-            finish: "Vitrinas de aluminio con cristal templado"
-        },
-        "render-cocina": {
-            title: "Render Cocina Verde Oliva",
-            desc: "Visualización de cocina de concepto abierto con frentes en melamina verde oliva, campana decorativa y una isla funcional con revestimiento de palillaje.",
-            tag: "Render 3D",
-            materials: "Melamina Verde Oliva / Madera Natural / Cuarzo Blanco",
-            hardware: "Rieles ocultos de extracción total soft-close",
-            dimensions: "Largo Base: 4.2m, Isla: 2.0m",
-            finish: "Combinación de melamina texturada y lacado satinado"
-        },
-        "render-tv": {
-            title: "Render Divisor de Espacios con TV",
-            desc: "Estructura divisoria funcional a doble cara, revestida con palillaje de madera, soporte integrado para Smart TV y vitrinas laterales retroiluminadas.",
-            tag: "Render 3D",
-            materials: "Estructura de MDF Lacado / Palillaje de Madera / Cristal Templado",
-            hardware: "Iluminación cálida LED empotrada, herrajes ocultos y pasacables",
-            dimensions: "Ancho: 3.0m, Alto: 2.4m, Fondo: 0.4m",
-            finish: "Revestimiento en roble natural semibrillo de alta durabilidad"
-        }
-    };
-
-    let project = proyectos.find(p => p.id === id);
-    if (!project && renderProjects[id]) {
-        project = renderProjects[id];
-    }
-    if (!project) return;
-
-    document.getElementById("modal-project-tag").innerText = project.tag || "";
-    document.getElementById("modal-project-title").innerText = project.title || "";
-
-    // Override description and hide hardware info for Walk-in Closets
-    // Override description, materials, tag, and hide hardware info for Walk-in Closets
-    const isCloset = project.category === "closet";
-    const isWalkIn = isCloset && (project.tag && project.tag.toLowerCase().includes("walk-in"));
-    if (isWalkIn) {
-        document.getElementById("modal-project-tag").innerText = "Walk-in closets";
-        document.getElementById("modal-project-desc").innerText = "Nuestros walk‑in closets están diseñados como espacios de organización integral, fabricados en melamina de 18 mm en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias, proporciones equilibradas y una distribución arquitectónica que optimiza el recorrido y la funcionalidad. La modulación, iluminación y selección de materiales se trabajan con precisión para crear un ambiente elegante, práctico y de alta calidad, donde el orden se vive como una experiencia y la estética se integra con total armonía, logrando un espacio sofisticado, amplio y perfectamente equilibrado.";
-        const hardwareRow = document.getElementById("modal-hardware-row");
-        if (hardwareRow) hardwareRow.style.display = "none";
-        document.getElementById("modal-materials").innerText = "Melamina de 18mm, Escuadras metalicas para repisas, Colgador ovalado cromado o negro.";
-    } else {
-        document.getElementById("modal-project-tag").innerText = project.tag || "";
-        if (isCloset) {
-            document.getElementById("modal-project-desc").innerText = "Todos nuestros closets son fabricados en melamina de 18 mm, disponibles en color blanco o en tonos seleccionados del catálogo. Cada diseño se desarrolla con líneas limpias y un estilo único que resalta la organización y la funcionalidad. Cada módulo y cada detalle han sido cuidadosamente trabajados para ofrecer un espacio elegante, práctico y de alta calidad, donde el orden se convierte en protagonista y la estética se integra con total armonía, creando un ambiente sofisticado y perfectamente equilibrado.";
-        } else {
-            document.getElementById("modal-project-desc").innerText = project.desc || "";
-        }
-        const hardwareRow = document.getElementById("modal-hardware-row");
-        if (hardwareRow) hardwareRow.style.display = "flex";
-        document.getElementById("modal-materials").innerText = project.materials || "";
-    }
-
-    document.getElementById("modal-hardware").innerText = project.hardware || "";
-
-    // Main Image (shows clicked image or fallback)
-    const mainImg = document.getElementById("modal-main-img");
-    const targetImageSrc = imgSrc || project.image || (project.images && project.images[0]) || "";
-    mainImg.src = targetImageSrc;
-    mainImg.alt = project.title;
-
-    // Hide thumbnails container (per user request)
-    const thumbsContainer = document.getElementById("modal-thumbnails-container");
-    if (thumbsContainer) {
-        thumbsContainer.style.display = "none";
-    }
-
-    // Open Modal
-    document.getElementById("project-detail-modal").classList.add("active");
-};
-
-function changeModalMainImage(src, thumbEl) {
-    document.getElementById("modal-main-img").src = src;
-    if (thumbEl && thumbEl.parentNode) {
-        const thumbs = thumbEl.parentNode.querySelectorAll(".modal-thumb");
-        thumbs.forEach(t => t.classList.remove("active"));
-        thumbEl.classList.add("active");
-    }
+function renderDestacados() {
+    const track = document.getElementById("proyectos-destacados");
+    if (!track || !window.DESTACADOS) return;
+    track.innerHTML = window.DESTACADOS.map((f, i) => `
+        <button type="button" class="render-item proyecto-card project-card" data-i="${i}" aria-label="Ampliar: ${f.alt}">
+            ${pictureHTML(f.archivo, f.alt, "(max-width: 650px) 90vw, (max-width: 992px) 45vw, 380px", "render-img")}
+        </button>`).join("");
+    track.addEventListener("click", e => {
+        const item = e.target.closest(".render-item");
+        if (item) abrirGaleria(window.DESTACADOS, Number(item.dataset.i), null);
+    });
+    precalentarVisor(track);
+    crearCarrusel(track, {
+        prevBtn: document.getElementById("btn-featured-prev"),
+        nextBtn: document.getElementById("btn-featured-next"),
+        puntosTras: document.getElementById("featured-carousel-container") || track
+    });
 }
 
-function closeProjectModal() {
-    document.getElementById("project-detail-modal").classList.remove("active");
+function renderRenders() {
+    const grid = document.getElementById("renders-grid");
+    if (!grid || !window.RENDERS) return;
+    grid.innerHTML = window.RENDERS.map((r, i) => `
+        <button type="button" class="render-item" data-i="${i}" aria-label="Ampliar: ${r.titulo}">
+            ${pictureHTML(r.archivo, r.alt, "(max-width: 767px) 85vw, (max-width: 1200px) 50vw, 580px", "render-img")}
+            <span class="render-info-overlay">
+                <h3>${r.titulo}</h3>
+                <span>${r.resumen}</span>
+            </span>
+        </button>`).join("");
+    grid.addEventListener("click", e => {
+        const item = e.target.closest(".render-item");
+        if (!item) return;
+        const i = Number(item.dataset.i);
+        const r = window.RENDERS[i];
+        // Todas las fotos de renders en un solo visor, con la ficha del render elegido
+        abrirGaleria(window.RENDERS.map(x => ({ archivo: x.archivo, alt: x.alt })), i, r);
+    });
+    precalentarVisor(grid);
+    crearCarrusel(grid); // en computador es cuadrícula (los puntos se ocultan por CSS)
 }
 
-/* ============================================================
-   LIGHTBOX GALERÍA PROFESIONAL Y EFECTO TILT 3D
-============================================================ */
-
-let lightboxImages = [];
-let currentLightboxIdx = 0;
-
-let isDragging = false;
-let startX = 0;
-let startY = 0;
-let translateX = 0;
-let translateY = 0;
-let isZoomed = false;
-const zoomScale = 2.5;
-
-window.openLightbox = function (imgSrc, gridEl) {
-    // Normalize relative or absolute source to absolute URL
-    const absoluteImgSrc = new URL(imgSrc, window.location.href).href;
-
-    if (!gridEl) {
-        // Fallback: search for the image on page and locate its parent container
-        const matchImg = Array.from(document.querySelectorAll("img")).find(img => img.src === absoluteImgSrc);
-        if (matchImg) {
-            gridEl = matchImg.closest(".carousel-track") || matchImg.closest(".renders-grid") || matchImg.parentNode;
-        }
-    }
-
-    if (gridEl) {
-        const imagesInGrid = Array.from(gridEl.querySelectorAll(".render-img"));
-        lightboxImages = [...new Set(imagesInGrid.map(img => img.src))];
-    } else {
-        lightboxImages = [absoluteImgSrc];
-    }
-
-    currentLightboxIdx = lightboxImages.indexOf(absoluteImgSrc);
-    if (currentLightboxIdx === -1) {
-        lightboxImages = [absoluteImgSrc];
-        currentLightboxIdx = 0;
-    }
-
-    updateLightboxContent();
-
-    const modal = document.getElementById("lightbox-modal");
-    if (modal) {
-        modal.style.display = "flex";
-        setTimeout(() => {
-            modal.classList.add("active");
-        }, 10);
-        document.body.style.overflow = "hidden";
-    }
-};
-
-window.updateLightboxContent = function () {
-    const imgEl = document.getElementById("lightbox-img");
-    if (imgEl) {
-        imgEl.src = lightboxImages[currentLightboxIdx];
-        resetLightboxZoom();
-    }
-};
-
-window.navigateLightbox = function (direction) {
-    if (lightboxImages.length <= 1) return;
-    currentLightboxIdx = (currentLightboxIdx + direction + lightboxImages.length) % lightboxImages.length;
-    updateLightboxContent();
-};
-
-window.closeLightbox = function () {
-    const modal = document.getElementById("lightbox-modal");
-    if (modal) {
-        modal.classList.remove("active");
-        setTimeout(() => {
-            modal.style.display = "none";
-        }, 400);
-        document.body.style.overflow = "";
-        resetLightboxZoom();
-    }
-};
-
-window.toggleLightboxZoom = function (e) {
-    const imgEl = document.getElementById("lightbox-img");
-    if (!imgEl) return;
-
-    if (!isZoomed) {
-        const rect = imgEl.getBoundingClientRect();
-        const clientX = e ? e.clientX : rect.left + rect.width / 2;
-        const clientY = e ? e.clientY : rect.top + rect.height / 2;
-
-        const mouseX = clientX - rect.left;
-        const mouseY = clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        // Exact on-screen offset calculation for precise zoom-centering
-        translateX = (centerX - mouseX) * zoomScale;
-        translateY = (centerY - mouseY) * zoomScale;
-
-        imgEl.classList.add("zoomed");
-        imgEl.style.transform = `scale(${zoomScale}) translate(${translateX / zoomScale}px, ${translateY / zoomScale}px)`;
-        imgEl.style.cursor = "grab";
-        isZoomed = true;
-    } else {
-        resetLightboxZoom();
-    }
-};
-
-window.resetLightboxZoom = function () {
-    const imgEl = document.getElementById("lightbox-img");
-    if (imgEl) {
-        imgEl.classList.remove("zoomed");
-        imgEl.style.transform = "scale(1) translate(0px, 0px)";
-        imgEl.style.cursor = "zoom-in";
-        imgEl.style.transition = "transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)";
-    }
-    isZoomed = false;
-    translateX = 0;
-    translateY = 0;
-};
-
-window.initDragPan = function () {
-    const imgEl = document.getElementById("lightbox-img");
-    if (!imgEl) return;
-
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let currentTranslateX = 0;
-    let currentTranslateY = 0;
-    let clickStartX = 0;
-    let clickStartY = 0;
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    const startDrag = (e) => {
-        if (!isZoomed) return;
-        isDragging = true;
-
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        dragStartX = clientX;
-        dragStartY = clientY;
-        currentTranslateX = translateX;
-        currentTranslateY = translateY;
-
-        imgEl.style.cursor = "grabbing";
-        imgEl.style.transition = "none";
-
-        if (e.touches) {
-            e.preventDefault();
-        }
-    };
-
-    const doDrag = (e) => {
-        if (!isDragging) return;
-
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        const dx = clientX - dragStartX;
-        const dy = clientY - dragStartY;
-
-        translateX = currentTranslateX + dx;
-        translateY = currentTranslateY + dy;
-
-        imgEl.style.transform = `scale(${zoomScale}) translate(${translateX / zoomScale}px, ${translateY / zoomScale}px)`;
-    };
-
-    const stopDrag = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        imgEl.style.cursor = "grab";
-        imgEl.style.transition = "transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)";
-    };
-
-    imgEl.addEventListener("mousedown", (e) => {
-        clickStartX = e.clientX;
-        clickStartY = e.clientY;
-        startDrag(e);
-    });
-
-    window.addEventListener("mousemove", doDrag);
-
-    window.addEventListener("mouseup", (e) => {
-        if (isDragging) stopDrag();
-
-        const clickEndX = e.clientX;
-        const clickEndY = e.clientY;
-        const distance = Math.sqrt(Math.pow(clickEndX - clickStartX, 2) + Math.pow(clickEndY - clickStartY, 2));
-
-        if (distance < 5 && e.target === imgEl) {
-            window.toggleLightboxZoom(e);
-        }
-    });
-
-    imgEl.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        startDrag(e);
-    }, { passive: false });
-
-    window.addEventListener("touchmove", doDrag, { passive: false });
-
-    window.addEventListener("touchend", (e) => {
-        if (isDragging) stopDrag();
-
-        if (e.changedTouches && e.changedTouches.length > 0) {
-            const touchEndX = e.changedTouches[0].clientX;
-            const touchEndY = e.changedTouches[0].clientY;
-            const distance = Math.sqrt(Math.pow(touchEndX - touchStartX, 2) + Math.pow(touchEndY - touchStartY, 2));
-
-            if (distance < 8 && e.target === imgEl) {
-                const fakeEvent = {
-                    clientX: touchEndX,
-                    clientY: touchEndY
-                };
-                window.toggleLightboxZoom(fakeEvent);
-            }
-        }
-    });
-};
-
+/* Efecto 3D al pasar el mouse sobre renders y destacados (solo con mouse y sin movimiento reducido) */
 window.applyTiltListeners = function () {
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const cards = document.querySelectorAll(".render-item");
     cards.forEach(card => {
-        card.onmousemove = null;
-        card.onmouseleave = null;
-
         card.addEventListener("mousemove", e => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const xc = rect.width / 2;
-            const yc = rect.height / 2;
-            const rotateX = -(y - yc) / 18;
-            const rotateY = (x - xc) / 18;
-
+            const rotateX = -((e.clientY - rect.top) - rect.height / 2) / 18;
+            const rotateY = ((e.clientX - rect.left) - rect.width / 2) / 18;
             card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
             card.style.boxShadow = `0 15px 35px rgba(0, 0, 0, 0.65), 0 0 15px rgba(212, 175, 55, 0.1)`;
         });
-
         card.addEventListener("mouseleave", () => {
             card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)";
             card.style.boxShadow = "";
@@ -1062,80 +319,21 @@ window.applyTiltListeners = function () {
     });
 };
 
-document.addEventListener("keydown", e => {
-    if (e.key === "Escape") {
-        closeProjectModal();
-        closeLightbox();
-    }
-    const modal = document.getElementById("lightbox-modal");
-    if (modal && modal.style.display === "flex") {
-        if (e.key === "ArrowRight") {
-            navigateLightbox(1);
-        } else if (e.key === "ArrowLeft") {
-            navigateLightbox(-1);
-        }
-    }
-});
+function iniciarGaleria() {
+    renderPortafolio();
+    iniciarFiltros();
+    renderDestacados();
+    renderRenders();
+    window.applyTiltListeners();
+}
 
 /* ============================================================
    INICIALIZACIÓN DE INTERFACES EN DOMContentLoaded
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Portfolio
-    cargarPortafolio();
-
-    renderKitchenGallery(proyectos.filter(p => p.id === "cocina-machali"));
-    renderDecorGallery(proyectos.filter(p => p.id === "tv-wall-luxury"));
-    renderClosetGallery(proyectos.filter(p => p.category === "closet" && p.tag.toLowerCase().includes("walk-in")));
-
-    // Bind static renders details modal
-    const rendersGrid = document.querySelector("#renders .renders-grid");
-    if (rendersGrid) {
-        const renderItems = rendersGrid.querySelectorAll(".render-item");
-        renderItems.forEach(item => {
-            const img = item.querySelector(".render-img");
-            if (img) {
-                img.setAttribute("loading", "lazy");
-                img.style.cursor = "pointer";
-
-                let renderId = "render-isla";
-                const alt = img.alt || "";
-                if (alt.includes("Gris") || alt.includes("Isla")) renderId = "render-isla";
-                else if (alt.includes("Roble") || alt.includes("Negro") || alt.includes("Dormitorio")) renderId = "render-dormitorio";
-                else if (alt.includes("Oliva") || alt.includes("Cocina")) renderId = "render-cocina";
-                else if (alt.includes("Divisor") || alt.includes("Entretenimiento")) renderId = "render-tv";
-
-                img.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    window.openProjectModal(renderId, img.src);
-                });
-
-                const overlay = item.querySelector(".render-info-overlay");
-                if (overlay) {
-                    overlay.style.cursor = "pointer";
-                    overlay.addEventListener("click", (e) => {
-                        e.stopPropagation();
-                        window.openProjectModal(renderId, img.src);
-                    });
-                }
-
-                item.addEventListener("click", () => {
-                    window.openProjectModal(renderId, img.src);
-                });
-            }
-        });
-    }
-
-    if (typeof window.applyTiltListeners === "function") {
-        window.applyTiltListeners();
-    }
-
-    // Project modal click-out and close button
-    const closeBackdrop = document.getElementById("modal-close-backdrop");
-    const closeBtn = document.getElementById("modal-close-btn");
-    if (closeBackdrop) closeBackdrop.addEventListener("click", closeProjectModal);
-    if (closeBtn) closeBtn.addEventListener("click", closeProjectModal);
+    // Galería: portafolio con filtros, destacados y renders (datos en proyectos-data.js)
+    iniciarGaleria();
 
     // Appointment Showroom Booking Modal
     const openMeetingBtn = document.getElementById("open-meeting-modal");
@@ -1211,28 +409,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.remove("menu-open");
         });
     });
-
-    // Renders Lightbox initialization
-    const renderItems = document.querySelectorAll(".renders-grid .render-item");
-    renderItems.forEach(item => {
-        item.style.cursor = "pointer";
-        item.addEventListener("click", () => {
-            const img = item.querySelector("img");
-            if (img) {
-                openLightbox(img.src);
-            }
-        });
-    });
-
-    const lightboxCloseBtn = document.getElementById("lightbox-close-btn");
-    const lightboxCloseBackdrop = document.getElementById("lightbox-close-backdrop");
-    if (lightboxCloseBtn) lightboxCloseBtn.addEventListener("click", closeLightbox);
-    if (lightboxCloseBackdrop) lightboxCloseBackdrop.addEventListener("click", closeLightbox);
-
-    // Initialize dragging and panning for precise zoom
-    if (typeof window.initDragPan === "function") {
-        window.initDragPan();
-    }
 });
 
 /* ============================================================
