@@ -1,0 +1,14 @@
+# Cabeceras de Netlify para mueblerialgspa.com
+
+# Imágenes: caché de 1 año en el navegador.
+# IMPORTANTE: si reemplazas una imagen, súbela con un NOMBRE NUEVO (ej. hero_bg-v2.webp)
+# y actualiza la referencia; si usas el mismo nombre, los visitantes podrían seguir viendo la anterior.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Seguridad básica (no afecta Meta Pixel, Google Maps ni WhatsApp)
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
