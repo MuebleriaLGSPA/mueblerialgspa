@@ -196,7 +196,8 @@ h6 {
 }
 
 .green-tag {
-    color: var(--color-green-glow);
+    /* Verde algo más claro que --color-green-glow (#4a785b) para cumplir el contraste mínimo 4.5:1 en todos los fondos donde aparece */
+    color: #5d9873;
     text-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
 }
 
