@@ -1,9 +1,21 @@
 # Cabeceras de Netlify para mueblerialgspa.com
+# (las páginas HTML, cotizador-motor.js y precios.json usan la caché por defecto
+#  de Netlify: el navegador revalida en cada visita, así los cambios se ven al instante)
 
-# Imágenes: caché de 1 año en el navegador.
-# IMPORTANTE: si reemplazas una imagen, súbela con un NOMBRE NUEVO (ej. hero_bg-v2.webp)
-# y actualiza la referencia; si usas el mismo nombre, los visitantes podrían seguir viendo la anterior.
-/assets/*
+# CSS y JS con huella en el nombre (los genera "npm run build"): caché de 1 año.
+# Al cambiar un archivo cambia su nombre, así que nunca se sirve una versión vieja.
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imágenes optimizadas y fuentes: se piden con ?v=<huella> (cambia al reemplazarlas)
+/assets/optimizadas/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fuentes/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Librerías con la versión en el nombre de la carpeta
+/vendor/*
   Cache-Control: public, max-age=31536000, immutable
 
 # Seguridad básica (no afecta Meta Pixel, Google Maps ni WhatsApp)

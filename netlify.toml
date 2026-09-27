@@ -1,0 +1,10 @@
+# Configuración de publicación en Netlify
+# Netlify instala las dependencias, corre "npm run build" y publica la carpeta dist/.
+# Si el build falla, Netlify mantiene publicada la versión anterior del sitio.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
