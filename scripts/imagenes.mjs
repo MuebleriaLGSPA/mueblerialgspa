@@ -8,8 +8,8 @@
    - Lee cada foto original (.jpg, .jpeg, .png) de la carpeta assets/.
      Los originales NO se modifican.
    - Genera versiones AVIF y WebP en assets/optimizadas/ con anchos de
-     480, 800, 1200 y 1600 px (nunca agranda: si la foto mide 1024 px,
-     se generan 480, 800 y 1024).
+     480, 800, 1200 y 1600 px, más una miniatura de 160 px (nunca agranda:
+     si la foto mide 1024 px, se generan 160, 480, 800 y 1024).
    - Escribe assets/optimizadas/dimensiones.js con el ancho/alto de cada
      foto y los anchos disponibles (lo usa el sitio para srcset,
      width/height y el visor de fotos).
@@ -26,8 +26,10 @@ import path from 'node:path';
 const ORIGEN = 'assets';
 const DESTINO = path.join('assets', 'optimizadas');
 const ANCHOS = [480, 800, 1200, 1600];
+// Miniatura de 160 px para todas las fotos (tira de miniaturas del visor)
+const MINIATURA = 160;
 // Anchos adicionales para imágenes que se muestran pequeñas (el logo del encabezado mide ~50 px)
-const ANCHOS_EXTRA = { logo: [160, 320] };
+const ANCHOS_EXTRA = { logo: [320] };
 const CALIDAD = { avif: { quality: 50, effort: 4 }, webp: { quality: 76, effort: 5 } };
 const forzar = process.argv.includes('--forzar');
 
@@ -62,7 +64,7 @@ for (const [base, candidatos] of porBase) originales.push(await elegirOriginal(b
 
 // Anchos a generar para una foto de ancho "w": los estándar menores que w + el ancho original (tope 1600)
 function anchosPara(w, base) {
-    const lista = [...(ANCHOS_EXTRA[base] || []), ...ANCHOS].filter(a => a < w);
+    const lista = [MINIATURA, ...(ANCHOS_EXTRA[base] || []), ...ANCHOS].filter(a => a < w);
     lista.push(Math.min(w, ANCHOS[ANCHOS.length - 1]));
     return [...new Set(lista)].sort((a, b) => a - b);
 }
