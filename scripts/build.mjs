@@ -118,6 +118,8 @@ const beasties = new Beasties({
     inlineFonts: true,       // los @font-face van en el CSS crítico para que el título use su fuente desde el inicio
     preloadFonts: false,     // la fuente principal ya tiene su propio preload
     keyframes: 'critical',
+    // La galería la genera JavaScript: se incluyen sus estilos base para que no cambie de tamaño al llegar el CSS completo
+    allowRules: [/tarjeta-proyecto/, /portafolio-grid/, /carousel-(track|dots|dot|container|nav-btn)/, /render-(item|img|info-overlay)/, /renders-(grid|carrusel)/, /filtro-chip/, /proyecto-card/],
     compress: true,
     logLevel: 'warn',
 });

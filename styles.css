@@ -67,6 +67,14 @@
     --transition-fast: all 0.2s ease;
 }
 
+/* Mientras la página carga no hay transiciones: si no, al llegar el CSS completo los elementos
+   "animarían" desde su estado sin estilo (costoso en celulares). app.js quita la clase al cargar. */
+.precarga *,
+.precarga *::before,
+.precarga *::after {
+    transition: none !important;
+}
+
 /* 2. BASE RESET & INITIAL STYLING */
 * {
     box-sizing: border-box;
@@ -528,8 +536,37 @@ h6 {
     filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
 }
 
+/* Brillo dorado del marco: se anima la opacidad de un resplandor fijo (compuesto por la tarjeta
+   gráfica) en lugar de animar filter, que repintaba en cada cuadro. Mismo efecto visual. */
 .animate-glow {
-    animation: logoGlow 6s infinite alternate;
+    position: relative;
+    isolation: isolate;
+}
+
+.animate-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: 0 0 25px 2px rgba(212, 175, 55, 0.7);
+    opacity: 0.4;
+    pointer-events: none;
+    animation: brilloMarco 6s infinite alternate;
+}
+
+.animate-glow img {
+    border-radius: inherit;
+}
+
+@keyframes brilloMarco {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .hero-title {
@@ -1913,19 +1950,20 @@ h6 {
     }
 }
 
+/* Solo transform/opacity: la anima la tarjeta gráfica sin repintar (antes movía "top") */
 @keyframes scrollMouse {
     0% {
-        top: 6px;
+        transform: translate(-50%, 0);
         opacity: 1;
     }
 
     50% {
-        top: 20px;
+        transform: translate(-50%, 14px);
         opacity: 0;
     }
 
     100% {
-        top: 6px;
+        transform: translate(-50%, 0);
         opacity: 1;
     }
 }
@@ -2702,9 +2740,15 @@ textarea:focus+label {
 
 /* Ensure smooth 3D tilts and perspective calculations */
 .render-item {
-    transform-style: preserve-3d;
-    will-change: transform, box-shadow;
     transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.4s ease;
+}
+
+/* Preparación para el efecto 3D al pasar el mouse: solo en equipos con mouse (en celular creaba capas sin uso) */
+@media (hover: hover) and (pointer: fine) {
+    .render-item {
+        transform-style: preserve-3d;
+        will-change: transform, box-shadow;
+    }
 }
 
 /* Unified layout grid for all portfolio categories */
@@ -3471,5 +3515,13 @@ html.visor-abierto * {
     .visor-cotizar,
     .visor-ayuda {
         transition: none;
+    }
+}
+
+/* Movimiento reducido: sin animaciones decorativas infinitas */
+@media (prefers-reduced-motion: reduce) {
+    .wheel,
+    .animate-glow::before {
+        animation: none;
     }
 }

@@ -211,7 +211,8 @@ function crearCarrusel(track, { prevBtn = null, nextBtn = null, puntosTras = tra
     track.addEventListener("scroll", () => {
         if (!pendiente) { pendiente = true; requestAnimationFrame(updateDots); }
     }, { passive: true });
-    updateDots();
+    // Al cargar siempre se ve el primero: se marca sin medir (medir aquí forzaría un cálculo de diseño de toda la página)
+    dots[0].classList.add("active");
 
     // Flechas: al llegar a un extremo vuelven al otro
     if (prevBtn) {
@@ -333,8 +334,9 @@ function iniciarGaleria() {
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Galería: portafolio con filtros, destacados y renders (datos en proyectos-data.js)
-    iniciarGaleria();
+    // Galería: portafolio con filtros, destacados y renders (datos en proyectos-data.js).
+    // Está bajo la primera pantalla: se arma justo después del primer pintado para no retrasar el hero.
+    requestAnimationFrame(() => setTimeout(iniciarGaleria, 0));
 
     // Appointment Showroom Booking Modal
     const openMeetingBtn = document.getElementById("open-meeting-modal");
@@ -434,3 +436,8 @@ document.addEventListener("DOMContentLoaded", () => {
         iframe.focus();
     }, { once: true });
 })();
+
+/* Activa las transiciones recién cuando la página terminó de cargar (ver .precarga en styles.css) */
+window.addEventListener("load", () => {
+    requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("precarga")));
+});
