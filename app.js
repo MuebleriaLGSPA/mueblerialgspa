@@ -1234,3 +1234,26 @@ document.addEventListener("DOMContentLoaded", () => {
         window.initDragPan();
     }
 });
+
+/* ============================================================
+   MAPA BAJO DEMANDA
+   El iframe de Google Maps (~500 KB entre scripts y teselas) solo se
+   carga cuando el cliente toca "Ver mapa". Mantiene el enlace
+   "Ver en Google Maps" de la tarjeta de dirección.
+============================================================ */
+(function iniciarMapaBajoDemanda() {
+    const boton = document.getElementById("map-facade");
+    if (!boton) return;
+    boton.addEventListener("click", () => {
+        const iframe = document.createElement("iframe");
+        iframe.src = boton.dataset.src;
+        iframe.title = boton.dataset.title;
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.style.border = "0";
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = "no-referrer-when-downgrade";
+        boton.replaceWith(iframe);
+        iframe.focus();
+    }, { once: true });
+})();

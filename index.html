@@ -1640,11 +1640,17 @@
 
                 <!-- LADO DERECHO: MAPA -->
                 <div class="contact-map-side">
-                    <div class="map-frame">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000"
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicación de MUEBLERIALG SPA en Google Maps">
-                        </iframe>
+                    <!-- Mapa bajo demanda: tarjeta liviana (solo CSS); el iframe de Google se carga al tocar "Ver mapa" -->
+                    <div class="map-frame" id="map-frame">
+                        <button type="button" class="map-facade" id="map-facade" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000"
+                            data-title="Ubicación de MUEBLERIALG SPA en Google Maps" aria-label="Cargar el mapa interactivo de Google Maps">
+                            <span class="map-facade-pin"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+                            <span class="map-facade-address">Santa Filomena 26, San Francisco de Mostazal</span>
+                            <span class="btn btn-gold map-facade-btn">Ver mapa</span>
+                        </button>
+                        <noscript>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicación de MUEBLERIALG SPA en Google Maps"></iframe>
+                        </noscript>
                     </div>
                 </div>
 
@@ -1752,6 +1758,50 @@
             border: 0;
             width: 100%;
             height: 100%;
+        }
+
+        /* Tarjeta del mapa (antes de cargar Google Maps): fondo oscuro con "calles" dibujadas en CSS, 0 KB */
+        .map-facade {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--color-text-white);
+            font-family: var(--font-secondary);
+            background-color: #1b1b1b;
+            background-image:
+                linear-gradient(28deg, transparent 47%, rgba(212, 175, 55, 0.18) 48%, rgba(212, 175, 55, 0.18) 52%, transparent 53%),
+                linear-gradient(118deg, transparent 46%, rgba(255, 255, 255, 0.07) 47%, rgba(255, 255, 255, 0.07) 53%, transparent 54%),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 46px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 58px);
+        }
+
+        .map-facade-pin {
+            font-size: 2.6rem;
+            color: var(--color-metallic-gold);
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+        }
+
+        .map-facade-address {
+            font-size: 0.95rem;
+            text-align: center;
+            max-width: 280px;
+        }
+
+        .map-facade-btn {
+            pointer-events: none; /* el clic lo recibe el botón completo */
+            min-height: 44px;
+        }
+
+        .map-facade:focus-visible {
+            outline: 2px solid var(--color-metallic-gold);
+            outline-offset: -4px;
         }
 
         /* RESPONSIVE */
