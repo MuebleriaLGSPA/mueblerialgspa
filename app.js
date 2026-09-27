@@ -49,12 +49,13 @@ function pictureHTML(archivo, alt, sizes, clase = "") {
     const d = (window.DIMENSIONES_IMAGENES || {})[archivo];
     if (!d) return `<img src="${RUTA_IMG}${archivo}-480w.webp" alt="${alt}" class="${clase}" loading="lazy" decoding="async">`;
     const anchos = d.anchos.filter(a => a >= 480);
-    const set = f => anchos.map(a => `${RUTA_IMG}${archivo}-${a}w.${f} ${a}w`).join(", ");
+    const v = d.v ? `?v=${d.v}` : ""; // versión: cambia al reemplazar la foto (caché larga segura)
+    const set = f => anchos.map(a => `${RUTA_IMG}${archivo}-${a}w.${f}${v} ${a}w`).join(", ");
     const respaldo = anchos.filter(a => a <= 800).pop() || anchos[0];
     return `<picture>` +
         `<source type="image/avif" srcset="${set("avif")}" sizes="${sizes}">` +
         `<source type="image/webp" srcset="${set("webp")}" sizes="${sizes}">` +
-        `<img src="${RUTA_IMG}${archivo}-${respaldo}w.webp" width="${d.w}" height="${d.h}" alt="${alt}" class="${clase}" loading="lazy" decoding="async">` +
+        `<img src="${RUTA_IMG}${archivo}-${respaldo}w.webp${v}" width="${d.w}" height="${d.h}" alt="${alt}" class="${clase}" loading="lazy" decoding="async">` +
         `</picture>`;
 }
 

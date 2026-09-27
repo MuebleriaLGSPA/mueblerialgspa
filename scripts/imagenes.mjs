@@ -22,6 +22,7 @@
 import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 const ORIGEN = 'assets';
 const DESTINO = path.join('assets', 'optimizadas');
@@ -83,7 +84,9 @@ for (const archivo of originales) {
     const w = esVertical ? meta.height : meta.width;
     const h = esVertical ? meta.width : meta.height;
     const anchos = anchosPara(w, base);
-    dimensiones[base] = { w, h, anchos };
+    // v = huella del original: cambia si se reemplaza la foto, así el navegador no usa una copia vieja
+    const v = crypto.createHash('sha1').update(fs.readFileSync(rutaOrigen)).digest('hex').slice(0, 8);
+    dimensiones[base] = { w, h, anchos, v };
 
     for (const ancho of anchos) {
         for (const formato of ['avif', 'webp']) {
@@ -113,7 +116,8 @@ if (borrados) console.log(`Variantes obsoletas eliminadas: ${borrados}`);
 
 // Archivo de dimensiones para el sitio (script clásico: define window.DIMENSIONES_IMAGENES)
 const contenido = `/* Archivo GENERADO por scripts/imagenes.mjs — no editar a mano.
-   Ancho/alto original de cada foto y anchos disponibles en assets/optimizadas/. */
+   Ancho/alto original de cada foto, anchos disponibles en assets/optimizadas/ y
+   versión (v) para que el navegador descargue de nuevo una foto reemplazada. */
 window.DIMENSIONES_IMAGENES = ${JSON.stringify(dimensiones)};
 `;
 fs.writeFileSync(path.join(DESTINO, 'dimensiones.js'), contenido);

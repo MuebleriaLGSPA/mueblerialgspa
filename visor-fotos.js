@@ -59,10 +59,11 @@ export async function abrirVisor({ fotos, indice = 0, ficha = null }) {
         // Solo los tamaños grandes: la miniatura de 160 px no sirve en pantalla completa
         const anchos = d.anchos.filter(a => a >= 480);
         const mayor = anchos[anchos.length - 1];
+        const ver = d.v ? `?v=${d.v}` : ''; // versión de la foto (caché larga segura)
         return {
-            src: `${RUTA}${f.archivo}-${mayor}w.${formato}`,
-            srcset: anchos.map(a => `${RUTA}${f.archivo}-${a}w.${formato} ${a}w`).join(', '),
-            msrc: `${RUTA}${f.archivo}-160w.webp`,  // se muestra mientras carga la foto grande
+            src: `${RUTA}${f.archivo}-${mayor}w.${formato}${ver}`,
+            srcset: anchos.map(a => `${RUTA}${f.archivo}-${a}w.${formato}${ver} ${a}w`).join(', '),
+            msrc: `${RUTA}${f.archivo}-160w.webp${ver}`,  // se muestra mientras carga la foto grande
             width: d.w,
             height: d.h,
             alt: f.alt,
@@ -122,7 +123,7 @@ export async function abrirVisor({ fotos, indice = 0, ficha = null }) {
                 el.setAttribute('aria-label', 'Miniaturas');
                 el.innerHTML = fotos.map((f, i) => `
                     <button type="button" class="visor-miniatura" data-i="${i}" aria-label="Ver foto ${i + 1} de ${total}">
-                        <img src="${RUTA}${f.archivo}-160w.webp" alt="" width="64" height="64" loading="lazy" decoding="async">
+                        <img src="${RUTA}${f.archivo}-160w.webp${(dims[f.archivo] || {}).v ? '?v=' + dims[f.archivo].v : ''}" alt="" width="64" height="64" loading="lazy" decoding="async">
                     </button>`).join('');
                 el.addEventListener('click', (e) => {
                     const b = e.target.closest('.visor-miniatura');
