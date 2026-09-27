@@ -605,64 +605,90 @@ function cargarPortafolio() {
         window.applyTiltListeners();
     }
 
-    // Carousel setup for infinite scroll loop
+    // Carrusel manual: flechas, arrastre con mouse, deslizamiento táctil y puntos indicadores.
+    // Sin auto-scroll: el desplazamiento continuo impedía que Chrome midiera el LCP (error NO_LCP).
     if (featuredGrid) {
-        // Clone elements twice (before and after) to create 3 sets
-        const originalCards = Array.from(featuredGrid.children);
-
-        // Prepend copies (in order)
-        originalCards.forEach(card => {
-            const clone = card.cloneNode(true);
-            featuredGrid.insertBefore(clone, originalCards[0]);
-        });
-
-        // Append copies
-        originalCards.forEach(card => {
-            const clone = card.cloneNode(true);
-            featuredGrid.appendChild(clone);
-        });
+        const cards = Array.from(featuredGrid.children);
+        const container = document.getElementById("featured-carousel-container");
+        const prevBtn = document.getElementById("btn-featured-prev");
+        const nextBtn = document.getElementById("btn-featured-next");
 
         let isDown = false;
-        let isHovered = false;
         let startX;
         let scrollLeft;
         let hasMoved = false;
 
-        // Position initial scroll at the middle set (after elements are rendered)
-        setTimeout(() => {
-            const setWidth = featuredGrid.scrollWidth / 3;
-            featuredGrid.scrollLeft = setWidth;
-        }, 150);
+        const cardStep = () => {
+            const item = featuredGrid.querySelector(".render-item");
+            const gap = parseFloat(getComputedStyle(featuredGrid).columnGap) || 24;
+            return (item ? item.clientWidth : 300) + gap;
+        };
+        const maxScroll = () => featuredGrid.scrollWidth - featuredGrid.clientWidth;
 
-        // Listen for scroll to handle seamless wrap-around loop boundaries
-        featuredGrid.addEventListener('scroll', () => {
-            const setWidth = featuredGrid.scrollWidth / 3;
-            if (featuredGrid.scrollLeft >= 2 * setWidth) {
-                featuredGrid.scrollLeft -= setWidth;
-            } else if (featuredGrid.scrollLeft <= setWidth / 2) {
-                featuredGrid.scrollLeft += setWidth;
-            }
+        // Puntos indicadores (uno por proyecto)
+        const dotsWrap = document.createElement("div");
+        dotsWrap.className = "carousel-dots";
+        const dots = cards.map((card, i) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "carousel-dot";
+            dot.setAttribute("aria-label", "Ver proyecto " + (i + 1));
+            dot.addEventListener("click", () => {
+                featuredGrid.scrollTo({ left: card.offsetLeft - cards[0].offsetLeft, behavior: "smooth" });
+            });
+            dotsWrap.appendChild(dot);
+            return dot;
         });
+        (container || featuredGrid).after(dotsWrap);
+
+        const updateDots = () => {
+            const atEnd = featuredGrid.scrollLeft >= maxScroll() - 2;
+            const index = atEnd ? cards.length - 1 : Math.round(featuredGrid.scrollLeft / cardStep());
+            dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+        };
+        featuredGrid.addEventListener("scroll", updateDots, { passive: true });
+        updateDots();
+
+        // Flechas: al llegar a un extremo vuelven al otro
+        if (prevBtn) {
+            prevBtn.onclick = () => {
+                if (featuredGrid.scrollLeft <= 2) {
+                    featuredGrid.scrollTo({ left: maxScroll(), behavior: "smooth" });
+                } else {
+                    featuredGrid.scrollBy({ left: -cardStep(), behavior: "smooth" });
+                }
+            };
+        }
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                if (featuredGrid.scrollLeft >= maxScroll() - 2) {
+                    featuredGrid.scrollTo({ left: 0, behavior: "smooth" });
+                } else {
+                    featuredGrid.scrollBy({ left: cardStep(), behavior: "smooth" });
+                }
+            };
+        }
+
+        // Arrastre con mouse (en táctil se usa el deslizamiento nativo)
+        const endDrag = () => {
+            if (!isDown) return;
+            isDown = false;
+            featuredGrid.style.scrollSnapType = "";
+            featuredGrid.style.scrollBehavior = "";
+        };
 
         featuredGrid.addEventListener('mousedown', (e) => {
             isDown = true;
             startX = e.pageX - featuredGrid.offsetLeft;
             scrollLeft = featuredGrid.scrollLeft;
             hasMoved = false;
+            // Desactiva el encaje y el scroll suave mientras se arrastra para que siga al cursor
+            featuredGrid.style.scrollSnapType = "none";
+            featuredGrid.style.scrollBehavior = "auto";
         });
 
-        featuredGrid.addEventListener('mouseenter', () => {
-            isHovered = true;
-        });
-
-        featuredGrid.addEventListener('mouseleave', () => {
-            isDown = false;
-            isHovered = false;
-        });
-
-        featuredGrid.addEventListener('mouseup', () => {
-            isDown = false;
-        });
+        featuredGrid.addEventListener('mouseleave', endDrag);
+        featuredGrid.addEventListener('mouseup', endDrag);
 
         featuredGrid.addEventListener('mousemove', (e) => {
             if (!isDown) return;
@@ -681,36 +707,6 @@ function cargarPortafolio() {
                 e.stopPropagation();
             }
         }, true); // Capture phase to prevent opening lightbox on drag release
-
-        const prevBtn = document.getElementById("btn-featured-prev");
-        const nextBtn = document.getElementById("btn-featured-next");
-        if (prevBtn) {
-            prevBtn.onclick = () => {
-                const item = featuredGrid.querySelector(".render-item");
-                const cardWidth = item ? item.clientWidth : 300;
-                featuredGrid.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
-            };
-        }
-        if (nextBtn) {
-            nextBtn.onclick = () => {
-                const item = featuredGrid.querySelector(".render-item");
-                const cardWidth = item ? item.clientWidth : 300;
-                featuredGrid.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
-            };
-        }
-
-        // Auto-scroll loop with constant speed (pixels per frame)
-        const autoScrollSpeed = 0.8; // Adjust speed here for faster/slower scroll
-        function autoScroll() {
-            const lightbox = document.getElementById("lightbox-modal");
-            const lightboxActive = lightbox && lightbox.classList.contains("active");
-
-            if (!isDown && !isHovered && !lightboxActive) {
-                featuredGrid.scrollLeft += autoScrollSpeed;
-            }
-            requestAnimationFrame(autoScroll);
-        }
-        requestAnimationFrame(autoScroll);
     }
 }
 

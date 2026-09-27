@@ -2745,6 +2745,7 @@ textarea:focus+label {
     /* IE 10+ */
     cursor: grab;
     user-select: none;
+    scroll-snap-type: x mandatory;
 }
 
 .carousel-track:active {
@@ -2765,6 +2766,7 @@ textarea:focus+label {
     overflow: hidden;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start;
 }
 
 .carousel-track .render-item img {
@@ -2811,6 +2813,41 @@ textarea:focus+label {
     right: -25px;
 }
 
+/* Puntos indicadores del carrusel (área táctil de 24px, punto visible de 10px) */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 16px;
+}
+
+.carousel-dot {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-dot::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--color-metallic-gold);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active::before {
+    background: var(--color-metallic-gold);
+    transform: scale(1.2);
+}
+
 /* Responsive adjustments */
 @media (max-width: 992px) {
     .carousel-track .render-item {
@@ -2843,8 +2880,15 @@ textarea:focus+label {
         width: 40px;
         height: 40px;
         font-size: 1rem;
-        display: none;
-        /* Hide navigation buttons on mobile to allow native swipe space */
+    }
+
+    /* En móvil las flechas quedan sobre la imagen, dentro de la pantalla */
+    .carousel-nav-btn.prev {
+        left: 8px;
+    }
+
+    .carousel-nav-btn.next {
+        right: 8px;
     }
 }
 
