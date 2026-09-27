@@ -686,6 +686,7 @@ h6 {
     -webkit-text-fill-color: transparent;
 }
 
+.feat-item h3,
 .feat-item h4 {
     font-family: var(--font-secondary);
     font-weight: 600;
@@ -769,6 +770,7 @@ h6 {
     transition: var(--transition-smooth);
 }
 
+.render-info-overlay h3,
 .render-info-overlay h4 {
     font-family: var(--font-secondary);
     font-weight: 600;
@@ -2925,6 +2927,7 @@ textarea:focus+label {
     line-height: 1.4 !important;
 }
 
+#about .feat-item h3,
 #about .feat-item h4 {
     font-size: 1.35rem !important;
 }
