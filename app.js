@@ -94,7 +94,7 @@ function renderPortafolio() {
         const n = p.fotos.length;
         return `
             <button type="button" class="tarjeta-proyecto" data-id="${p.id}" data-categoria="${p.categoria}"
-                aria-label="Ver ${n} ${n === 1 ? "foto" : "fotos"} de ${p.titulo}">
+                aria-label="${p.etiqueta} ${p.titulo} ${n} ${n === 1 ? "foto" : "fotos"} (ver galería)">
                 <span class="tarjeta-proyecto-img">
                     ${pictureHTML(p.fotos[0].archivo, p.fotos[0].alt, "(max-width: 767px) 80vw, (max-width: 1023px) 50vw, 380px")}
                 </span>
@@ -282,7 +282,7 @@ function renderRenders() {
     const grid = document.getElementById("renders-grid");
     if (!grid || !window.RENDERS) return;
     grid.innerHTML = window.RENDERS.map((r, i) => `
-        <button type="button" class="render-item" data-i="${i}" aria-label="Ampliar: ${r.titulo}">
+        <button type="button" class="render-item" data-i="${i}" aria-label="${r.titulo} ${r.resumen} (ampliar)">
             ${pictureHTML(r.archivo, r.alt, "(max-width: 767px) 85vw, (max-width: 1200px) 50vw, 580px", "render-img")}
             <span class="render-info-overlay">
                 <h3>${r.titulo}</h3>
