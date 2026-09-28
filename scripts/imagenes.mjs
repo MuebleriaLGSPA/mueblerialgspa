@@ -42,7 +42,7 @@ fs.mkdirSync(DESTINO, { recursive: true });
 // (sin pérdida y con transparencia).
 // Imágenes de ejemplo (generadas, no son trabajos reales) que comparten nombre con una
 // foto real: nunca se usan como original. Se conservan en assets/ por si se necesitan.
-const EJEMPLOS_NO_USAR = new Set(['temuco1.png']);
+const EJEMPLOS_NO_USAR = new Set(['temuco1.png', 'olivar1.png']);
 const archivosOrigen = fs.readdirSync(ORIGEN).filter(f => /\.(jpe?g|png)$/i.test(f) && !EJEMPLOS_NO_USAR.has(f)).sort();
 const porBase = new Map();
 for (const f of archivosOrigen) {
