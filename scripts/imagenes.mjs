@@ -40,7 +40,10 @@ fs.mkdirSync(DESTINO, { recursive: true });
 // Si una foto tiene dos originales (ej. logo.jpg y logo.png), se usa el que coincide con
 // las dimensiones del .webp que ya publica el sitio; si no hay .webp, se prefiere el PNG
 // (sin pérdida y con transparencia).
-const archivosOrigen = fs.readdirSync(ORIGEN).filter(f => /\.(jpe?g|png)$/i.test(f)).sort();
+// Imágenes de ejemplo (generadas, no son trabajos reales) que comparten nombre con una
+// foto real: nunca se usan como original. Se conservan en assets/ por si se necesitan.
+const EJEMPLOS_NO_USAR = new Set(['temuco1.png']);
+const archivosOrigen = fs.readdirSync(ORIGEN).filter(f => /\.(jpe?g|png)$/i.test(f) && !EJEMPLOS_NO_USAR.has(f)).sort();
 const porBase = new Map();
 for (const f of archivosOrigen) {
     const base = f.replace(/\.(jpe?g|png)$/i, '');
