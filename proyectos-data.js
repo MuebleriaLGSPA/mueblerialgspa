@@ -133,7 +133,7 @@ window.PROYECTOS = [
         dimensiones: "Largo Base: 4.5m, Isla: 1.8m",
         terminacion: "Pintura satinada de tacto suave y alta durabilidad",
         fotos: [
-            { archivo: "shaker1", alt: "Cocina Shaker azul con fregadero cerámico, repisas abiertas e isla, Proyecto Shaker" },
+            { archivo: "shaker1", alt: "Muebles Shaker grises con tiradores dorados, cubierta blanca y luz LED bajo los muebles altos, Proyecto Shaker" },
             { archivo: "shaker2", alt: "Encimera y horno en muebles Shaker grises con estantería de madera, Proyecto Shaker" },
             { archivo: "shaker3", alt: "Muebles Shaker grises con torre de microondas y barra con pisos, Proyecto Shaker" },
             { archivo: "shaker4", alt: "Barra con encimera y pisos altos junto a muebles Shaker verde grisáceo, Proyecto Shaker" }
