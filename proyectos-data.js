@@ -116,7 +116,7 @@ window.PROYECTOS = [
         materiales: "Melamina 18mm Gris Grafito / Cuarzo Blanco Snow",
         herrajes: "Bisagras y rieles ocultos con cierre suave",
         fotos: [
-            { archivo: "olivar1", alt: "Cocina negra con isla y panel de palillaje de madera iluminado, Proyecto Olivar 1" },
+            { archivo: "olivar1", alt: "Cocina en melamina gris grafito con hornos empotrados en columna y cubierta blanca, Proyecto Olivar 1" },
             { archivo: "olivar2", alt: "Península negra con repisa abierta y cubierta blanca, Proyecto Olivar 1" },
             { archivo: "olivar3", alt: "Columna de hornos empotrados en muebles negros, Proyecto Olivar 1" },
             { archivo: "olivar4", alt: "Cocina en L negra con cubierta blanca junto a una ventana, Proyecto Olivar 1" }
