@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-CL">
+<html lang="es-CL" class="precarga">
 
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,12 @@
     <meta name="description"
         content="Diseño y fabricación de muebles a medida premium en Santiago, Chile. Cocinas modernas, walk-in closets, bibliotecas, quinchos y proyectos decorativos de alto nivel.">
 
-    <!-- Preload para el candidato LCP de la primera pantalla (Hero Background y Logo) -->
-    <link rel="preload" as="image" href="assets/hero_bg-400w.webp" media="(max-width: 600px)" type="image/webp">
-    <link rel="preload" as="image" href="assets/hero_bg.webp" media="(min-width: 601px)" type="image/webp">
-    <link rel="preload" as="image" href="assets/logo-400w.webp" media="(max-width: 600px)" type="image/webp">
+    <!-- Preload de la imagen principal (hero), candidata a LCP: AVIF liviano en móvil, srcset en computador -->
+    <link rel="preload" as="image" type="image/avif" href="assets/optimizadas/hero_bg-480w.avif"
+        media="(max-width: 600px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/avif" media="(min-width: 601px)" fetchpriority="high"
+        imagesrcset="assets/optimizadas/hero_bg-800w.avif 800w, assets/optimizadas/hero_bg-1024w.avif 1024w"
+        imagesizes="100vw">
 
     <!-- Open Graph / vista previa para Google, WhatsApp, Facebook, etc. -->
     <meta property="og:type" content="website">
@@ -31,12 +33,10 @@
         content="Diseño y fabricación de muebles a medida premium en Santiago, Chile.">
     <meta name="twitter:image" content="https://mueblerialgspa.com/assets/kitchen_luxury.webp">
 
-    <!-- Google Fonts & FontAwesome (Carga no bloqueante de fuentes y CDN) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font Awesome (CDN con versión fija, carga no bloqueante). Las fuentes de texto se alojan en assets/fuentes/ -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Fuente de los títulos (el texto del hero es candidato a LCP): se precarga; el resto se carga al usarse -->
+    <link rel="preload" as="font" type="font/woff2" href="assets/fuentes/gagalin-latin.woff2" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
@@ -77,7 +77,11 @@
     <header class="main-header" id="header">
         <div class="header-container">
             <a href="#" class="logo-container" id="nav-logo">
-                <img src="assets/logo.webp" srcset="assets/logo-400w.webp 400w, assets/logo.webp 969w" sizes="(max-width: 600px) 200px, 400px" width="969" height="785" fetchpriority="high" alt="MUEBLERIALG SPA Logo" class="header-logo">
+                <picture>
+                    <source type="image/avif" srcset="assets/optimizadas/logo-160w.avif 160w, assets/optimizadas/logo-320w.avif 320w" sizes="50px">
+                    <source type="image/webp" srcset="assets/optimizadas/logo-160w.webp 160w, assets/optimizadas/logo-320w.webp 320w" sizes="50px">
+                    <img src="assets/optimizadas/logo-160w.webp" width="969" height="785" alt="MUEBLERIALG SPA Logo" class="header-logo">
+                </picture>
                 <span class="brand-text">MUEBLERIALG<span class="gold-text"> SPA</span></span>
             </a>
 
@@ -109,7 +113,16 @@
 
     <!-- HERO SECTION -->
     <section class="hero-section" id="hero">
-        <div class="hero-bg"></div>
+        <!-- Imagen principal: <picture> para servir AVIF/WebP del tamaño justo; sin lazy y con prioridad alta (LCP) -->
+        <div class="hero-bg">
+            <picture>
+                <source type="image/avif" media="(max-width: 600px)" srcset="assets/optimizadas/hero_bg-480w.avif">
+                <source type="image/avif" srcset="assets/optimizadas/hero_bg-800w.avif 800w, assets/optimizadas/hero_bg-1024w.avif 1024w" sizes="100vw">
+                <source type="image/webp" media="(max-width: 600px)" srcset="assets/optimizadas/hero_bg-480w.webp">
+                <source type="image/webp" srcset="assets/optimizadas/hero_bg-800w.webp 800w, assets/optimizadas/hero_bg-1024w.webp 1024w" sizes="100vw">
+                <img src="assets/optimizadas/hero_bg-1024w.webp" width="1024" height="1024" alt="" fetchpriority="high" class="hero-bg-img">
+            </picture>
+        </div>
         <div class="hero-content container">
             <h1 class="hero-title animate-text"
                 style="margin-bottom: 5px; font-family: var(--font-primary) !important;">
@@ -148,7 +161,11 @@
                 <!-- Card 1: Cocinas -->
                 <a href="#kitchens" class="category-card" data-category="kitchen" data-aos="fade-up">
                     <div class="category-img-wrap">
-                        <img src="assets/kitchen_luxury.webp" srcset="assets/kitchen_luxury-400w.webp 400w, assets/kitchen_luxury-800w.webp 800w, assets/kitchen_luxury.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="1024" height="1024" alt="Cocinas Modernas" class="category-img" loading="lazy">
+                        <picture>
+                            <source type="image/avif" srcset="assets/optimizadas/machali1-480w.avif 480w, assets/optimizadas/machali1-576w.avif 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <source type="image/webp" srcset="assets/optimizadas/machali1-480w.webp 480w, assets/optimizadas/machali1-576w.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <img src="assets/optimizadas/machali1-576w.webp" width="576" height="1024" alt="Cocinas Modernas" class="category-img" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -164,7 +181,11 @@
                 <a href="#closets" onclick="window.selectClosetTab('walk-in')" class="category-card"
                     data-category="closet" data-aos="fade-up" data-aos-delay="150">
                     <div class="category-img-wrap">
-                        <img src="assets/walkin_closet_main.webp" srcset="assets/walkin_closet_main-400w.webp 400w, assets/walkin_closet_main.webp 681w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="681" height="1024" alt="Walk-in Closets y Closets" class="category-img" loading="lazy">
+                        <picture>
+                            <source type="image/avif" srcset="assets/optimizadas/walkin_closet_main-480w.avif 480w, assets/optimizadas/walkin_closet_main-681w.avif 681w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <source type="image/webp" srcset="assets/optimizadas/walkin_closet_main-480w.webp 480w, assets/optimizadas/walkin_closet_main-681w.webp 681w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <img src="assets/optimizadas/walkin_closet_main-681w.webp" width="681" height="1024" alt="Walk-in Closets y Closets" class="category-img" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -181,7 +202,11 @@
                 <a href="#closets" onclick="window.selectClosetTab('closet')" class="category-card"
                     data-category="closet" data-aos="fade-up" data-aos-delay="220">
                     <div class="category-img-wrap">
-                        <img src="assets/closet1.webp" srcset="assets/closet1-400w.webp 400w, assets/closet1.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="576" height="1024" alt="Closets a Medida" class="category-img" loading="lazy">
+                        <picture>
+                            <source type="image/avif" srcset="assets/optimizadas/closet1-480w.avif 480w, assets/optimizadas/closet1-576w.avif 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <source type="image/webp" srcset="assets/optimizadas/closet1-480w.webp 480w, assets/optimizadas/closet1-576w.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <img src="assets/optimizadas/closet1-576w.webp" width="576" height="1024" alt="Closets a Medida" class="category-img" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -196,7 +221,11 @@
                 <!-- Card 3: Muebles Decorativos -->
                 <a href="#decor" class="category-card" data-category="living" data-aos="fade-up" data-aos-delay="300">
                     <div class="category-img-wrap">
-                        <img src="assets/decor_main.webp" srcset="assets/decor_main-400w.webp 400w, assets/decor_main.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" width="576" height="1024" alt="Muebles Decorativos" class="category-img" loading="lazy">
+                        <picture>
+                            <source type="image/avif" srcset="assets/optimizadas/decor_main-480w.avif 480w, assets/optimizadas/decor_main-576w.avif 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <source type="image/webp" srcset="assets/optimizadas/decor_main-480w.webp 480w, assets/optimizadas/decor_main-576w.webp 576w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
+                            <img src="assets/optimizadas/decor_main-576w.webp" width="576" height="1024" alt="Muebles Decorativos" class="category-img" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="category-overlay">
                         <div class="category-content">
@@ -247,14 +276,14 @@
                         <div class="feat-item">
                             <i class="fa-solid fa-chess-queen gold-icon"></i>
                             <div>
-                                <h4>Diseño Exclusivo</h4>
+                                <h3>Diseño Exclusivo</h3>
                                 <p>Cada pieza se proyecta desde cero según la escala del espacio.</p>
                             </div>
                         </div>
                         <div class="feat-item">
                             <i class="fa-solid fa-gem gold-icon"></i>
                             <div>
-                                <h4>Materiales Nobles</h4>
+                                <h3>Materiales Nobles</h3>
                                 <p>Selección premium de maderas, piedras y herrajes de calidad de por vida.</p>
                             </div>
                         </div>
@@ -264,9 +293,12 @@
                 <!-- Lado Derecho: Imagen de los Inicios -->
                 <div class="about-image-side" data-aos="fade-left">
                     <div class="about-img-frame animate-glow"
-                        style="border-radius: 8px; overflow: hidden; margin-bottom: 15px; width: 100%;">
-                        <img src="assets/about_first_kitchen.webp" srcset="assets/about_first_kitchen-400w.webp 400w, assets/about_first_kitchen-800w.webp 800w, assets/about_first_kitchen.webp 1024w" sizes="(max-width: 600px) 100vw, 50vw" width="1024" height="870" alt="Nuestra primera cocina artesanal"
-                            class="about-side-img" style="height: 380px; object-fit: cover; width: 100%;" loading="lazy">
+                        style="border-radius: 8px; margin-bottom: 15px; width: 100%;">
+                        <picture>
+                            <source type="image/avif" srcset="assets/optimizadas/about_first_kitchen-480w.avif 480w, assets/optimizadas/about_first_kitchen-800w.avif 800w, assets/optimizadas/about_first_kitchen-1024w.avif 1024w" sizes="(max-width: 600px) 100vw, 50vw">
+                            <source type="image/webp" srcset="assets/optimizadas/about_first_kitchen-480w.webp 480w, assets/optimizadas/about_first_kitchen-800w.webp 800w, assets/optimizadas/about_first_kitchen-1024w.webp 1024w" sizes="(max-width: 600px) 100vw, 50vw">
+                            <img src="assets/optimizadas/about_first_kitchen-800w.webp" width="1024" height="870" alt="Nuestra primera cocina artesanal" class="about-side-img" style="height: 380px; object-fit: cover; width: 100%;" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <p class="about-img-caption">
                         "Esta imagen refleja nuestros inicios en este rubro: nuestra primera cocina fabricada. Un
@@ -290,36 +322,8 @@
                 </p>
             </div>
 
-            <div class="renders-grid">
-                <div class="render-item" data-aos="zoom-in">
-                    <img src="assets/render_1.webp" srcset="assets/render_1-400w.webp 400w, assets/render_1-800w.webp 800w, assets/render_1.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Gris y Blanco" class="render-img" loading="lazy">
-                    <div class="render-info-overlay">
-                        <h4>Render Cocina Gris Grafito, Aluminio y Cuarzo Blanco</h4>
-                        <span>Simulación de melamina gris mate y cubiertas de cuarzo blanco</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="assets/render_2.webp" srcset="assets/render_2-400w.webp 400w, assets/render_2-800w.webp 800w, assets/render_2.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Roble y Negro" class="render-img" loading="lazy">
-                    <div class="render-info-overlay">
-                        <h4>Render Cocina Roble y Negro</h4>
-                        <span>Visualización de iluminación LED cálida y repisas suspendidas</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="assets/render_3.webp" srcset="assets/render_3-400w.webp 400w, assets/render_3-800w.webp 800w, assets/render_3.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="682" alt="Render Cocina Verde Oliva" class="render-img" loading="lazy">
-                    <div class="render-info-overlay">
-                        <h4>Render Cocina Verde Oliva</h4>
-                        <span>Simulación de espacio integrado con isla central en palillaje</span>
-                    </div>
-                </div>
-                <div class="render-item" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="assets/render_4.webp" srcset="assets/render_4-400w.webp 400w, assets/render_4-800w.webp 800w, assets/render_4.webp 1024w" sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw" width="1024" height="678" alt="Render Divisor de Espacios con TV" class="render-img" loading="lazy">
-                    <div class="render-info-overlay">
-                        <h4>Render Divisor de Espacios con TV</h4>
-                        <span>Panel divisorio funcional con palillaje de madera y vitrinas</span>
-                    </div>
-                </div>
-            </div>
+            <!-- Se genera desde window.RENDERS (proyectos-data.js). Móvil: carrusel con puntos; computador: cuadrícula -->
+            <div class="renders-grid renders-carrusel" id="renders-grid"></div>
         </div>
     </section>
 
@@ -351,103 +355,34 @@
         </div>
     </section>
 
-    <!-- SECCIÓN COCINAS -->
-    <section class="renders-section section black-bg-lighter" id="kitchens">
+    <!-- PORTAFOLIO: Cocinas, Walk-in Closets, Closets y Decorativos (datos en proyectos-data.js) -->
+    <section class="renders-section section black-bg-lighter portafolio-section" id="portafolio">
+        <!-- Anclas de los enlaces existentes: #kitchens, #closets y #decor activan su filtro -->
+        <span id="kitchens" class="ancla-portafolio" aria-hidden="true"></span>
+        <span id="closets" class="ancla-portafolio" aria-hidden="true"></span>
+        <span id="decor" class="ancla-portafolio" aria-hidden="true"></span>
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-tag green-tag">Especialidad</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Cocinas Modernas</h2>
+                <span class="section-tag green-tag" id="portafolio-tag">Portafolio</span>
+                <h2 class="section-title" id="portafolio-titulo" style="font-family: var(--font-primary) !important;">Nuestros Proyectos</h2>
                 <div class="gold-line center"></div>
-                <p class="section-sub">“Mobiliario que acompaña tu vida, resiste tus momentos y embellece el hogar donde
-                    tu familia crece.”</p>
+                <p class="section-sub" id="portafolio-sub">Explora cocinas, walk-in closets, closets y proyectos decorativos fabricados a medida.</p>
             </div>
 
-            <!-- Filtros de Cocinas por Ubicación (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="filter-btn-rect active" onclick="filterKitchenProject('cocina-machali', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Machalí</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-rapel', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Rapel</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-malalcahuello', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Malalcahuello</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-lascondes', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Las Condes</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-temuco', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Temuco</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-olivar-1', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Olivar 1</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-shaker', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Shaker</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-colina', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Colina</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-santiago', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Santiago</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-olivar-2', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Olivar 2</button>
-                <button class="filter-btn-rect" onclick="filterKitchenProject('cocina-mostazal', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Mostazal</button>
+            <div class="filtros-portafolio" role="group" aria-label="Filtrar proyectos por categoría">
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="todos" aria-pressed="true">Todos</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="cocina" aria-pressed="false">Cocinas</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="walk-in" aria-pressed="false">Walk-in Closets</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="closet" aria-pressed="false">Closets</button>
+                <button type="button" class="filter-btn-rect filtro-chip" data-filtro="decorativo" aria-pressed="false">Decorativos</button>
             </div>
 
-            <div class="renders-grid" id="kitchens-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN CLOSETS -->
-    <section class="sub-gallery-section section" id="closets">
-        <div class="container">
-            <div class="section-header text-center">
-                <span class="section-tag green-tag">Organización</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Walk-in Closets y Closets
-                </h2>
-                <div class="gold-line center"></div>
-                <p class="section-sub">Creamos espacios de organización que transforman tu dormitorio en un lugar donde
-                    todo encuentra su equilibrio, integrando diseño, funcionalidad y una sensación de armonía que se
-                    vive día a día.</p>
-            </div>
-
-            <!-- Filtros de Closets (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button id="btn-filter-walk-in" class="filter-btn-rect active"
-                    onclick="filterClosetProject('walk-in', this)"
-                    style="font-family: var(--font-primary) !important;">Walk-in Closets</button>
-                <button id="btn-filter-closet" class="filter-btn-rect" onclick="filterClosetProject('closet', this)"
-                    style="font-family: var(--font-primary) !important;">Closets</button>
-            </div>
-
-            <div class="renders-grid" id="closets-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN DECORATIVOS -->
-    <section class="renders-section section black-bg-lighter" id="decor">
-        <div class="container">
-            <div class="section-header text-center">
-                <span class="section-tag green-tag">Interiorismo</span>
-                <h2 class="section-title" style="font-family: var(--font-primary) !important;">Proyectos Decorativos
-                </h2>
-                <div class="gold-line center"></div>
-                <p class="section-sub">Muros revestidos, repisas suspendidas, paneles acústicos y barras integradas que
-                    aportan carácter y lujo a tu hogar.</p>
-            </div>
-
-            <!-- Filtros de Proyectos Decorativos por Ubicación (Minimalistas y Rectangulares) -->
-            <div class="filter-tabs" data-aos="fade-up"
-                style="margin-bottom: 40px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="filter-btn-rect active" onclick="filterDecorProject('tv-wall-luxury', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Bar y Cava</button>
-                <button class="filter-btn-rect" onclick="filterDecorProject('quinchos', this)"
-                    style="font-family: var(--font-primary) !important;">Proyecto Rack TV</button>
-            </div>
-
-            <div class="renders-grid" id="decor-gallery-grid">
-                <!-- Se poblará dinámicamente con JS -->
-            </div>
+            <!-- Tarjetas generadas desde window.PROYECTOS. Móvil: fila con scroll; computador: cuadrícula -->
+            <div class="portafolio-grid" id="portafolio-grid"></div>
+            <p class="portafolio-ayuda">
+                <span class="ayuda-tactil">Toca un proyecto para ver sus fotos</span>
+                <span class="ayuda-mouse">Haz clic en un proyecto para ver sus fotos</span>
+            </p>
         </div>
     </section>
 
@@ -1585,11 +1520,17 @@
 
                 <!-- LADO DERECHO: MAPA -->
                 <div class="contact-map-side">
-                    <div class="map-frame">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000"
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-                        </iframe>
+                    <!-- Mapa bajo demanda: tarjeta liviana (solo CSS); el iframe de Google se carga al tocar "Ver mapa" -->
+                    <div class="map-frame" id="map-frame">
+                        <button type="button" class="map-facade" id="map-facade" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000"
+                            data-title="Ubicación de MUEBLERIALG SPA en Google Maps">
+                            <span class="map-facade-pin"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+                            <span class="map-facade-address">Santa Filomena 26, San Francisco de Mostazal</span>
+                            <span class="btn btn-gold map-facade-btn">Ver mapa</span>
+                        </button>
+                        <noscript>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicación de MUEBLERIALG SPA en Google Maps"></iframe>
+                        </noscript>
                     </div>
                 </div>
 
@@ -1628,6 +1569,13 @@
             justify-content: space-between;
             align-items: stretch;
             width: 100%;
+        }
+
+        /* Botones verdes de contacto: texto oscuro para contraste legible (9,4:1) sobre el verde de la marca.
+           Solo en esta sección: el botón de WhatsApp del cotizador no cambia. */
+        .contact-card .btn-green-premium,
+        .contact-card .btn-green-premium:hover {
+            color: #0a0a0a;
         }
 
         .contact-card {
@@ -1699,6 +1647,50 @@
             height: 100%;
         }
 
+        /* Tarjeta del mapa (antes de cargar Google Maps): fondo oscuro con "calles" dibujadas en CSS, 0 KB */
+        .map-facade {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--color-text-white);
+            font-family: var(--font-secondary);
+            background-color: #1b1b1b;
+            background-image:
+                linear-gradient(28deg, transparent 47%, rgba(212, 175, 55, 0.18) 48%, rgba(212, 175, 55, 0.18) 52%, transparent 53%),
+                linear-gradient(118deg, transparent 46%, rgba(255, 255, 255, 0.07) 47%, rgba(255, 255, 255, 0.07) 53%, transparent 54%),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 46px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 58px);
+        }
+
+        .map-facade-pin {
+            font-size: 2.6rem;
+            color: var(--color-metallic-gold);
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+        }
+
+        .map-facade-address {
+            font-size: 0.95rem;
+            text-align: center;
+            max-width: 280px;
+        }
+
+        .map-facade-btn {
+            pointer-events: none; /* el clic lo recibe el botón completo */
+            min-height: 44px;
+        }
+
+        .map-facade:focus-visible {
+            outline: 2px solid var(--color-metallic-gold);
+            outline-offset: -4px;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .contact-cards {
@@ -1716,8 +1708,11 @@
         style="background: var(--color-black-deep); padding: 50px 0; border-top: 1px solid rgba(255, 215, 0, 0.08); text-align: center;">
         <div class="container">
             <div class="footer-logo-wrapper" style="margin-bottom: 25px;">
-                <img src="assets/logo.webp" srcset="assets/logo-400w.webp 400w, assets/logo.webp 969w" sizes="(max-width: 600px) 200px, 400px" width="969" height="785" alt="MUEBLERIALG SPA Logo" loading="lazy"
-                    style="height: 60px; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));">
+                <picture>
+                    <source type="image/avif" srcset="assets/optimizadas/logo-160w.avif 160w, assets/optimizadas/logo-320w.avif 320w" sizes="80px">
+                    <source type="image/webp" srcset="assets/optimizadas/logo-160w.webp 160w, assets/optimizadas/logo-320w.webp 320w" sizes="80px">
+                    <img src="assets/optimizadas/logo-320w.webp" width="969" height="785" alt="MUEBLERIALG SPA Logo" style="height: 60px; width: auto; max-width: 100%; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));" loading="lazy" decoding="async">
+                </picture>
                 <h3
                     style="font-family: var(--font-primary) !important; color: var(--color-metallic-gold); font-size: 1.5rem; margin-top: 10px; letter-spacing: 0.1em;">
                     MUEBLERIALG<span style="color: var(--color-text-white);"> SPA</span></h3>
@@ -1760,59 +1755,19 @@
             </div>
 
             <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px;">
-                <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 5px;">&copy; 2026
+                <p style="font-size: 0.75rem; color: #797979; margin-bottom: 5px;">&copy; 2026
                     MUEBLERIALG SPA. Todos los derechos reservados.</p>
-                <p style="font-size: 0.7rem; color: var(--color-text-muted);">Diseño arquitectónico y minimalista de
+                <p style="font-size: 0.7rem; color: #797979;">Diseño arquitectónico y minimalista de
                     muebles a medida premium.</p>
             </div>
         </div>
     </footer>
 
-    <!-- MODAL DETALLE DE PROYECTO -->
-    <div class="project-modal" id="project-detail-modal">
-        <div class="modal-backdrop" id="modal-close-backdrop"></div>
-        <div class="modal-content-wrapper">
-            <button class="modal-close-btn" id="modal-close-btn">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="modal-body-grid">
-                <!-- Lado Galería -->
-                <div class="modal-gallery-side">
-                    <div class="modal-main-img-container">
-                        <img src="" alt="" id="modal-main-img">
-                    </div>
-                    <div class="modal-thumbnails" id="modal-thumbnails-container">
-                        <!-- Creados dinámicamente -->
-                    </div>
-                </div>
-                <!-- Lado Detalles -->
-                <div class="modal-info-side">
-                    <span class="project-tag" id="modal-project-tag"></span>
-                    <h3 class="modal-project-title" id="modal-project-title"></h3>
-                    <p class="modal-project-desc" id="modal-project-desc"></p>
-
-                    <div class="technical-table">
-                        <div class="tech-row">
-                            <span>Materiales</span>
-                            <strong id="modal-materials"></strong>
-                        </div>
-                        <div class="tech-row" id="modal-hardware-row">
-                            <span>Herrajes</span>
-                            <strong id="modal-hardware"></strong>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL AGENDAR VISITA SHOWROOM -->
     <div class="project-modal modal-narrow" id="meeting-modal">
         <div class="modal-backdrop" id="meeting-close-backdrop"></div>
         <div class="modal-content-wrapper">
-            <button class="modal-close-btn" id="meeting-close-btn">
+            <button class="modal-close-btn" id="meeting-close-btn" aria-label="Cerrar">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="meeting-form-container">
@@ -1842,40 +1797,9 @@
         </div>
     </div>
 
-    <!-- LIGHTBOX MODAL PARA RENDERS E IMÁGENES -->
-    <div class="modal-wrapper" id="lightbox-modal"
-        style="display: none; align-items: center; justify-content: center; z-index: 2000; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;">
-        <div class="modal-close-backdrop" id="lightbox-close-backdrop" onclick="closeLightbox()"
-            style="background: rgba(10, 10, 10, 0.98); position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
-        </div>
-        <div class="modal-content"
-            style="max-width: 90vw; max-height: 90vh; padding: 0; background: transparent; border: none; box-shadow: none; display: flex; align-items: center; justify-content: center; position: relative; z-index: 2001;">
-            <button class="modal-close-btn" id="lightbox-close-btn" onclick="closeLightbox()"
-                style="top: -50px; right: 10px; color: #fff; font-size: 2.5rem; background: transparent; border: none; cursor: pointer; position: absolute;">&times;</button>
-
-            <!-- Flecha Izquierda -->
-            <button id="lightbox-prev" onclick="navigateLightbox(-1)">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-
-            <!-- Imagen con Zoom -->
-            <div
-                style="position: relative; overflow: hidden; border-radius: 4px; border: 1.5px solid var(--color-metallic-gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.25); background: #000;">
-                <img id="lightbox-img" src="" alt="Enlarged Project Photo"
-                    style="max-width: 100%; max-height: 80vh; display: block; object-fit: contain; cursor: zoom-in; transition: transform 0.3s ease;">
-                <div
-                    style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; color: #ccc; font-family: var(--font-secondary); pointer-events: none;">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i> Clic para Zoom
-                </div>
-            </div>
-
-            <!-- Flecha Derecha -->
-            <button id="lightbox-next" onclick="navigateLightbox(1)">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
     <!-- JS Script Source -->
+    <script src="assets/optimizadas/dimensiones.js" defer></script>
+    <script src="proyectos-data.js" defer></script>
     <script src="app.js" defer></script>
 
 </body>
