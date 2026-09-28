@@ -101,7 +101,7 @@ window.PROYECTOS = [
         materiales: "Melamina 18mm color Azul Acero / Cubiertas de Cuarzo Taupe",
         herrajes: "Bisagras y cajones telescópicos con cierre suave",
         fotos: [
-            { archivo: "temuco1", alt: "Cocina con isla en melamina color madera y piso claro, Proyecto Temuco" },
+            { archivo: "temuco1", alt: "Lavaplatos bajo ventana con grifería dorada, muebles azules con tiradores dorados y cubierta de cuarzo taupe, Proyecto Temuco" },
             { archivo: "temuco2", alt: "Lavaplatos con grifería dorada y muebles azules sobre piso de baldosa, Proyecto Temuco" },
             { archivo: "temuco3", alt: "Cocina lineal azul con tiradores dorados y piso de baldosa decorativa, Proyecto Temuco" },
             { archivo: "temuco4", alt: "Península de cuarzo y campana de acero sobre muebles azules, Proyecto Temuco" }
