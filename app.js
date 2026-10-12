@@ -367,9 +367,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (meetingForm) {
         meetingForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const name = document.getElementById("meet-name").value;
+            const name = document.getElementById("meet-name").value.trim();
+            const phone = document.getElementById("meet-phone").value.trim();
+            const comuna = document.getElementById("meet-comuna").value.trim();
             const date = document.getElementById("meet-date").value;
             const time = document.getElementById("meet-time").value;
+            const [anio, mes, dia] = date.split("-");
+            const fecha = dia && mes && anio ? `${dia}-${mes}-${anio}` : date;
+
+            // La solicitud llega a WhatsApp de la mueblería para confirmarla
+            const texto = `Hola MuebleríaLG SPA, quiero agendar una visita.\n- Nombre: ${name}\n- Teléfono: ${phone}\n- Comuna: ${comuna}\n- Fecha: ${fecha}\n- Hora: ${time} hrs`;
+            window.open(`https://wa.me/56949388286?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
 
             // Close modal
             meetingModal.classList.remove("active");
@@ -378,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
             meetingForm.reset();
 
             // Success feedback toast
-            showToast(`Reunión agendada para ${name} el ${date} a las ${time} Hrs.`, "success");
+            showToast(`Solicitud lista, ${name}. Envía el mensaje de WhatsApp para confirmar tu visita.`, "success");
         });
     }
 

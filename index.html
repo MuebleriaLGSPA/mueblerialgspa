@@ -1166,6 +1166,8 @@
 
             function calcularPresupuesto() {
                 const infoMsg = document.getElementById("distribucion-info-msg");
+                // El desglose interno solo se ve abriendo la página con ?interno en la URL
+                const verDesgloseInterno = new URLSearchParams(window.location.search).has("interno");
                 const desgloseEl = document.getElementById("desglose-interno");
                 const desgloseContenidoEl = document.getElementById("desglose-interno-contenido");
                 const waBtn = document.getElementById("quote-whatsapp-btn");
@@ -1240,7 +1242,7 @@
                             html += "<div>Rango interno completo (referencia, no se muestra al cliente): " + formatoCLP(rangoMin) + " – " + formatoCLP(rangoMax) + "</div>";
                             html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor mostrado al cliente (tope del rango): " + formatoCLP(rangoMax) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
-                            desgloseEl.style.display = "block";
+                            desgloseEl.style.display = verDesgloseInterno ? "block" : "none";
                             desgloseEl.open = false;
                         }
 
@@ -1286,7 +1288,7 @@
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
                             html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor Total al Cliente: " + formatoCLP(total) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
-                            desgloseEl.style.display = "block";
+                            desgloseEl.style.display = verDesgloseInterno ? "block" : "none";
                             desgloseEl.open = false;
                         }
 
@@ -1345,7 +1347,7 @@
                             html += "<div>Rango interno completo (referencia, no se muestra al cliente): " + formatoCLP(estCloset.rangoMin) + " – " + formatoCLP(estCloset.rangoMax) + "</div>";
                             html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor mostrado al cliente (tope del rango): " + formatoCLP(estCloset.rangoMax) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
-                            desgloseEl.style.display = "block";
+                            desgloseEl.style.display = verDesgloseInterno ? "block" : "none";
                             desgloseEl.open = false;
                         }
 
@@ -1392,7 +1394,7 @@
                             html += "<div>Mano de Obra (" + Math.round(resultadoCloset.parametros.manoDeObraPct * 100) + "%, sin IVA): " + formatoCLP(resultadoCloset.subtotales.manoDeObra) + "</div>";
                             html += "<div style='margin-top:6px; font-weight:600; color:var(--color-metallic-gold);'>Valor Total al Cliente: " + formatoCLP(total) + "</div>";
                             desgloseContenidoEl.innerHTML = html;
-                            desgloseEl.style.display = "block";
+                            desgloseEl.style.display = verDesgloseInterno ? "block" : "none";
                             desgloseEl.open = false;
                         }
 
@@ -1522,14 +1524,14 @@
                 <div class="contact-map-side">
                     <!-- Mapa bajo demanda: tarjeta liviana (solo CSS); el iframe de Google se carga al tocar "Ver mapa" -->
                     <div class="map-frame" id="map-frame">
-                        <button type="button" class="map-facade" id="map-facade" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000"
+                        <button type="button" class="map-facade" id="map-facade" data-src="https://maps.google.com/maps?q=Santa%20Filomena%2026%2C%20San%20Francisco%20de%20Mostazal%2C%20Chile&amp;z=16&amp;output=embed"
                             data-title="Ubicación de MUEBLERIALG SPA en Google Maps">
                             <span class="map-facade-pin"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
                             <span class="map-facade-address">Santa Filomena 26, San Francisco de Mostazal</span>
                             <span class="btn btn-gold map-facade-btn">Ver mapa</span>
                         </button>
                         <noscript>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.676884039737!2d-70.710000!3d-34.603000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9663b9e4b0b0b0b%3A0x123456789abcdef!2sSanta%20Filomena%2026%2C%20Mostazal!5e0!3m2!1ses-CL!2scl!4v0000000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicación de MUEBLERIALG SPA en Google Maps"></iframe>
+                            <iframe src="https://maps.google.com/maps?q=Santa%20Filomena%2026%2C%20San%20Francisco%20de%20Mostazal%2C%20Chile&amp;z=16&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicación de MUEBLERIALG SPA en Google Maps"></iframe>
                         </noscript>
                     </div>
                 </div>
@@ -1782,6 +1784,14 @@
                         <input type="text" id="meet-name" placeholder="Ej: Juan Pérez" required>
                     </div>
                     <div class="form-group">
+                        <label for="meet-phone">Teléfono / WhatsApp</label>
+                        <input type="tel" id="meet-phone" placeholder="Ej: +56 9 1234 5678" autocomplete="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="meet-comuna">Comuna del proyecto</label>
+                        <input type="text" id="meet-comuna" placeholder="Ej: Puente Alto" required>
+                    </div>
+                    <div class="form-group">
                         <label for="meet-date">Fecha de Visita</label>
                         <input type="date" id="meet-date" required>
                     </div>
@@ -1790,7 +1800,7 @@
                         <input type="time" id="meet-time" required>
                     </div>
                     <button type="submit" class="btn btn-gold btn-full btn-glow" style="margin-top: 10px;">
-                        Confirmar Cita
+                        Confirmar Cita por WhatsApp
                     </button>
                 </form>
             </div>
