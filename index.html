@@ -657,10 +657,10 @@
                                             });
                                         }
 
-                                        // Abrir WhatsApp con el mensaje real de la cotización después de 1 segundo
-                                        setTimeout(function () {
-                                            window.open(destino, "_blank");
-                                        }, 1000);
+                                        // Abrir WhatsApp de inmediato: con una espera, Safari y el navegador
+                                        // de Instagram/Facebook bloquean la ventana y el cliente nunca llega
+                                        const ventana = window.open(destino, "_blank");
+                                        if (!ventana) window.location.href = destino;
                                     });
                                 </script>
                             </div>
