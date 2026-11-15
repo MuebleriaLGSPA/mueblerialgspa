@@ -237,8 +237,10 @@
   // TORRE HORNO/MICROONDAS
   // ---------------------------------------------------------------------
 
+  var TORRE_ANCHO_CM = 60;
+
   function calcularTorre(acc, modulo, p) {
-    var ancho = 60, fondo = 55, altoTotal = 240, zocalo = 10.5;
+    var ancho = TORRE_ANCHO_CM, fondo = 55, altoTotal = 240, zocalo = 10.5;
     var altoLateral = altoTotal - zocalo - 2 * GROSOR_18;
 
     piezaVertical(acc, modulo, 'melamina_blanca_18', fondo, altoLateral, 'tapacanto_0_4mm');
@@ -324,7 +326,7 @@
     piezaHorizontal(acc, modulo, 'melamina_color_18', ancho, 10, 'tapacanto_2_0mm'); // sócalo delantero
     piezaHorizontal(acc, modulo, 'melamina_color_18', ancho, 10, 'tapacanto_2_0mm'); // sócalo delantero (2)
 
-    var numPuertas = ancho > 55 ? 2 : 1;
+    var numPuertas = 2; // la despensa siempre lleva 2 puertas
     var anchoPuerta = ancho / numPuertas;
     for (var i = 0; i < numPuertas; i++) {
       piezaPuerta(acc, modulo, 'melamina_color_18', anchoPuerta, altoTotal, 'tapacanto_2_0mm');
@@ -931,7 +933,54 @@
       costoCubierta = precioCubierta.valor * metrosAbajo;
     }
 
-    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta;
+    // Postformado: trabajos de cubierta y viaje se suman 1 vez por proyecto
+    // (montos fijos, no por metro), solo si hay cubierta sobre metros de abajo.
+    var costoExtrasCubierta = 0;
+    if (config.tipoCubierta === 'cubierta_postformado' && metrosAbajo > 0) {
+      costoExtrasCubierta = precios.cuarzoPostformado.trabajos_cubierta_postformado.valor +
+        precios.cuarzoPostformado.viaje_postformado.valor;
+    }
+
+    // Despensa / vitrina: van DENTRO de los metros de abajo. Se suma solo la
+    // diferencia de costo real del módulo contra el mueble base que reemplaza
+    // (mismo ancho), calculada con el motor sobre la corrida de referencia.
+    var costoDespensa = 0, costoVitrina = 0;
+    var costoTorre = 0;
+    var despensaAnchoCm = Number(config.despensaAnchoCm) || 0;
+    var vitrinaAnchoCm = Number(config.vitrinaAnchoCm) || 0;
+    var incluyeTorre = !!config.incluyeTorre;
+    if (despensaAnchoCm > 0 || vitrinaAnchoCm > 0 || incluyeTorre) {
+      var configRef = { tipoCubierta: null };
+      // Se promedia sobre varias corridas de referencia para suavizar el
+      // redondeo de planchas (a 0,5) y que un ancho mayor no salga más barato.
+      var corridasRef = [];
+      for (var lr = tasas.largoReferenciaM - 2; lr <= tasas.largoReferenciaM + 2; lr++) {
+        var corrida = corridaRecta('base', lr, TASA_ANCHO_MODULO_REFERENCIA_CM);
+        corridasRef.push({ lista: corrida, costo: calcularProyecto(corrida, precios, configRef).valorTotalCliente });
+      }
+      var extraModulo = function (modulo, anchoCm) {
+        var suma = 0;
+        corridasRef.forEach(function (ref) {
+          suma += calcularProyecto(ref.lista.concat([modulo]), precios, configRef).valorTotalCliente - ref.costo;
+        });
+        return Math.max(0, suma / corridasRef.length - tasas.tasaAbajo * (anchoCm / 100));
+      };
+      if (despensaAnchoCm > 0) {
+        costoDespensa = extraModulo({ tipo: 'despensa', params: { ancho: despensaAnchoCm } }, despensaAnchoCm);
+      }
+      if (vitrinaAnchoCm > 0) {
+        var defVitrina = MODULOS.vitrina.campos;
+        var paramsVitrina = { ancho: vitrinaAnchoCm };
+        defVitrina.forEach(function (c) { if (c.key !== 'ancho') paramsVitrina[c.key] = c.valorDefecto; });
+        costoVitrina = extraModulo({ tipo: 'vitrina', params: paramsVitrina }, vitrinaAnchoCm);
+      }
+      if (incluyeTorre) {
+        // Torre horno/microondas: ancho fijo de 60 cm (ver calcularTorre).
+        costoTorre = extraModulo({ tipo: 'torre', params: {} }, TORRE_ANCHO_CM);
+      }
+    }
+
+    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta + costoExtrasCubierta + costoDespensa + costoVitrina + costoTorre;
 
     return {
       metrosAbajo: metrosAbajo,
@@ -940,6 +989,13 @@
       tasaArriba: round0(tasas.tasaArriba),
       costoCajoneraAuto: round0(tasas.costoCajoneraAuto),
       costoCubierta: round0(costoCubierta),
+      costoExtrasCubierta: round0(costoExtrasCubierta),
+      despensaAnchoCm: despensaAnchoCm,
+      costoDespensa: round0(costoDespensa),
+      vitrinaAnchoCm: vitrinaAnchoCm,
+      costoVitrina: round0(costoVitrina),
+      incluyeTorre: incluyeTorre,
+      costoTorre: round0(costoTorre),
       tipoCubierta: config.tipoCubierta || null,
       largoReferenciaM: tasas.largoReferenciaM,
       estimacion: round0(estimacion),
@@ -1004,6 +1060,7 @@
     calcularProyecto: calcularProyecto,
     calcularTasasMetroLineal: calcularTasasMetroLineal,
     estimarRapido: estimarRapido,
+    TORRE_ANCHO_CM: TORRE_ANCHO_CM,
     calcularTasaMetroLinealCloset: calcularTasaMetroLinealCloset,
     estimarRapidoCloset: estimarRapidoCloset,
     planchasNecesarias: planchasNecesarias,

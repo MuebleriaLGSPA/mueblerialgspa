@@ -418,19 +418,9 @@
 
                             <!-- Campos para Cocina -->
                             <div id="cocina-inputs">
-                                <!-- Modo de cotización -->
-                                <div class="form-group" style="margin-bottom: 20px;">
-                                    <label>Modo de cotización</label>
-                                    <div class="btn-toggle-group" id="modo-cotizador-toggle">
-                                        <button type="button" class="toggle-btn selected" data-modo="detallado">Detallado
-                                            (módulo por módulo)</button>
-                                        <button type="button" class="toggle-btn" data-modo="rapida">Rápida (metraje
-                                            lineal)</button>
-                                    </div>
-                                </div>
 
                                 <!-- MODO DETALLADO -->
-                                <div id="modo-detallado-container">
+                                <div id="modo-detallado-container" style="display: none;">
                                     <!-- Forma de la cocina -->
                                     <div class="form-group" style="margin-bottom: 20px;">
                                         <label>Forma de la cocina</label>
@@ -459,7 +449,7 @@
                                 </div>
 
                                 <!-- MODO RÁPIDA -->
-                                <div id="modo-rapida-container" style="display: none;">
+                                <div id="modo-rapida-container">
                                     <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">
                                         Ingresa el metraje lineal total de tu cocina para una estimación rápida.
                                         Incluye automáticamente 1 módulo de cajones de 3 cajones. El resultado se
@@ -477,6 +467,37 @@
                                                 placeholder="Ej: 3.2">
                                         </div>
                                     </div>
+
+                                    <!-- Despensa / vitrina: van dentro de los metros de abajo; se suma la diferencia contra mueble base -->
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-despensa">
+                                        <label for="incluye-despensa">
+                                            <span class="custom-checkbox"></span> Incluye despensa
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="despensa-ancho-group" style="display: none;">
+                                        <label for="despensa-ancho">Ancho de la despensa (cm)</label>
+                                        <input type="number" id="despensa-ancho" min="50" max="150" step="1" value="60">
+                                    </div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-vitrina">
+                                        <label for="incluye-vitrina">
+                                            <span class="custom-checkbox"></span> Incluye vitrina
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="vitrina-ancho-group" style="display: none;">
+                                        <label for="vitrina-ancho">Ancho de la vitrina (cm)</label>
+                                        <input type="number" id="vitrina-ancho" min="30" max="150" step="1" value="80">
+                                    </div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-torre">
+                                        <label for="incluye-torre">
+                                            <span class="custom-checkbox"></span> Incluye torre para microondas y horno
+                                        </label>
+                                    </div>
+                                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 4px;">
+                                        La despensa, la vitrina y la torre van dentro de los metros de cocina abajo.
+                                    </p>
                                 </div>
 
                                 <!-- Cubierta: se agrega automáticamente, proporcional a los metros lineales de Mueble Base -->
@@ -507,16 +528,6 @@
 
                             <!-- Campos para Closet / Walk-in Closet (comparten el mismo motor de módulos) -->
                             <div id="closet-inputs" style="display: none;">
-                                <!-- Modo de cotización -->
-                                <div class="form-group" style="margin-bottom: 20px;">
-                                    <label>Modo de cotización</label>
-                                    <div class="btn-toggle-group" id="modo-cotizador-closet-toggle">
-                                        <button type="button" class="toggle-btn selected" data-modo="detallado">Detallado
-                                            (módulo por módulo)</button>
-                                        <button type="button" class="toggle-btn" data-modo="rapida">Rápida (metraje
-                                            lineal)</button>
-                                    </div>
-                                </div>
 
                                 <!-- Material -->
                                 <div class="form-group" style="margin-bottom: 20px;">
@@ -530,7 +541,7 @@
                                 </div>
 
                                 <!-- MODO DETALLADO -->
-                                <div id="modo-detallado-closet-container">
+                                <div id="modo-detallado-closet-container" style="display: none;">
                                     <!-- Constructor de módulos -->
                                     <div class="form-group">
                                         <label for="modulo-closet-tipo-select">Tipo de módulo a agregar</label>
@@ -548,7 +559,7 @@
                                 </div>
 
                                 <!-- MODO RÁPIDA -->
-                                <div id="modo-rapida-closet-container" style="display: none;">
+                                <div id="modo-rapida-closet-container">
                                     <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">
                                         Ingresa el metraje lineal total de tu closet para una estimación rápida.
                                         Considera una distribución estándar de 50% cajonera+repisas y 50% colgador.
@@ -786,14 +797,14 @@
 
             let activeProjectType = "cocina";
 
-            let modoCotizador = "detallado"; // "detallado" | "rapida"
+            let modoCotizador = "rapida"; // solo metraje lineal (el modo detallado queda oculto)
             let tipoCubierta = "cubierta_cuarzo"; // "cubierta_cuarzo" | "cubierta_postformado" | ""
             let formaCocina = "recta";
             let modulosProyecto = []; // { uid, tipo, params, idModulo }
             let moduloUidCounter = 0;
 
             // Closet / Walk-in Closet: comparten el mismo motor de módulos y la misma lista.
-            let modoCotizadorCloset = "detallado"; // "detallado" | "rapida"
+            let modoCotizadorCloset = "rapida"; // solo metraje lineal (el modo detallado queda oculto)
             let materialClosetSeleccionado = "melamina_blanca_18"; // "melamina_blanca_18" | "melamina_color_18"
             let modulosClosetProyecto = []; // { uid, tipo, params, idModulo }
             let moduloClosetUidCounter = 0;
@@ -942,6 +953,13 @@
 
             document.querySelectorAll("#forma-cocina-toggle .toggle-btn").forEach(btn => {
                 btn.addEventListener("click", () => window.setFormaCocina(btn.getAttribute("data-forma"), btn));
+            });
+
+            // Despensa / vitrina (modo metraje): mostrar el ancho solo si se marca
+            [["incluye-despensa", "despensa-ancho-group"], ["incluye-vitrina", "vitrina-ancho-group"]].forEach(function (par) {
+                const chk = document.getElementById(par[0]);
+                const grupo = document.getElementById(par[1]);
+                if (chk && grupo) chk.addEventListener("change", function () { grupo.style.display = chk.checked ? "block" : "none"; });
             });
 
             // ---------------- Modo Detallado / Rápida ----------------
@@ -1208,9 +1226,33 @@
                             return;
                         }
 
+                        const incluyeDespensa = document.getElementById("incluye-despensa").checked;
+                        const incluyeVitrina = document.getElementById("incluye-vitrina").checked;
+                        const despensaAncho = incluyeDespensa ? (parseFloat(document.getElementById("despensa-ancho").value) || 0) : 0;
+                        const incluyeTorre = document.getElementById("incluye-torre").checked;
+                        const torreAncho = incluyeTorre ? CotizadorMotor.TORRE_ANCHO_CM : 0;
+                        const vitrinaAncho = incluyeVitrina ? (parseFloat(document.getElementById("vitrina-ancho").value) || 0) : 0;
+                        if (incluyeDespensa && (despensaAncho < 50 || despensaAncho > 150)) {
+                            alert("El ancho de la despensa debe estar entre 50 y 150 cm.");
+                            return;
+                        }
+                        if (incluyeVitrina && (vitrinaAncho < 30 || vitrinaAncho > 150)) {
+                            alert("El ancho de la vitrina debe estar entre 30 y 150 cm.");
+                            return;
+                        }
+                        if (despensaAncho + vitrinaAncho + torreAncho > metrosAbajo * 100) {
+                            alert("La despensa, la vitrina y la torre van dentro de los metros de cocina abajo: su ancho no puede superar " + metrosAbajo + " m.");
+                            return;
+                        }
+
                         let est;
                         try {
-                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, { tipoCubierta: tipoCubierta });
+                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, {
+                                tipoCubierta: tipoCubierta,
+                                despensaAnchoCm: despensaAncho,
+                                vitrinaAnchoCm: vitrinaAncho,
+                                incluyeTorre: incluyeTorre
+                            });
                         } catch (e) {
                             console.error(e);
                             alert("Ocurrió un error al calcular la estimación: " + e.message);
@@ -1235,6 +1277,10 @@
                             html += "<div>Metros arriba x tasa: " + formatoCLP(metrosArriba) + " → " + formatoCLP(est.tasaArriba * metrosArriba) + "</div>";
                             html += "<div>Cajonera automática (3 cajones, exacta): " + formatoCLP(est.costoCajoneraAuto) + "</div>";
                             if (est.tipoCubierta) html += "<div>Cubierta " + cubiertaLabel + " (" + metrosAbajo + "m x mueble base): " + formatoCLP(est.costoCubierta) + "</div>";
+                            if (est.costoExtrasCubierta) html += "<div>Trabajos de cubierta + viaje (postformado, fijo): " + formatoCLP(est.costoExtrasCubierta) + "</div>";
+                            if (est.costoDespensa) html += "<div>Despensa " + despensaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoDespensa) + "</div>";
+                            if (est.costoVitrina) html += "<div>Vitrina " + vitrinaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoVitrina) + "</div>";
+                            if (est.costoTorre) html += "<div>Torre microondas/horno " + torreAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoTorre) + "</div>";
                             html += "<div>Punto medio (sin Isla/LED): " + formatoCLP(est.estimacion) + "</div>";
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
@@ -1246,7 +1292,7 @@
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + (despensaAncho ? "\n- Despensa: " + despensaAncho + " cm" : "") + (vitrinaAncho ? "\n- Vitrina: " + vitrinaAncho + " cm" : "") + (incluyeTorre ? "\n- Torre para microondas y horno" : "") + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----
