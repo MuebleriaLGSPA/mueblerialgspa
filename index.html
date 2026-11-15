@@ -418,19 +418,9 @@
 
                             <!-- Campos para Cocina -->
                             <div id="cocina-inputs">
-                                <!-- Modo de cotización -->
-                                <div class="form-group" style="margin-bottom: 20px;">
-                                    <label>Modo de cotización</label>
-                                    <div class="btn-toggle-group" id="modo-cotizador-toggle">
-                                        <button type="button" class="toggle-btn selected" data-modo="detallado">Detallado
-                                            (módulo por módulo)</button>
-                                        <button type="button" class="toggle-btn" data-modo="rapida">Rápida (metraje
-                                            lineal)</button>
-                                    </div>
-                                </div>
 
                                 <!-- MODO DETALLADO -->
-                                <div id="modo-detallado-container">
+                                <div id="modo-detallado-container" style="display: none;">
                                     <!-- Forma de la cocina -->
                                     <div class="form-group" style="margin-bottom: 20px;">
                                         <label>Forma de la cocina</label>
@@ -459,7 +449,7 @@
                                 </div>
 
                                 <!-- MODO RÁPIDA -->
-                                <div id="modo-rapida-container" style="display: none;">
+                                <div id="modo-rapida-container">
                                     <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">
                                         Ingresa el metraje lineal total de tu cocina para una estimación rápida.
                                         Incluye automáticamente 1 módulo de cajones de 3 cajones. El resultado se
@@ -507,16 +497,6 @@
 
                             <!-- Campos para Closet / Walk-in Closet (comparten el mismo motor de módulos) -->
                             <div id="closet-inputs" style="display: none;">
-                                <!-- Modo de cotización -->
-                                <div class="form-group" style="margin-bottom: 20px;">
-                                    <label>Modo de cotización</label>
-                                    <div class="btn-toggle-group" id="modo-cotizador-closet-toggle">
-                                        <button type="button" class="toggle-btn selected" data-modo="detallado">Detallado
-                                            (módulo por módulo)</button>
-                                        <button type="button" class="toggle-btn" data-modo="rapida">Rápida (metraje
-                                            lineal)</button>
-                                    </div>
-                                </div>
 
                                 <!-- Material -->
                                 <div class="form-group" style="margin-bottom: 20px;">
@@ -530,7 +510,7 @@
                                 </div>
 
                                 <!-- MODO DETALLADO -->
-                                <div id="modo-detallado-closet-container">
+                                <div id="modo-detallado-closet-container" style="display: none;">
                                     <!-- Constructor de módulos -->
                                     <div class="form-group">
                                         <label for="modulo-closet-tipo-select">Tipo de módulo a agregar</label>
@@ -548,7 +528,7 @@
                                 </div>
 
                                 <!-- MODO RÁPIDA -->
-                                <div id="modo-rapida-closet-container" style="display: none;">
+                                <div id="modo-rapida-closet-container">
                                     <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px;">
                                         Ingresa el metraje lineal total de tu closet para una estimación rápida.
                                         Considera una distribución estándar de 50% cajonera+repisas y 50% colgador.
@@ -786,14 +766,14 @@
 
             let activeProjectType = "cocina";
 
-            let modoCotizador = "detallado"; // "detallado" | "rapida"
+            let modoCotizador = "rapida"; // solo metraje lineal (el modo detallado queda oculto)
             let tipoCubierta = "cubierta_cuarzo"; // "cubierta_cuarzo" | "cubierta_postformado" | ""
             let formaCocina = "recta";
             let modulosProyecto = []; // { uid, tipo, params, idModulo }
             let moduloUidCounter = 0;
 
             // Closet / Walk-in Closet: comparten el mismo motor de módulos y la misma lista.
-            let modoCotizadorCloset = "detallado"; // "detallado" | "rapida"
+            let modoCotizadorCloset = "rapida"; // solo metraje lineal (el modo detallado queda oculto)
             let materialClosetSeleccionado = "melamina_blanca_18"; // "melamina_blanca_18" | "melamina_color_18"
             let modulosClosetProyecto = []; // { uid, tipo, params, idModulo }
             let moduloClosetUidCounter = 0;
