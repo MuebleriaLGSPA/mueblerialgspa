@@ -467,6 +467,31 @@
                                                 placeholder="Ej: 3.2">
                                         </div>
                                     </div>
+
+                                    <!-- Despensa / vitrina: van dentro de los metros de abajo; se suma la diferencia contra mueble base -->
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-despensa">
+                                        <label for="incluye-despensa">
+                                            <span class="custom-checkbox"></span> Incluye despensa (2 puertas, alto 240 cm)
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="despensa-ancho-group" style="display: none;">
+                                        <label for="despensa-ancho">Ancho de la despensa (cm, 50 a 150)</label>
+                                        <input type="number" id="despensa-ancho" min="50" max="150" step="1" value="60">
+                                    </div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-vitrina">
+                                        <label for="incluye-vitrina">
+                                            <span class="custom-checkbox"></span> Incluye vitrina (alto 210 cm)
+                                        </label>
+                                    </div>
+                                    <div class="form-group" id="vitrina-ancho-group" style="display: none;">
+                                        <label for="vitrina-ancho">Ancho de la vitrina (cm, 30 a 150)</label>
+                                        <input type="number" id="vitrina-ancho" min="30" max="150" step="1" value="80">
+                                    </div>
+                                    <p style="font-size: 0.8rem; color: #aaa; margin-top: 4px;">
+                                        La despensa y la vitrina van dentro de los metros de cocina abajo.
+                                    </p>
                                 </div>
 
                                 <!-- Cubierta: se agrega automáticamente, proporcional a los metros lineales de Mueble Base -->
@@ -924,6 +949,13 @@
                 btn.addEventListener("click", () => window.setFormaCocina(btn.getAttribute("data-forma"), btn));
             });
 
+            // Despensa / vitrina (modo metraje): mostrar el ancho solo si se marca
+            [["incluye-despensa", "despensa-ancho-group"], ["incluye-vitrina", "vitrina-ancho-group"]].forEach(function (par) {
+                const chk = document.getElementById(par[0]);
+                const grupo = document.getElementById(par[1]);
+                if (chk && grupo) chk.addEventListener("change", function () { grupo.style.display = chk.checked ? "block" : "none"; });
+            });
+
             // ---------------- Modo Detallado / Rápida ----------------
 
             window.setModoCotizador = function (modo, btnEl) {
@@ -1188,9 +1220,30 @@
                             return;
                         }
 
+                        const incluyeDespensa = document.getElementById("incluye-despensa").checked;
+                        const incluyeVitrina = document.getElementById("incluye-vitrina").checked;
+                        const despensaAncho = incluyeDespensa ? (parseFloat(document.getElementById("despensa-ancho").value) || 0) : 0;
+                        const vitrinaAncho = incluyeVitrina ? (parseFloat(document.getElementById("vitrina-ancho").value) || 0) : 0;
+                        if (incluyeDespensa && (despensaAncho < 50 || despensaAncho > 150)) {
+                            alert("El ancho de la despensa debe estar entre 50 y 150 cm.");
+                            return;
+                        }
+                        if (incluyeVitrina && (vitrinaAncho < 30 || vitrinaAncho > 150)) {
+                            alert("El ancho de la vitrina debe estar entre 30 y 150 cm.");
+                            return;
+                        }
+                        if (despensaAncho + vitrinaAncho > metrosAbajo * 100) {
+                            alert("La despensa y la vitrina van dentro de los metros de cocina abajo: su ancho no puede superar " + metrosAbajo + " m.");
+                            return;
+                        }
+
                         let est;
                         try {
-                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, { tipoCubierta: tipoCubierta });
+                            est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, {
+                                tipoCubierta: tipoCubierta,
+                                despensaAnchoCm: despensaAncho,
+                                vitrinaAnchoCm: vitrinaAncho
+                            });
                         } catch (e) {
                             console.error(e);
                             alert("Ocurrió un error al calcular la estimación: " + e.message);
@@ -1216,6 +1269,8 @@
                             html += "<div>Cajonera automática (3 cajones, exacta): " + formatoCLP(est.costoCajoneraAuto) + "</div>";
                             if (est.tipoCubierta) html += "<div>Cubierta " + cubiertaLabel + " (" + metrosAbajo + "m x mueble base): " + formatoCLP(est.costoCubierta) + "</div>";
                             if (est.costoExtrasCubierta) html += "<div>Trabajos de cubierta + viaje (postformado, fijo): " + formatoCLP(est.costoExtrasCubierta) + "</div>";
+                            if (est.costoDespensa) html += "<div>Despensa " + despensaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoDespensa) + "</div>";
+                            if (est.costoVitrina) html += "<div>Vitrina " + vitrinaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoVitrina) + "</div>";
                             html += "<div>Punto medio (sin Isla/LED): " + formatoCLP(est.estimacion) + "</div>";
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
@@ -1227,7 +1282,7 @@
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + (despensaAncho ? "\n- Despensa: " + despensaAncho + " cm" : "") + (vitrinaAncho ? "\n- Vitrina: " + vitrinaAncho + " cm" : "") + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----
