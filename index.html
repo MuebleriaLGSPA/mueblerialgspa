@@ -472,25 +472,31 @@
                                     <div class="form-group checkbox-group" style="margin-top: 10px;">
                                         <input type="checkbox" id="incluye-despensa">
                                         <label for="incluye-despensa">
-                                            <span class="custom-checkbox"></span> Incluye despensa (2 puertas, alto 240 cm)
+                                            <span class="custom-checkbox"></span> Incluye despensa
                                         </label>
                                     </div>
                                     <div class="form-group" id="despensa-ancho-group" style="display: none;">
-                                        <label for="despensa-ancho">Ancho de la despensa (cm, 50 a 150)</label>
+                                        <label for="despensa-ancho">Ancho de la despensa (cm)</label>
                                         <input type="number" id="despensa-ancho" min="50" max="150" step="1" value="60">
                                     </div>
                                     <div class="form-group checkbox-group" style="margin-top: 10px;">
                                         <input type="checkbox" id="incluye-vitrina">
                                         <label for="incluye-vitrina">
-                                            <span class="custom-checkbox"></span> Incluye vitrina (alto 210 cm)
+                                            <span class="custom-checkbox"></span> Incluye vitrina
                                         </label>
                                     </div>
                                     <div class="form-group" id="vitrina-ancho-group" style="display: none;">
-                                        <label for="vitrina-ancho">Ancho de la vitrina (cm, 30 a 150)</label>
+                                        <label for="vitrina-ancho">Ancho de la vitrina (cm)</label>
                                         <input type="number" id="vitrina-ancho" min="30" max="150" step="1" value="80">
                                     </div>
+                                    <div class="form-group checkbox-group" style="margin-top: 10px;">
+                                        <input type="checkbox" id="incluye-torre">
+                                        <label for="incluye-torre">
+                                            <span class="custom-checkbox"></span> Incluye torre para microondas y horno
+                                        </label>
+                                    </div>
                                     <p style="font-size: 0.8rem; color: #aaa; margin-top: 4px;">
-                                        La despensa y la vitrina van dentro de los metros de cocina abajo.
+                                        La despensa, la vitrina y la torre van dentro de los metros de cocina abajo.
                                     </p>
                                 </div>
 
@@ -1223,6 +1229,8 @@
                         const incluyeDespensa = document.getElementById("incluye-despensa").checked;
                         const incluyeVitrina = document.getElementById("incluye-vitrina").checked;
                         const despensaAncho = incluyeDespensa ? (parseFloat(document.getElementById("despensa-ancho").value) || 0) : 0;
+                        const incluyeTorre = document.getElementById("incluye-torre").checked;
+                        const torreAncho = incluyeTorre ? CotizadorMotor.TORRE_ANCHO_CM : 0;
                         const vitrinaAncho = incluyeVitrina ? (parseFloat(document.getElementById("vitrina-ancho").value) || 0) : 0;
                         if (incluyeDespensa && (despensaAncho < 50 || despensaAncho > 150)) {
                             alert("El ancho de la despensa debe estar entre 50 y 150 cm.");
@@ -1232,8 +1240,8 @@
                             alert("El ancho de la vitrina debe estar entre 30 y 150 cm.");
                             return;
                         }
-                        if (despensaAncho + vitrinaAncho > metrosAbajo * 100) {
-                            alert("La despensa y la vitrina van dentro de los metros de cocina abajo: su ancho no puede superar " + metrosAbajo + " m.");
+                        if (despensaAncho + vitrinaAncho + torreAncho > metrosAbajo * 100) {
+                            alert("La despensa, la vitrina y la torre van dentro de los metros de cocina abajo: su ancho no puede superar " + metrosAbajo + " m.");
                             return;
                         }
 
@@ -1242,7 +1250,8 @@
                             est = CotizadorMotor.estimarRapido(metrosAbajo, metrosArriba, PRECIOS, {
                                 tipoCubierta: tipoCubierta,
                                 despensaAnchoCm: despensaAncho,
-                                vitrinaAnchoCm: vitrinaAncho
+                                vitrinaAnchoCm: vitrinaAncho,
+                                incluyeTorre: incluyeTorre
                             });
                         } catch (e) {
                             console.error(e);
@@ -1271,6 +1280,7 @@
                             if (est.costoExtrasCubierta) html += "<div>Trabajos de cubierta + viaje (postformado, fijo): " + formatoCLP(est.costoExtrasCubierta) + "</div>";
                             if (est.costoDespensa) html += "<div>Despensa " + despensaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoDespensa) + "</div>";
                             if (est.costoVitrina) html += "<div>Vitrina " + vitrinaAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoVitrina) + "</div>";
+                            if (est.costoTorre) html += "<div>Torre microondas/horno " + torreAncho + " cm (diferencia vs mueble base): " + formatoCLP(est.costoTorre) + "</div>";
                             html += "<div>Punto medio (sin Isla/LED): " + formatoCLP(est.estimacion) + "</div>";
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";
@@ -1282,7 +1292,7 @@
                             desgloseEl.open = false;
                         }
 
-                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + (despensaAncho ? "\n- Despensa: " + despensaAncho + " cm" : "") + (vitrinaAncho ? "\n- Vitrina: " + vitrinaAncho + " cm" : "") + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
+                        waText = "Hola MuebleríaLG SPA, acabo de cotizar una cocina en su sitio web (estimación rápida):\n- Metros lineales cocina abajo: " + metrosAbajo + "m\n- Metros lineales cocina arriba: " + metrosArriba + "m" + (despensaAncho ? "\n- Despensa: " + despensaAncho + " cm" : "") + (vitrinaAncho ? "\n- Vitrina: " + vitrinaAncho + " cm" : "") + (incluyeTorre ? "\n- Torre para microondas y horno" : "") + cubiertaWaText + islaWaText + ledWaText + "\n- Estimación: hasta " + formatoCLP(rangoMax) + " CLP.\n*(Estimación aproximada por metraje lineal, incluye 1 módulo de cajones de 3 cajones)*\nMe gustaría agendar una visita técnica para una cotización exacta.";
 
                     } else {
                         // ---- MODO DETALLADO: módulo por módulo ----

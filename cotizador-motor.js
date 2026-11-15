@@ -237,8 +237,10 @@
   // TORRE HORNO/MICROONDAS
   // ---------------------------------------------------------------------
 
+  var TORRE_ANCHO_CM = 60;
+
   function calcularTorre(acc, modulo, p) {
-    var ancho = 60, fondo = 55, altoTotal = 240, zocalo = 10.5;
+    var ancho = TORRE_ANCHO_CM, fondo = 55, altoTotal = 240, zocalo = 10.5;
     var altoLateral = altoTotal - zocalo - 2 * GROSOR_18;
 
     piezaVertical(acc, modulo, 'melamina_blanca_18', fondo, altoLateral, 'tapacanto_0_4mm');
@@ -943,9 +945,11 @@
     // diferencia de costo real del módulo contra el mueble base que reemplaza
     // (mismo ancho), calculada con el motor sobre la corrida de referencia.
     var costoDespensa = 0, costoVitrina = 0;
+    var costoTorre = 0;
     var despensaAnchoCm = Number(config.despensaAnchoCm) || 0;
     var vitrinaAnchoCm = Number(config.vitrinaAnchoCm) || 0;
-    if (despensaAnchoCm > 0 || vitrinaAnchoCm > 0) {
+    var incluyeTorre = !!config.incluyeTorre;
+    if (despensaAnchoCm > 0 || vitrinaAnchoCm > 0 || incluyeTorre) {
       var configRef = { tipoCubierta: null };
       // Se promedia sobre varias corridas de referencia para suavizar el
       // redondeo de planchas (a 0,5) y que un ancho mayor no salga más barato.
@@ -970,9 +974,13 @@
         defVitrina.forEach(function (c) { if (c.key !== 'ancho') paramsVitrina[c.key] = c.valorDefecto; });
         costoVitrina = extraModulo({ tipo: 'vitrina', params: paramsVitrina }, vitrinaAnchoCm);
       }
+      if (incluyeTorre) {
+        // Torre horno/microondas: ancho fijo de 60 cm (ver calcularTorre).
+        costoTorre = extraModulo({ tipo: 'torre', params: {} }, TORRE_ANCHO_CM);
+      }
     }
 
-    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta + costoExtrasCubierta + costoDespensa + costoVitrina;
+    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta + costoExtrasCubierta + costoDespensa + costoVitrina + costoTorre;
 
     return {
       metrosAbajo: metrosAbajo,
@@ -986,6 +994,8 @@
       costoDespensa: round0(costoDespensa),
       vitrinaAnchoCm: vitrinaAnchoCm,
       costoVitrina: round0(costoVitrina),
+      incluyeTorre: incluyeTorre,
+      costoTorre: round0(costoTorre),
       tipoCubierta: config.tipoCubierta || null,
       largoReferenciaM: tasas.largoReferenciaM,
       estimacion: round0(estimacion),
@@ -1050,6 +1060,7 @@
     calcularProyecto: calcularProyecto,
     calcularTasasMetroLineal: calcularTasasMetroLineal,
     estimarRapido: estimarRapido,
+    TORRE_ANCHO_CM: TORRE_ANCHO_CM,
     calcularTasaMetroLinealCloset: calcularTasaMetroLinealCloset,
     estimarRapidoCloset: estimarRapidoCloset,
     planchasNecesarias: planchasNecesarias,
