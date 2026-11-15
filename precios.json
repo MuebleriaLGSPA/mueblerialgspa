@@ -36,8 +36,8 @@
     "corte_recto_ps": { "nombre": "Corte Recto PS", "unidad": "unidad", "valor": 5000 },
     "corte_45_ps": { "nombre": "Corte 45° PS", "unidad": "unidad", "valor": 10000 },
     "cubierta_postformado": { "nombre": "Cubierta Postformado", "unidad": "unidad", "valor": 80000 },
-    "trabajos_cubierta_postformado": { "nombre": "Trabajos de cubierta (postformado)", "unidad": "unidad", "valor": 10000 },
-    "viaje_postformado": { "nombre": "Viaje (postformado)", "unidad": "unidad", "valor": 20000 }
+    "trabajos_cubierta_postformado": { "nombre": "Trabajos de cubierta (postformado)", "unidad": "unidad", "valor": 20000, "_nota": "Se suma automáticamente 1 vez por proyecto cuando la cubierta es Postformado." },
+    "viaje_postformado": { "nombre": "Viaje (postformado)", "unidad": "unidad", "valor": 15000, "_nota": "Se suma automáticamente 1 vez por proyecto cuando la cubierta es Postformado." }
   },
 
   "quincalleria": {

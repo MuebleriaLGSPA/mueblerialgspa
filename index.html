@@ -1215,6 +1215,7 @@
                             html += "<div>Metros arriba x tasa: " + formatoCLP(metrosArriba) + " → " + formatoCLP(est.tasaArriba * metrosArriba) + "</div>";
                             html += "<div>Cajonera automática (3 cajones, exacta): " + formatoCLP(est.costoCajoneraAuto) + "</div>";
                             if (est.tipoCubierta) html += "<div>Cubierta " + cubiertaLabel + " (" + metrosAbajo + "m x mueble base): " + formatoCLP(est.costoCubierta) + "</div>";
+                            if (est.costoExtrasCubierta) html += "<div>Trabajos de cubierta + viaje (postformado, fijo): " + formatoCLP(est.costoExtrasCubierta) + "</div>";
                             html += "<div>Punto medio (sin Isla/LED): " + formatoCLP(est.estimacion) + "</div>";
                             if (metrosIsla > 0) html += "<div>Extra Isla (" + metrosIsla + "m x " + formatoCLP(EXTRA_ISLA_POR_METRO) + "): " + formatoCLP(islaValor) + "</div>";
                             if (usaLed) html += "<div>Extra LED: " + formatoCLP(ledValor) + "</div>";

@@ -931,7 +931,15 @@
       costoCubierta = precioCubierta.valor * metrosAbajo;
     }
 
-    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta;
+    // Postformado: trabajos de cubierta y viaje se suman 1 vez por proyecto
+    // (montos fijos, no por metro), solo si hay cubierta sobre metros de abajo.
+    var costoExtrasCubierta = 0;
+    if (config.tipoCubierta === 'cubierta_postformado' && metrosAbajo > 0) {
+      costoExtrasCubierta = precios.cuarzoPostformado.trabajos_cubierta_postformado.valor +
+        precios.cuarzoPostformado.viaje_postformado.valor;
+    }
+
+    var estimacion = (tasas.tasaAbajo * metrosAbajo) + (tasas.tasaArriba * metrosArriba) + tasas.costoCajoneraAuto + costoCubierta + costoExtrasCubierta;
 
     return {
       metrosAbajo: metrosAbajo,
@@ -940,6 +948,7 @@
       tasaArriba: round0(tasas.tasaArriba),
       costoCajoneraAuto: round0(tasas.costoCajoneraAuto),
       costoCubierta: round0(costoCubierta),
+      costoExtrasCubierta: round0(costoExtrasCubierta),
       tipoCubierta: config.tipoCubierta || null,
       largoReferenciaM: tasas.largoReferenciaM,
       estimacion: round0(estimacion),
