@@ -73,7 +73,7 @@
     "manilla": { "nombre": "Manilla", "unidad": "unidad", "valor": 3000 },
     "cable_paralelo": { "nombre": "Cable Paralelo", "unidad": "unidad", "valor": 500, "_nota": "No estaba en la tabla de la sección 3 del markdown, pero sí existe en Referencia/Plantilla Presupuesto.xlsx (fila 65, columna quincallería). Agregado tras comparar contra el Excel real." },
     "instalacion_tirador": { "nombre": "Instalación de Tirador", "unidad": "unidad", "valor": 2000 },
-    "barra_closet_ovalada": { "nombre": "Barra Closet Ovalada", "unidad": "unidad", "valor": 45000 },
+    "barra_closet_ovalada": { "nombre": "Barra Closet Ovalada", "unidad": "unidad", "valor": 4500 },
     "barra_closet_ovalada_negra": { "nombre": "Barra Closet Ovalada Negra", "unidad": "unidad", "valor": 5000 },
     "vidrio_vitrina_puerta": { "nombre": "Vidrios Vitrina Puerta (200x35)", "unidad": "unidad", "valor": 18000 },
     "vidrio_vitrina_repisa": { "nombre": "Vidrios Vitrina repisas", "unidad": "unidad", "valor": 3500 },
